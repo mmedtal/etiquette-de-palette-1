@@ -15,8 +15,8 @@ export default function PaletteControls(props){
                 valueFromReduxStore={paletteHauteur}
                 onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_HAUTEUR"
 
-                leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
-                rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
+                leftIcon={<UnfoldLess color="error"     />}
+                rightIcon={<UnfoldMore color="success"  />}
                 />
             
             <ModifyPropertiesInput label="Largeur:"

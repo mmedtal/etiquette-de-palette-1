@@ -26,15 +26,15 @@ export default function ModifyPropertiesInput(props){
     }
 
     function incrementInputValue(){
-        console.log("inputRef",inputRef.current)
+        //console.log("inputRef",inputRef.current)
         setValue(value+1)
-        dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
+        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function decrementInputValue(){
         
         setValue(value-1)
-        dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
+        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function manualyEnteredInputValue(e){
@@ -55,10 +55,14 @@ export default function ModifyPropertiesInput(props){
         //     setValue(newValue)
         //     return            
         // }
-        dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
+
+        // after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
         setValue(newValue)
     }
 
+    useEffect(()=>{
+        dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
+    },[value])
     return(
         <TextField
 
