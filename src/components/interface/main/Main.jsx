@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, TextField } from "@mui/material";
+import PaletteWorkZone from "./PaletteWorkZone";
 
 export default function Main(props){
 
@@ -6,8 +7,11 @@ export default function Main(props){
 
 
     return(
-        <div className="flex justify-around mt-12">
-            <Card variant="outlined" className="w-5/6 h-96" elevation={12}>
+        <div className="flex-col">
+            <div className="header h-10">
+
+            </div>
+            {/* <Card variant="outlined" className="w-5/6 h-96" elevation={12}>
                 <CardHeader title="Etiquette Test" className="text-center"/>                    
                 <hr />
                 <CardContent>
@@ -30,7 +34,10 @@ export default function Main(props){
                 <div className="text-center">
                     le reste..
                 </div>
-            </Card>
+            </Card> */}
+            <div className="flex justify-center">
+                <PaletteWorkZone/>
+            </div>
         </div>
     )
 }
