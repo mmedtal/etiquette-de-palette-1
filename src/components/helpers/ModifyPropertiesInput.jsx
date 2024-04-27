@@ -1,6 +1,6 @@
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ModifyPropertiesInput(props){
@@ -9,7 +9,13 @@ export default function ModifyPropertiesInput(props){
 
     //const anObject = useSelector((state)=>state.leftAsideControllersReducer)
 
-    const [value,setValue]=useState(0)
+    const [value,setValue]=useState(props.valueFromReduxStore)
+
+
+    // useEffect(() => {
+    //     setValue(props.valueFromReduxStore);
+    //   }, []);
+
 
     function handleChange(newValue){
         //let newValue = parseInt(newValue)
@@ -49,7 +55,7 @@ export default function ModifyPropertiesInput(props){
 
     return(
         <TextField
-            value={props.valueFromReduxStore}
+            value={value}
             type="number"
             variant="standard"
             label={props.label}

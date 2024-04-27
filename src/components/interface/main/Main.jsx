@@ -9,38 +9,42 @@ export default function Main(props){
 
     //const {:ht,largeur:lg} = useSelector(state=>state.leftAsideControllersReducer)
 
-    //const [hauteur,setHauteur]=useState(useSelector(state=>state.leftAsideControllersReducer.hauteur))
-    //const [largeur,setLargeur]=useState(useSelector(state=>state.leftAsideControllersReducer.largeur))
+    const [hauteur,setHauteur]=useState(useSelector(state=>state.leftAsideControllersReducer.hauteur))
+    const [largeur,setLargeur]=useState(useSelector(state=>state.leftAsideControllersReducer.largeur))
 
     const dispatch = useDispatch()
-    
+    let [controlMount,setControlMount]=useState(1)
 
-    const [hauteur,setHauteur] = useState(450)
-    const [largeur,setLargeur] = useState(600)
+    const [hauteurPalette,setHauteurPalette] = useState(450)
+    const [largeurPalette,setLargeurPalette] = useState(600)
 
-    const hauteurControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.hauteur)
-    const largeurControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.largeur)
     
 
     useEffect(()=>{
-        dispatch({type:"AFFECTER_PALETTE_HAUTEUR",payload:hauteur})
-        dispatch({type:"AFFECTER_PALETTE_LARGEUR",payload:largeur})
+        if(controlMount==1){
+            dispatch({type:"AFFECTER_PALETTE_HAUTEUR",payload:hauteurPalette})
+            dispatch({type:"AFFECTER_PALETTE_LARGEUR",payload:largeurPalette})
+        }
+        controlMount=2
     },[])
 
+    const hauteurPaletteControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.paletteHauteur)
+    const largeurPaletteControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.paletteLargeur)
+    
 
     
     
-    useEffect(()=>{
-        //console.log("i changed")
-        setHauteur(hauteurControlledFromLeftAside)
-        //console.log("hauteur ",hauteur)
-    },[hauteurControlledFromLeftAside])
+    // useEffect(()=>{
+    //     //console.log("i changed")
+    //     setHauteur(hauteurControlledFromLeftAside)
+    //     //console.log("hauteur ",hauteur)
+    // },[hauteurControlledFromLeftAside])
 
-    useEffect(()=>{
-        //console.log("i changed")
-        setLargeur(largeurControlledFromLeftAside)
-        //console.log("hauteur ",hauteur)
-    },[largeurControlledFromLeftAside])
+    // useEffect(()=>{
+    //     //console.log("i changed")
+    //     setLargeur(largeurControlledFromLeftAside)
+    //     //console.log("hauteur ",hauteur)
+    // },[largeurControlledFromLeftAside])
     /*
     useEffect(()=>{
         setHauteur(hauteur+hauteurControlledFromLeftAside)
@@ -84,7 +88,7 @@ export default function Main(props){
             </Card> */}
             <div className="flex justify-center">
                 {/* <PaletteWorkZone height={hauteurControlledFromLeftAside+450} width={largeurControlledFromLeftAside+600}/> hadi ça passe */}
-                <PaletteWorkZone height={hauteur+450} width={largeur+600}/>
+                <PaletteWorkZone height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
             </div>
         </div>
     )
