@@ -34,12 +34,17 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,rotation:parseInt(state.rotation)+parseInt(action.payload)}
 
             case "AFFECTER_PALETTE_HAUTEUR":
-                return {...state,paletteHauteur:parseInt(state.paletteHauteur)+parseInt(action.payload)}
+                //if(parseInt(action.payload)<=0) return
+                return {...state,paletteHauteur:parseInt(action.payload)}
+                //return {...state,paletteHauteur:parseInt(state.paletteHauteur)+parseInt(action.payload)}
             
+                
             case "AFFECTER_PALETTE_LARGEUR":
                 //console.log("paletteLargeur = ",state.paletteLargeur)
-                return {...state,paletteLargeur:parseInt(state.paletteLargeur)+parseInt(action.payload)}
-            
+                //if(parseInt(action.payload)<=0) return
+                return {...state,paletteLargeur:parseInt(action.payload)}
+                //return {...state,paletteLargeur:parseInt(state.paletteLargeur)+parseInt(action.payload)}
+
             default:
                 return state
         }
