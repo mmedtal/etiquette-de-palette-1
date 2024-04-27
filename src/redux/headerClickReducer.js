@@ -22,8 +22,9 @@ export function headerClickReducer(state=myState,action){
         case "INSERER_BARCODE":
             return {...state, whichHeaderButtonIsCliqued:"inserer_barcode"}
         
-        case "MODIFIER_DIMENSIONS":
-            return {...state, whichHeaderButtonIsCliqued:"modifier_dimensions"}
+        case "MODIFIER_DIMENSIONS_PALETTE":
+            //console.log("modify dimensions ")
+            return {...state, whichHeaderButtonIsCliqued:"modifier_dimensions_palette"}
         
         case "MODE_PAR_DEFAUT":
             return {...state,whichHeaderButtonIsCliqued:null}    

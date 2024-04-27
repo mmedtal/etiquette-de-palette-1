@@ -49,7 +49,7 @@ export default function ModifyPropertiesInput(props){
 
     return(
         <TextField
-            value={value}
+            value={props.valueFromReduxStore}
             type="number"
             variant="standard"
             label={props.label}
