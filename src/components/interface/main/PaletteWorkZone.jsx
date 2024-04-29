@@ -34,7 +34,7 @@ export default function PaletteWorkZone(props){
         //setElements((el)=>[...el,{x:e.clientX-document.getElementById('div').getBoundingClientRect().left,y:e.clientY-document.getElementById('div').getBoundingClientRect().top}]);
     }
 
-    return( 
+    return(
         <div onMouseMove={handleMouseMove} id="div" onClick={handleClick}
              style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`,
              cursor:cursorAppearance}} className="">
