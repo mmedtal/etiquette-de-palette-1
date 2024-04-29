@@ -35,7 +35,7 @@ export default function Header(props){
                 <FontAwesomeIcon icon={faBarcode}/>
             </HeaderIcon>
 
-            <HeaderIcon text="Dimensions" onClickDispatchActionsToReduxStore= {[{type:"MODIFIER_DIMENSIONS_PALETTE"},{type:"AFFECTER_HAUTEUR",payload:450},{type:"AFFECTER_LARGEUR",payload:600}]} >        
+            <HeaderIcon text="Dimensions Etiquette" onClickDispatchActionsToReduxStore= {[{type:"MODIFIER_DIMENSIONS_PALETTE"},{type:"AFFECTER_HAUTEUR",payload:450},{type:"AFFECTER_LARGEUR",payload:600}]} >        
                 <FontAwesomeIcon icon={faVectorSquare}/>
             </HeaderIcon>
             
