@@ -3,10 +3,12 @@ import { IconButton } from "@mui/material";
 import HeaderIcon from "./HeaderIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowPointer, faBarcode, faFont, faHouse, faICursor, faSlash, faVectorSquare } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export default function Header(props){
 
 
+    const [clickedButton,setClickedButton]=useState(0)
 
 
     return(

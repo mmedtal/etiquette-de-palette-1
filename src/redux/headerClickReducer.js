@@ -1,8 +1,10 @@
+import { text } from "@fortawesome/fontawesome-svg-core"
 import { TextField } from "@mui/material"
 
 let myState={
     whichHeaderButtonIsCliqued:null,
-    whatToInsertOnScreen:null
+    whatToInsertOnScreen:null,
+    cursorAppearance:"auto"
 }
 
 
@@ -10,14 +12,14 @@ export function headerClickReducer(state=myState,action){
     
     switch(action.type){
         case "SELECTIONNER":
-            return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null}
+            return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null,cursorAppearance:"grab"}
         
         case "INSERER_TEXTE":
-            return {...state, whichHeaderButtonIsCliqued:"inserer_texte",
+            return {...state, whichHeaderButtonIsCliqued:"inserer_texte",cursorAppearance:"text",
                     whatToInsertOnScreen:<TextField variant="standard"/>}
         
         case "DESSINER_FORME":
-            return {...state,whichHeaderButtonIsCliqued:"dessiner_forme"}
+            return {...state,whichHeaderButtonIsCliqued:"dessiner_forme",cursorAppearance:"crosshair"}
         
         case "INSERER_BARCODE":
             return {...state, whichHeaderButtonIsCliqued:"inserer_barcode"}
