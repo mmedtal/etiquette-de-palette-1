@@ -17,20 +17,8 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
         span.innerText=character;
         getCharachterWidthFromCharacterWidthCalculator(span.offsetWidth);
 
-//        console.log("the element : ",character," size (which is span.offsetWidth ) is  :",span.offsetWidth);
 
-        // if(character[character.length - 1]==0){
-        //     return
-        // }
-        // console.log("chara from parent ",character[character.length - 1])
-        // setCharacterFromParent(character[character.length - 1])
-        // const span = tempRef.current;
-        // span.style.fontSize = fontSize;
-        // span.innerText = characterFromParent;
-        // console.log("span.innerText :",span.innerText)
      
-        // getCharachterWidthFromCharacterWidthCalculator(span.offsetWidth);
-        // console.log("character width frm ueffcr: ",span.offsetWidth)
         
     }, [fontSize, character]);
 
