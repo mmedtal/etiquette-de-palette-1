@@ -22,11 +22,13 @@ export default function TopLeftCorner(props){
                 {/* 1<RotateRight fontSize='large' style={{ transform: 'rotate(0deg)' }}/> */}
             {/* 2</IconButton> */}
 
-            <BottomNavigation showLabels >
-                <BottomNavigationAction sx={{color:"#f44300"}} label="Annuler" icon={<RotateLeft color='error'/>}/>
+            <BottomNavigation showLabels  >
+            {/* sx={{color:"#f44300"}}  color='error' */}
+                <BottomNavigationAction disabled sx={{color:"grey"}} label="Annuler" icon={<RotateLeft color=''/>}/>
             </BottomNavigation>
             <BottomNavigation showLabels>
-                <BottomNavigationAction sx={{ color:"green"}} label="Aller en avant" icon={<RotateRight/>}/>
+            {/* sx={{ color:"green"}} */}
+                <BottomNavigationAction disabled sx={{ color:"grey"}} label="Aller en avant" icon={<RotateRight/>}/>
             </BottomNavigation>
         </div>
     )

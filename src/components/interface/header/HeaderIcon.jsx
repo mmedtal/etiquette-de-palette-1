@@ -12,7 +12,7 @@ export default function HeaderIcon(props){
 
     return(
         <div className="flex flex-col">
-            <IconButton sx={{color:"darkblue"}}  index={props.index}
+            <IconButton sx={{color:"darkblue"}}  index={props.index} disabled={props.disabled}
                 onClick={()=>{props.onClickDispatchActionsToReduxStore.map(action=>dispatch({type:action.type,payload:action.payload}))}}>
                 {/* dispatch({type:props.onClickDispatchToReduxStore})}} */}
                     {props.children}

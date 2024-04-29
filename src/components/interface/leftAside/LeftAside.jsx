@@ -24,57 +24,62 @@ export default function LeftAside(props){
 
             {whichHeaderIconIsCliqued!="modifier_dimensions_palette"&&
             <div>
-                <ModifyPropertiesInput label="Position X:"
+                <ModifyPropertiesInput label="Position X:" disabled={true}
                     valueFromReduxStore={positionX}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_X"
 
-                    leftIcon={<ArrowDownward color="error" style={{ transform: 'rotate(90deg)' }}/>}
-                    rightIcon={<ArrowUpward color="success"style={{ transform: 'rotate(90deg)' }}/>}
+                    // color="error
+                    leftIcon={<ArrowDownward color="disabled" style={{ transform: 'rotate(90deg)' }}/>}
+                    // color="disabled"
+                    rightIcon={<ArrowUpward color="disabled"style={{ transform: 'rotate(90deg)' }}/>}
                 />
 
-                <ModifyPropertiesInput label="Position Y:"
+                <ModifyPropertiesInput label="Position Y:"disabled={true}
                     valueFromReduxStore={positionY}
                 // leftIcon={<TextRotationNone color="error" style={{ transform: 'scaleX(-1)' }}/>}
                 // rightIcon={<TextRotationNone color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_Y"
 
-                    leftIcon={<ArrowDownward color="error" />}
-                    rightIcon={<ArrowUpward color="success"/>}
+                    leftIcon={<ArrowDownward color="disabled" />}
+                    rightIcon={<ArrowUpward color="disabled"/>}
                 />
                 
 
-                <ModifyPropertiesInput label="Hauteur:"
+                <ModifyPropertiesInput label="Hauteur:" disabled={true}
                     valueFromReduxStore={hauteur}
                     // leftIcon={<VerticalAlignBottom color="error"/>}
                     // rightIcon={<VerticalAlignTop   color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_HAUTEUR"
 
-                    leftIcon={<UnfoldLess color="error" />}
-                    rightIcon={<UnfoldMore color="success"/>}
+                    leftIcon={<UnfoldLess color="disabled" />}
+                    rightIcon={<UnfoldMore color="disabled"/>}
                 />
                 
-                <ModifyPropertiesInput label="Largeur:"
+                <ModifyPropertiesInput label="Largeur:" disabled={true}
                     valueFromReduxStore={largeur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_LARGEUR"
 
-                    leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
-                    rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
+                    leftIcon={<UnfoldLess color="disabled"     style={{ transform: 'rotate(90deg)' }}/>}
+                    rightIcon={<UnfoldMore color="disabled"  style={{ transform: 'rotate(90deg)' }}/>}
                 />
 
-                <ModifyPropertiesInput label="Epaisseur:"
+                <ModifyPropertiesInput label="Epaisseur:" disabled={true}
                     valueFromReduxStore={epaisseur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_EPAISSEUR"
 
-                    leftIcon={<LineWeight color="error" style={{ transform: 'rotate(180deg)' }}/>}
-                    rightIcon={<LineWeight color="success"/>}
+                    // color="error"
+                    leftIcon={<LineWeight color="disabled" style={{ transform: 'rotate(180deg)' }}/>}
+                    // color="success"
+                    rightIcon={<LineWeight color="disabled"/>}
                 />
 
-                <ModifyPropertiesInput label="Rotation:"
+                <ModifyPropertiesInput label="Rotation:" disabled={true}
                     valueFromReduxStore={epaisseur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
-
-                    leftIcon={<Loop color="error" />}
-                    rightIcon={<Autorenew color="success"/>}
+                    // color="error" 
+                    leftIcon={<Loop color="disabled" />}
+                    // color="success"
+                    rightIcon={<Autorenew color="disabled"/>}
                 />
             </div>}
             

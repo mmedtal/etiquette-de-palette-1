@@ -66,6 +66,7 @@ export default function ModifyPropertiesInput(props){
     return(
         <TextField
 
+        disabled={props.disabled}
             ref={inputRef}
             value={value}
             type="number"
@@ -81,11 +82,11 @@ export default function ModifyPropertiesInput(props){
                 style:{fontSize:"140%"}
             }}
             InputProps={{
-                endAdornment:<IconButton onClick={incrementInputValue}>
+                endAdornment:<IconButton onClick={incrementInputValue} disabled={props.disabled}>
                     {/* <ArrowDownward color="error"/> */}
                     {props.rightIcon}
                 </IconButton>,
-                startAdornment:<IconButton onClick={decrementInputValue}>
+                startAdornment:<IconButton onClick={decrementInputValue} disabled={props.disabled}>
                     {/* <ArrowUpward color="success"/> */}
                     {props.leftIcon}
                 </IconButton>
