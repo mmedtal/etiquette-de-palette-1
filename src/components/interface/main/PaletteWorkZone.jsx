@@ -20,6 +20,7 @@ export default function PaletteWorkZone(props){
 
     const cursorAppearance = useSelector(state=>state.headerClickReducer.cursorAppearance)
 
+    const whichHeaderButtonIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
 
     const [elements,setElements] = useState([]);
 
