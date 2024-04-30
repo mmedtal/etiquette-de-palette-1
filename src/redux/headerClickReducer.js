@@ -12,7 +12,8 @@ export function headerClickReducer(state=myState,action){
     
     switch(action.type){
         case "SELECTIONNER":
-            return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null,cursorAppearance:"grab"}
+            //console.log("i enter   csdfqsdfj")
+            return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null,cursorAppearance:"auto"}
         
         case "INSERER_TEXTE":
             return {...state, whichHeaderButtonIsCliqued:"inserer_texte",cursorAppearance:"text",
