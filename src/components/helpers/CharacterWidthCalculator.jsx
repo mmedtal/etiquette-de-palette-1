@@ -9,12 +9,17 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
     const singleValueArray=[];
     useEffect(() => {
         if(character===undefined){
+            character ="!"
             return
         }
         setCharacterFromParent(character)
         const span = spanRef.current;
         span.style.fontSize = fontSize;
         span.innerText=character;
+        
+        if(character===" "){
+            span.innerText="!"
+        }
         getCharachterWidthFromCharacterWidthCalculator(span.offsetWidth);
 
 
