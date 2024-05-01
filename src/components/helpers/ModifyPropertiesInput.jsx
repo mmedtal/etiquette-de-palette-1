@@ -13,7 +13,7 @@ export default function ModifyPropertiesInput(props){
 
     const [value,setValue]=useState(props.valueFromReduxStore)
 
-
+    
     // useEffect(() => {
     //     setValue(props.valueFromReduxStore);
     //   }, []);
@@ -62,13 +62,14 @@ export default function ModifyPropertiesInput(props){
 
     useEffect(()=>{
         dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
+        //console.log(value)
     },[value])
     return(
         <TextField
 
-        disabled={props.disabled}
+            disabled={props.disabled}
             ref={inputRef}
-            value={value}
+            value={props.valueFromReduxStore}
             type="number"
             variant="standard"
             label={props.label}

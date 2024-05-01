@@ -22,10 +22,13 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,largeur:parseInt(state.largeur)+parseInt(action.payload)}
 
             case "MODIFIER_POSITION_X":
-                return {...state,positionX:parseInt(state.positionX)+parseInt(action.payload)}
+                //console.log("action : ",action)
+                //return {...state,positionX:parseInt(state.positionX)+parseInt(action.payload)}
+                return {...state,positionX:parseInt(action.payload)}
             
             case "MODIFIER_POSITION_Y":
-                return {...state,positionY:parseInt(state.positionY)+parseInt(action.payload)}
+                //return {...state,positionY:parseInt(state.positionY)+parseInt(action.payload)}
+                return {...state,positionY:parseInt(action.payload)}
                     
             case "MODIFIER_EPAISSEUR":
                 return {...state,epaisseur:parseInt(state.epaisseur)+parseInt(action.payload)}
