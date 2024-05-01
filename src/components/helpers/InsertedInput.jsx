@@ -32,14 +32,8 @@ export default function InsertedInput(props){
     /*the difference here between insertedCharacter and pressedCharacter, is that the 'space' button
      for example can be pressed but not inserted */
     const [pressedCharacter, setPressedCharacter] = useState("")
-    function detectPressedKey(e){
-        console.log("e.key qddffa:", e.key)
-        if(e.key==" "){
-            //console.log("space key pressed")
-            setPressedCharacter("space key");
-        }
-        //console.log("e.key : ",e.key)
-    }
+
+    
 
     const [inputWidth,setInputWidth] = useState(parseInt(fontSize.substring(0, 2)))
 
@@ -49,8 +43,39 @@ export default function InsertedInput(props){
         //console.log("e.target.selectionStart :",e.target.selectionStart)
         setCursorPosition(e.target.selectionStart)
     }
-    function handleChange(e){
 
+
+    const [leftPosition,setLeftPosition] = useState(props.elementX)
+    const [topPosition, setTopPosition ] = useState(props.elementY)
+    function detectPressedKey(e){
+        console.log("e.key qddffa:", e.key)
+        console.log("cursor position : ",e.target.selectionStart)
+        console.log("input length :",inputValue.length)
+        let cursorPos = e.target.selectionStart
+        if(e.key==" "){
+            //console.log("space key pressed")
+            setPressedCharacter("space key");
+        }
+        //console.log("e.key : ",e.key)
+        if(cursorPos==0 && e.key=="ArrowLeft"){
+            setLeftPosition(prevPosition=>prevPosition-1)
+        }
+        if(cursorPos==inputValue.length && e.key=="ArrowRight"){
+            setLeftPosition(prevPosition=>prevPosition+1)
+        }
+        if(e.key=="ArrowUp"){
+            setTopPosition(prevPosition=>prevPosition-1)
+        }
+        if(e.key=="ArrowDown"){
+            setTopPosition(prevPosition=>prevPosition+1)
+        }
+
+    }
+
+
+
+    function handleChange(e){
+        //setCursorPosition(e.target.selectionStart)
         //if the first inserted character is space then don't type anyting
         //console.log(" maybe this is what causing inputWidth = NaN : parseInt( :',fontSize.substring(0, 2)) :",fontSize.substring(0, 2))
         if(e.target.value.charAt(0)===" "){
@@ -224,7 +249,7 @@ export default function InsertedInput(props){
                 // `${(character.length || 1) * inputValue.length}px`
                 // ${characterwidth * inputValue.length}px`
                 style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
-                        left:props.elementX,top:props.elementY,border:"1px solid black",outline:"none",
+                        left:leftPosition,top:topPosition,border:"1px solid black",outline:"none",
                         fontSize}}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
             {editMode&&<CharacterWidthCalculator fontSize={fontSize} character={inputValue[inputValue.length-1]} 
@@ -235,7 +260,7 @@ export default function InsertedInput(props){
 
         {!editMode&&<div onClick={()=>setEditMode(true)}  
                         style={{position: "absolute",whiteSpace:"pre-wrap",
-                        left:props.elementX,top:props.elementY,border:"transparent",outline:"none",
+                        left:leftPosition,top:topPosition,border:"transparent",outline:"none",
                         fontSize,cursor:"text"}}>
             {inputValue}
         </div>}
