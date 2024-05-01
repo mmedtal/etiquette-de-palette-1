@@ -47,11 +47,29 @@ export default function InsertedInput(props){
 
     const [leftPosition,setLeftPosition] = useState(props.elementX)
     const [topPosition, setTopPosition ] = useState(props.elementY)
+
+    const [textElementXPosition,setTextElementXPosition]=useState(0)
+    const [textElementYPosition,setTextElementYPosition]=useState(0)
+
+    
+
+
+
+
     function detectPressedKey(e){
-        console.log("e.key qddffa:", e.key)
-        console.log("cursor position : ",e.target.selectionStart)
-        console.log("input length :",inputValue.length)
+        //console.log("e.key qddffa:", e.key)
+        //console.log("cursor position : ",e.target.selectionStart)
+        //console.log("input length :",inputValue.length)
         let cursorPos = e.target.selectionStart
+        
+        //ça passe
+        //console.log("left position of palette frm input :",myInputRef.current.parentElement.getBoundingClientRect().left)
+        /*hadi it works
+        console.log("top position of palette frm input :",myInputRef.current.parentElement.getBoundingClientRect().top)
+        console.log("paletteYPosition ",props.paletteYPosition)
+        //console.log("left position of input :",myInputRef.current.getBoundingClientRect().left)
+        console.log("top position of input :",myInputRef.current.getBoundingClientRect().top)
+        */
         if(e.key==" "){
             //console.log("space key pressed")
             setPressedCharacter("space key");
@@ -72,12 +90,19 @@ export default function InsertedInput(props){
 
     }
 
+    
 
 
     function handleChange(e){
         //setCursorPosition(e.target.selectionStart)
         //if the first inserted character is space then don't type anyting
         //console.log(" maybe this is what causing inputWidth = NaN : parseInt( :',fontSize.substring(0, 2)) :",fontSize.substring(0, 2))
+        const textElement = e.target.getBoundingClientRect();
+        setTextElementXPosition(textElement.left)
+        setTextElementYPosition(textElement.top)
+        //console.log("textElement.left : ",textElement.left)
+        //console.log("textElement.top : ",textElement.top)
+
         if(e.target.value.charAt(0)===" "){
             //console.log("the first inserted character is space ")
 
@@ -140,7 +165,31 @@ export default function InsertedInput(props){
         //console.log("span.style.fontSize : ",offScreenSpanElement.current.offsetWidth)
     }
 
+    //testing the relative position of the input
+    useEffect(()=>{
+        //console.log("textElement left position relative to palette :",myInputRef.current.parentElement.getBoundingClientRect().left-textElementXPosition)
+        //console.log("textElement top position relative to palette :",myInputRef.current.parentElement.getBoundingClientRect().top-textElementYPosition)
 
+        //console.log("textElement left position :",textElementXPosition)
+        //console.log("textElement top position :",textElementYPosition)
+        //console.log("hello i'm moving")
+        //setZebraProgrLangXPosition(leftPosition-myInputRef.current.parentElement.getBoundingClientRect().leftPosition)
+        //setZebraProgrLangYPosition(topPosition-myInputRef.current.parentElement.getBoundingClientRect().topPosition)
+
+        setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().leftPosition)
+        setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().topPosition)
+
+
+        console.log("relative text X position : ")
+    },[leftPosition,topPosition])
+
+    //pour mettre à jour la position lorsque les dimensions du palette changent
+    // or maybe it's already taken care of
+    /*
+    useEffect(()=>{
+        console.log("palette height changing : ",props.paletteHeight)
+    },[props.paletteHeight])
+    */
     //const character = inputValue[0] || 'x';
 
     // input width was first here originally
@@ -233,6 +282,17 @@ export default function InsertedInput(props){
         }
         //console.log("chngd edit mode")
     }, [editMode]);
+
+    const [zebraProgrLangXPosition,setZebraProgrLangXPosition]=useState(0)
+    const [zebraProgrLangYPosition,setZebraProgrLangYPosition]=useState(0)
+    
+    useEffect(()=>{
+        setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().leftPosition)
+        setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().topPosition)
+        //console.log("leftPosition-myInputRef.current.parentElement.getBoundingClientRect().leftPosition :",myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left)
+        //console.log("topPosition-myInputRef.current.parentElement.getBoundingClientRect().topPosition :",myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
+
+    },[])
     return(
         <>
 
