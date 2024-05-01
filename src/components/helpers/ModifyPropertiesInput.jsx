@@ -9,54 +9,31 @@ export default function ModifyPropertiesInput(props){
     const inputRef = useRef(props.valueFromReduxStorell)
     const dispatch = useDispatch()
 
-    //const anObject = useSelector((state)=>state.leftAsideControllersReducer)
 
     const [value,setValue]=useState(props.valueFromReduxStore)
 
 
-    // useEffect(() => {
-    //     setValue(props.valueFromReduxStore);
-    //   }, []);
 
 
     function handleChange(newValue){
-        //let newValue = parseInt(newValue)
 
 
     }
 
     function incrementInputValue(){
-        //console.log("inputRef",inputRef.current)
         setValue(value+1)
-        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function decrementInputValue(){
         
         setValue(value-1)
-        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function manualyEnteredInputValue(e){
         
         let newValue=parseInt(e.target.value)
         if(newValue<=0) return
-        // if(newValue>value){
-        //     //console.log("new value is bigger")
-        //     //console.log("redux store ",anObject)
-        //     dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
-        //     setValue(newValue)
-        //     return
-        // }
-        // if(newValue<value){
-        //     //console.log("old value is bigger")
-        //     dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:-newValue})
-        //     //console.log("redux store ",anObject)
-        //     setValue(newValue)
-        //     return            
-        // }
 
-        // after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
         setValue(newValue)
     }
 
@@ -92,7 +69,6 @@ export default function ModifyPropertiesInput(props){
                 </IconButton>
             }}
 
-            // pour centrer le text à l'intérieur
             inputProps={{
                 style:{textAlign:"center",fontSize:"120%"},
                 step:1
