@@ -39,9 +39,10 @@ export default function InsertedInput(props){
 
     const [cursorPosition,setCursorPosition] = useState(0)
 
-    function handleCurosrPosition(e){
+    function handleClick(e){
         //console.log("e.target.selectionStart :",e.target.selectionStart)
         setCursorPosition(e.target.selectionStart)
+        
     }
 
 
@@ -298,7 +299,7 @@ export default function InsertedInput(props){
 
             {editMode&&<input 
                 onKeyDown={detectPressedKey}
-                onClick={handleCurosrPosition}
+                onClick={handleClick}
                 value={inputValue}
             // onBlur={handleInputOnBlur} 
                 onBlur={outOfEditMode}
