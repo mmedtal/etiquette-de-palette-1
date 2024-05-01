@@ -33,8 +33,9 @@ export default function InsertedInput(props){
      for example can be pressed but not inserted */
     const [pressedCharacter, setPressedCharacter] = useState("")
     function detectPressedKey(e){
+        console.log("e.key qddffa:", e.key)
         if(e.key==" "){
-            console.log("space key pressed")
+            //console.log("space key pressed")
             setPressedCharacter("space key");
         }
         //console.log("e.key : ",e.key)
