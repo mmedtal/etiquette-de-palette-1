@@ -21,7 +21,9 @@ export default function LeftAside(props){
         console.log("positionX ",positionX)
     },[positionX])
     return(
-        <div className="p-2 pl-10 flex-col space-y-6">
+        <div className="p-2 pl-10 flex-col space-y-6"
+        //onClick={()=>console.log("i m clicked anyway")}
+        >
             
             {/* <button onClick={()=>console.log("whichHeaderIconIsCliqued = ",whichHeaderIconIsCliqued)}>click</button> */}
             {/* {whichHeaderIconIsCliqued!="modifier_dimensions_palette"&& */}
@@ -33,7 +35,6 @@ export default function LeftAside(props){
             {whichHeaderIconIsCliqued!="modifier_dimensions_palette"&&
             <div>
                 <ModifyPropertiesInput label="Position X:"
-
                     valueFromReduxStore={positionX}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_X"
 
@@ -53,41 +54,37 @@ export default function LeftAside(props){
                 
 
                 <ModifyPropertiesInput label="Hauteur:"
-                    disabled={true}
                     valueFromReduxStore={hauteur}
                     // leftIcon={<VerticalAlignBottom color="error"/>}
                     // rightIcon={<VerticalAlignTop   color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_HAUTEUR"
 
-                    leftIcon={<UnfoldLess color="disabled" />}
-                    rightIcon={<UnfoldMore color="disabled"/>}
+                    leftIcon={<UnfoldLess color="error" />}
+                    rightIcon={<UnfoldMore color="success"/>}
                 />
                 
                 <ModifyPropertiesInput label="Largeur:"
-                 disabled={true}
                     valueFromReduxStore={largeur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_LARGEUR"
 
-                    leftIcon={<UnfoldLess color="disabled"     style={{ transform: 'rotate(90deg)' }}/>}
-                    rightIcon={<UnfoldMore color="disabled"  style={{ transform: 'rotate(90deg)' }}/>}
+                    leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
+                    rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
                 />
 
                 <ModifyPropertiesInput label="Epaisseur:"
-                 disabled={true}
                     valueFromReduxStore={epaisseur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_EPAISSEUR"
 
-                    leftIcon={<LineWeight color="disabled" style={{ transform: 'rotate(180deg)' }}/>}
-                    rightIcon={<LineWeight color="disabled"/>}
+                    leftIcon={<LineWeight color="error" style={{ transform: 'rotate(180deg)' }}/>}
+                    rightIcon={<LineWeight color="success"/>}
                 />
 
                 <ModifyPropertiesInput label="Rotation:"
-                 disabled={true}
                     valueFromReduxStore={epaisseur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
 
-                    leftIcon={<Loop color="disabled" />}
-                    rightIcon={<Autorenew color="disabled"/>}
+                    leftIcon={<Loop color="error" />}
+                    rightIcon={<Autorenew color="success"/>}
                 />
             </div>}
             

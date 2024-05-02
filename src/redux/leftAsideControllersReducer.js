@@ -6,7 +6,8 @@ let myControllersState={
     epaisseur   :0,
     rotation    :0,
     paletteHauteur:0,
-    paletteLargeur:0
+    paletteLargeur:0,
+    leftAsideClicke:false
 }
 
 
