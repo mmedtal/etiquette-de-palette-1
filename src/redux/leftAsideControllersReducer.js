@@ -39,7 +39,8 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,epaisseur:parseInt(state.epaisseur)+parseInt(action.payload)}
                         
             case "MODIFIER_ROTATION":
-                return {...state,rotation:parseInt(state.rotation)+parseInt(action.payload)}
+                //console.log("rotation reached frm rdx str : ",action.payload)
+                return {...state,rotation:parseInt(action.payload)}
 
             case "AFFECTER_PALETTE_HAUTEUR":
                 //if(parseInt(action.payload)<=0) return

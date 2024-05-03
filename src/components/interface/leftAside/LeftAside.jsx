@@ -55,12 +55,12 @@ export default function LeftAside(props){
                 // rightIcon={<TextRotationNone color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_Y"
 
-                    leftIcon={<ArrowDownward color="error" />}
-                    rightIcon={<ArrowUpward color="success"/>}
+                    rightIcon={<ArrowDownward color="error" />}
+                    leftIcon={<ArrowUpward color="success"/>}
                 />
                 
 
-                <ModifyPropertiesInput label="Hauteur:"
+                {/* <ModifyPropertiesInput label="Hauteur:"
                     valueFromReduxStore={hauteur}
                     // leftIcon={<VerticalAlignBottom color="error"/>}
                     // rightIcon={<VerticalAlignTop   color="success"/>}
@@ -68,33 +68,33 @@ export default function LeftAside(props){
 
                     leftIcon={<UnfoldLess color="error" />}
                     rightIcon={<UnfoldMore color="success"/>}
-                />
+                /> */}
                 
-                <ModifyPropertiesInput label="Largeur:"
+                {/* <ModifyPropertiesInput label="Largeur:"
                     valueFromReduxStore={largeur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_LARGEUR"
 
                     leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
                     rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
-                />
+                /> */}
 
-                <ModifyPropertiesInput label="Epaisseur:"
+                {/* <ModifyPropertiesInput label="Epaisseur:"
                     valueFromReduxStore={epaisseur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_EPAISSEUR"
 
                     leftIcon={<LineWeight color="error" style={{ transform: 'rotate(180deg)' }}/>}
                     rightIcon={<LineWeight color="success"/>}
-                />
+                /> */}
 
-                <ModifyPropertiesInput label="Rotation:"
-                    valueFromReduxStore={epaisseur}
+                <ModifyPropertiesInput label="Rotation en deg:"
+                    valueFromReduxStore={rotation}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
 
                     leftIcon={<Loop color="error" />}
                     rightIcon={<Autorenew color="success"/>}
                 />
 
-                <ModifyPropertiesInput label="Taille de la police:"
+                <ModifyPropertiesInput label="Taille de la police en px:"
                     valueFromReduxStore={tailleDePolice}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_TAILLE_POLICE"
 

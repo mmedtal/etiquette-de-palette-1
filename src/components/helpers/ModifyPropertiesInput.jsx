@@ -27,7 +27,7 @@ export default function ModifyPropertiesInput(props){
 
     function incrementInputValue(){
         //console.log("inputRef",inputRef.current)
-        console.log("value ft sze : ",value)
+        //console.log("value ft sze : ",value)
         setValue(value+1)
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
@@ -41,7 +41,7 @@ export default function ModifyPropertiesInput(props){
     function manualyEnteredInputValue(e){
         
         let newValue=parseInt(e.target.value)
-        if(newValue<=0) return
+        //if(newValue<=0) return
         // if(newValue>value){
         //     //console.log("new value is bigger")
         //     //console.log("redux store ",anObject)

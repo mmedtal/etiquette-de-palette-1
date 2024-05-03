@@ -38,6 +38,8 @@ export default function InsertedInput(props){
     const [positionYFromRedux,topPosition,setTopPosition] = 
     usePropertiesFromStore("leftAsideControllersReducer","positionY",props.whichChildIam,props.elementY);
 
+    const [rotationFromReduxStore,rotation,setRotation] = 
+    usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
@@ -164,6 +166,8 @@ export default function InsertedInput(props){
         dispatchingTextElementPosition();
         }  
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
+        dispatch({type:"MODIFIER_ROTATION",payload:rotation})
+
     },[])
     
 
@@ -172,11 +176,13 @@ export default function InsertedInput(props){
         dispatchingTextElementPosition()
         dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
+        dispatch({type:"MODIFIER_ROTATION",payload:rotation})
     }
 
 
     useEffect(()=>{
         dispatchingTextElementPosition()
+        dispatch({type:"MODIFIER_ROTATION",payload:rotation})
     },[inputFocused])
 
     const [divFocus,setDivFocus]=useState(false)
@@ -190,6 +196,7 @@ export default function InsertedInput(props){
             setInputFocused(true)
             myInputRef.current.focus();
             dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
+            dispatch({type:"MODIFIER_ROTATION",payload:rotation})
         }else{
             
         }
@@ -205,16 +212,19 @@ export default function InsertedInput(props){
     
     function setNewInputWidthWhenFontSizeChanges(newInputWidth){
         // this condition because inputWidth comes from CharacterWidthCalculator and it's to 0 be default
+        
         if(newInputWidth==0){
             setInputWidth(fontSize)
             return
         }
-        setInputWidth(newInputWidth)
+        setInputWidth(newInputWidth+fontSize/2)
     }
 
     useEffect(()=>{
         
     },[fontSize])
+
+
     return(
         <>
 
@@ -232,7 +242,10 @@ export default function InsertedInput(props){
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",
-                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"}}
+                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"
+                        
+                    
+                    }}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
             {editMode&&<CharacterWidthCalculator fontSize={fontSize+"px"} character={inputValue[inputValue.length-1]} 
                     inputValue={inputValue}
@@ -244,6 +257,8 @@ export default function InsertedInput(props){
                         style={{position: "absolute",whiteSpace:"pre-wrap",
                         border:whichTextInputIsClickedFromReduxStore==props.whichChildIam&&isLeftAsideClicked?"1.5px dashed grey":"",
                         left:leftPosition,top:topPosition,outline:"none",
+                        transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
+                        :`rotate(${rotation}deg)`,
                         fontSize:`${fontSize}px`,cursor:"text"}}>
             {inputValue}
         </div>}
