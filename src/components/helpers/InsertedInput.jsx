@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import CharacterWidthCalculator from "./CharacterWidthCalculator";
 import { useDispatch, useSelector } from "react-redux";
+import usePropertiesFromStore from "../../hooks/usePropertiesFromStore";
 
 export default function InsertedInput(props){
 
@@ -17,7 +18,12 @@ export default function InsertedInput(props){
 
 
     //const fontSize = '26px';
-    const [fontSize,setFontSize] = useState(26)
+
+    //const [fontSize,setFontSize] = useState(26)
+
+    const [fontSizeFromReduxStore,fontSize,setFontSize] = 
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);
+
     const lineHeight = `${parseInt(fontSize) * 1.2}px`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
@@ -48,9 +54,17 @@ export default function InsertedInput(props){
     
     
 
-
+    /*refactoring this to react hooks usePropertiesFromStore 03.05.24 11:41
     const [leftPosition,setLeftPosition] = useState(props.elementX)
     const [topPosition, setTopPosition ] = useState(props.elementY)
+    */
+
+    const [positionXFromRedux,leftPosition,setLeftPosition] = 
+    usePropertiesFromStore("leftAsideControllersReducer","positionX",props.whichChildIam,props.elementX);
+
+    const [positionYFromRedux,topPosition,setTopPosition] = 
+    usePropertiesFromStore("leftAsideControllersReducer","positionY",props.whichChildIam,props.elementY);
+
 
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
@@ -352,9 +366,28 @@ export default function InsertedInput(props){
     const [divFocus,setDivFocus]=useState(false)
     
     //this to handle two way binding between redux store and this
+
+
+    /* refactoring this to react hooks usePropertiesFromStore 03.05.24 11:41
     const positionXFromRedux = useSelector(state=>state.leftAsideControllersReducer.positionX)
     const positionYFromRedux = useSelector(state=>state.leftAsideControllersReducer.positionY)
+    */
+   /*refactoring this to react hooks usePropertiesFromStore 03.05.24 11:41
+    useEffect(()=>{
+        //console.log("pos x from redux clicked")
 
+        //if(leftPosition==positionXFromRedux && topPosition==positionYFromRedux){
+            //console.log("i'm set")
+            //dispatchingTextElementPosition()
+        if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
+            setLeftPosition(positionXFromRedux)
+            setTopPosition(positionYFromRedux)
+        }  
+        //}
+    },[positionXFromRedux,positionYFromRedux])
+    */
+
+    
 
     // this what i have touched in this session
     const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
@@ -379,31 +412,20 @@ export default function InsertedInput(props){
         
     }
 
-    useEffect(()=>{
-        //console.log("pos x from redux clicked")
-
-        //if(leftPosition==positionXFromRedux && topPosition==positionYFromRedux){
-            //console.log("i'm set")
-            //dispatchingTextElementPosition()
-        if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
-            setLeftPosition(positionXFromRedux)
-            setTopPosition(positionYFromRedux)
-        }  
-        //}
-    },[positionXFromRedux,positionYFromRedux])
-
+    
     
 
 
     const isLeftAsideClicked = useSelector(state=>state.leftAsideControllersReducer.isLeftAsideClicked)
     
-    const fontSizeFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.tailleDePolice)
+    /*refactoring this to react hooks usePropertiesFromStore 03.05.24 11:41*/
+    // rct cstm hook const fontSizeFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.tailleDePolice)
 
-    useEffect(()=>{
-        if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
-            setFontSize(fontSizeFromReduxStore)
-        }
-    },[fontSizeFromReduxStore])
+    // rct cstm hook useEffect(()=>{
+    //     if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
+    //         setFontSize(fontSizeFromReduxStore)
+    //     }
+    // },[fontSizeFromReduxStore])
     
 
     return(
