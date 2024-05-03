@@ -9,6 +9,7 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
     const singleValueArray=[];
     useEffect(() => {
         //console.log("character ",character)
+        //console.log("font size from parent :",fontSize)
         if(character===undefined){
             character ="!"
             return
@@ -17,6 +18,7 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
         const span = spanRef.current;
         span.style.fontSize = fontSize;
         span.innerText=character;
+        //console.log("offsetWidthWhen fontSize changes :",span.offsetWidth)
         
         //console.log("the fontSize is qsdqsd: ",fontSize)
         //when the space key is pressed, then replace it with the 'l' character
@@ -42,7 +44,7 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
         // getCharachterWidthFromCharacterWidthCalculator(span.offsetWidth);
         // console.log("character width frm ueffcr: ",span.offsetWidth)
         
-    }, [fontSize, character]);
+    }, [character]);
 
     return (
         <span ref={spanRef} style={{ position: 'absolute', visibility: 'hidden', whiteSpace: 'nowrap' }}>
