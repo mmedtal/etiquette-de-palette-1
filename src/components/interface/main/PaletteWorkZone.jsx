@@ -40,7 +40,7 @@ export default function PaletteWorkZone(props){
     }
 
     useEffect(()=>{
-        console.log("PaletteWorkZoneElements :",elements)
+        //console.log("PaletteWorkZoneElements :",elements)
     },[elements])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
     return(
