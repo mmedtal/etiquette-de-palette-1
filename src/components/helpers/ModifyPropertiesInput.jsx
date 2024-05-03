@@ -27,6 +27,7 @@ export default function ModifyPropertiesInput(props){
 
     function incrementInputValue(){
         //console.log("inputRef",inputRef.current)
+        console.log("value ft sze : ",value)
         setValue(value+1)
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
@@ -64,6 +65,12 @@ export default function ModifyPropertiesInput(props){
         dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
         //console.log(value)
     },[value])
+
+
+    useEffect(()=>{
+        setValue(props.valueFromReduxStore)
+    },[props.valueFromReduxStore])
+
     return(
         <TextField
 

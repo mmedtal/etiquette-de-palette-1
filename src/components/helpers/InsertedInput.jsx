@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import CharacterWidthCalculator from "./CharacterWidthCalculator";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function InsertedInput(props){
 
@@ -16,7 +16,8 @@ export default function InsertedInput(props){
     //const [spanElement,setSpanElement]=useState()
 
 
-    const fontSize = '26px';
+    //const fontSize = '26px';
+    const [fontSize,setFontSize] = useState(26)
     const lineHeight = `${parseInt(fontSize) * 1.2}px`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
@@ -35,9 +36,11 @@ export default function InsertedInput(props){
 
     
     //to handle input focus when i click on left aside
-    
 
-    const [inputWidth,setInputWidth] = useState(parseInt(fontSize.substring(0, 2)))
+
+    //ici fontSize était 26px 
+    //const [inputWidth,setInputWidth] = useState(parseInt(fontSize.substring(0, 2)))
+    const [inputWidth,setInputWidth] = useState(parseInt(fontSize))
 
     const [cursorPosition,setCursorPosition] = useState(0)
 
@@ -116,6 +119,7 @@ export default function InsertedInput(props){
         //console.log("clicked")
         setCursorPosition(e.target.selectionStart)
         //dispatchingTextElementPosition();
+        //console.log(" i'm the child number : ",props.whichChildIam)
     }
 
 
@@ -133,7 +137,7 @@ export default function InsertedInput(props){
             //console.log("the first inserted character is space ")
 
             
-            console.log("inputwidth qsdqsdsq:",inputWidth)
+            //console.log("inputwidth qsdqsdsq:",inputWidth)
             return
         }
         //console.log("inputwidth :",inputWidth)
@@ -296,13 +300,7 @@ export default function InsertedInput(props){
 
     const [inputFocused,setInputFocused]=useState(false)
 
-    function handleInputBlur(){
-
-        setEditMode(false)
-        setInputFocused(false)
-        toggleToDefaultCursor({type:"SELECTIONNER"})
-        
-    }
+    
 
 
 
@@ -329,12 +327,20 @@ export default function InsertedInput(props){
         //console.log("topPosition-myInputRef.current.parentElement.getBoundingClientRect().topPosition :",myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
         dispatchingTextElementPosition();
         }  
+        //console.log(" i'm the child number : ",props.whichChildIam)
+        //dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
+
+        dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
     },[])
     
 
     function handleFocus(){
         //console.log("dispatchingTextElementPosition() :",dispatchingTextElementPosition())
         setInputFocused(true)
+        ///console.log(" i'm the child number : ",props.whichChildIam)
+        dispatchingTextElementPosition()
+        dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
+        dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
     }
 
 
@@ -345,6 +351,61 @@ export default function InsertedInput(props){
 
     const [divFocus,setDivFocus]=useState(false)
     
+    //this to handle two way binding between redux store and this
+    const positionXFromRedux = useSelector(state=>state.leftAsideControllersReducer.positionX)
+    const positionYFromRedux = useSelector(state=>state.leftAsideControllersReducer.positionY)
+
+
+    // this what i have touched in this session
+    const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
+    function handleInputBlur(){
+
+        //dispatchingTextElementPosition()
+            setEditMode(false)
+            setInputFocused(false)
+        if(whichTextInputIsClickedFromReduxStore==props.whichChildIam){
+        //setEditMode(false)
+        //setInputFocused(false)
+            setInputFocused(true)
+            //setEditMode(true)
+            myInputRef.current.focus();
+            dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
+        }else{
+            
+        }
+
+        //console.log("myInputRef.current.focus() :",myInputRef.current)
+        toggleToDefaultCursor({type:"SELECTIONNER"})
+        
+    }
+
+    useEffect(()=>{
+        //console.log("pos x from redux clicked")
+
+        //if(leftPosition==positionXFromRedux && topPosition==positionYFromRedux){
+            //console.log("i'm set")
+            //dispatchingTextElementPosition()
+        if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
+            setLeftPosition(positionXFromRedux)
+            setTopPosition(positionYFromRedux)
+        }  
+        //}
+    },[positionXFromRedux,positionYFromRedux])
+
+    
+
+
+    const isLeftAsideClicked = useSelector(state=>state.leftAsideControllersReducer.isLeftAsideClicked)
+    
+    const fontSizeFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.tailleDePolice)
+
+    useEffect(()=>{
+        if(props.whichChildIam==whichTextInputIsClickedFromReduxStore){
+            setFontSize(fontSizeFromReduxStore)
+        }
+    },[fontSizeFromReduxStore])
+    
+
     return(
         <>
 
@@ -363,10 +424,12 @@ export default function InsertedInput(props){
                 // `${(character.length || 1) * inputValue.length}px`
                 // ${characterwidth * inputValue.length}px`
                 style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
-                        left:leftPosition,top:topPosition,border:"1px solid black",outline:"none",
-                        fontSize}}
+                        left:leftPosition,top:topPosition,
+                        border:"1px solid black",
+                        outline:"none",
+                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"}}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
-            {editMode&&<CharacterWidthCalculator fontSize={fontSize} character={inputValue[inputValue.length-1]} 
+            {editMode&&<CharacterWidthCalculator fontSize={fontSize+"px"} character={inputValue[inputValue.length-1]} 
                     getCharachterWidthFromCharacterWidthCalculator={getCharachterWidthFromCharacterWidthCalculator}/>}
         {/* // <span ref={offScreenSpanElement} style={{ position: 'absolute', left: -9999, visibility: 'hidden', zIndex: -1 }}>
 
@@ -376,8 +439,9 @@ export default function InsertedInput(props){
                         //onBlur={()=>setDivFocus(true)} autoFocus={divFocus}
                         //onBlur={}
                         style={{position: "absolute",whiteSpace:"pre-wrap",
-                        left:leftPosition,top:topPosition,border:"transparent",outline:"none",
-                        fontSize,cursor:"text"}}>
+                        border:whichTextInputIsClickedFromReduxStore==props.whichChildIam&&isLeftAsideClicked?"1.5px dashed grey":"",
+                        left:leftPosition,top:topPosition,outline:"none",
+                        fontSize:`${fontSize}px`,cursor:"text"}}>
             {inputValue}
         </div>}
         </>

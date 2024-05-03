@@ -1,6 +1,6 @@
 import { ArrowDownward, ArrowUpward, Autorenew, LineWeight, Loop, TextRotationNone, UnfoldLess, UnfoldMore, VerticalAlignBottom, VerticalAlignTop } from "@mui/icons-material";
 import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PaletteControls from "./PaletteControls";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export default function LeftAside(props){
 
     const whichHeaderIconIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
 
-    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,paletteLargeur} = useSelector(state=>state.leftAsideControllersReducer)
+    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
 
     const [elementXPosition,setElementXPosition]=useState(positionX)
 
@@ -18,11 +18,18 @@ export default function LeftAside(props){
         //console.log("x efzef",x)
         setElementXPosition(positionX)
         //console.log("positionX ",positionX)
-        console.log("positionX ",positionX)
+        //console.log("positionX ",positionX)
     },[positionX])
+
+    //to handle input focus when i click on left aside
+    const dispatch = useDispatch()
+    function handleLeftAsideClick(){
+        dispatch({type:"SET_LEFT_ASIDE_CLICKED",payload:true})
+    }
     return(
         <div className="p-2 pl-10 flex-col space-y-6"
-        //onClick={()=>console.log("i m clicked anyway")}
+            onClick={handleLeftAsideClick}
+        //onClick={()=>dispatch({type:})}
         >
             
             {/* <button onClick={()=>console.log("whichHeaderIconIsCliqued = ",whichHeaderIconIsCliqued)}>click</button> */}
@@ -85,6 +92,14 @@ export default function LeftAside(props){
 
                     leftIcon={<Loop color="error" />}
                     rightIcon={<Autorenew color="success"/>}
+                />
+
+                <ModifyPropertiesInput label="Taille de la police:"
+                    valueFromReduxStore={tailleDePolice}
+                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_TAILLE_POLICE"
+
+                    leftIcon={<ArrowDownward color="error" />}
+                    rightIcon={<ArrowUpward color="success"/>}
                 />
             </div>}
             
