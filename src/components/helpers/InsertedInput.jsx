@@ -203,6 +203,18 @@ export default function InsertedInput(props){
 
     const isLeftAsideClicked = useSelector(state=>state.leftAsideControllersReducer.isLeftAsideClicked)
     
+    function setNewInputWidthWhenFontSizeChanges(newInputWidth){
+        // this condition because inputWidth comes from CharacterWidthCalculator and it's to 0 be default
+        if(newInputWidth==0){
+            setInputWidth(fontSize)
+            return
+        }
+        setInputWidth(newInputWidth)
+    }
+
+    useEffect(()=>{
+        
+    },[fontSize])
     return(
         <>
 
@@ -223,7 +235,10 @@ export default function InsertedInput(props){
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"}}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
             {editMode&&<CharacterWidthCalculator fontSize={fontSize+"px"} character={inputValue[inputValue.length-1]} 
-                    getCharachterWidthFromCharacterWidthCalculator={getCharachterWidthFromCharacterWidthCalculator}/>}
+                    inputValue={inputValue}
+                    getCharachterWidthFromCharacterWidthCalculator={getCharachterWidthFromCharacterWidthCalculator}
+                    setNewInputWidthWhenFontSizeChanges={setNewInputWidthWhenFontSizeChanges}
+                    />}
 
         {!editMode&&<div onClick={()=>{setEditMode(true)}}  
                         style={{position: "absolute",whiteSpace:"pre-wrap",

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function CharacterWidthCalculator({ fontSize, character,getCharachterWidthFromCharacterWidthCalculator }){
+export default function CharacterWidthCalculator({fontSize,inputValue,character,getCharachterWidthFromCharacterWidthCalculator,
+                                                    setNewInputWidthWhenFontSizeChanges}){
 
 
     const [characterFromParent,setCharacterFromParent] = useState("")
     const spanRef = useRef(null);
 
+    //const [characters,setCharacters]=useState([]);
     const singleValueArray=[];
     useEffect(() => {
         //console.log("character ",character)
@@ -29,6 +31,8 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
         //console.log("the character width is : ",span.offsetWidth)
         getCharachterWidthFromCharacterWidthCalculator(span.offsetWidth);
 
+        //setCharacters([...characters,{character:character,characterWidth:span.offsetWidth}])
+        //console.log("enetered characters history : ",characters)
 //        console.log("the element : ",character," size (which is span.offsetWidth ) is  :",span.offsetWidth);
 
         // if(character[character.length - 1]==0){
@@ -45,6 +49,27 @@ export default function CharacterWidthCalculator({ fontSize, character,getCharac
         // console.log("character width frm ueffcr: ",span.offsetWidth)
         
     }, [character]);
+
+
+    useEffect(()=>{
+        let newWidthWhenFontSizeChanges=0;
+        for(let i=0;i<inputValue.length;i++){
+            if(character===undefined){
+                character ="!"
+                return
+            }
+            setCharacterFromParent(inputValue[i])
+            const span = spanRef.current;
+            span.style.fontSize = fontSize;
+            span.innerText=inputValue[i];
+            if(inputValue[i]===" "){
+                span.innerText="!"
+            }
+            newWidthWhenFontSizeChanges=newWidthWhenFontSizeChanges+span.offsetWidth;
+        }
+        setNewInputWidthWhenFontSizeChanges(newWidthWhenFontSizeChanges)
+
+    },[fontSize])
 
     return (
         <span ref={spanRef} style={{ position: 'absolute', visibility: 'hidden', whiteSpace: 'nowrap' }}>
