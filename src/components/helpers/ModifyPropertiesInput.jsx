@@ -38,7 +38,6 @@ export default function ModifyPropertiesInput(props){
 
     useEffect(()=>{
         dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
-        //console.log(value)
     },[value])
     return(
         <TextField
@@ -60,11 +59,9 @@ export default function ModifyPropertiesInput(props){
             }}
             InputProps={{
                 endAdornment:<IconButton onClick={incrementInputValue} disabled={props.disabled}>
-                    {/* <ArrowDownward color="error"/> */}
                     {props.rightIcon}
                 </IconButton>,
                 startAdornment:<IconButton onClick={decrementInputValue} disabled={props.disabled}>
-                    {/* <ArrowUpward color="success"/> */}
                     {props.leftIcon}
                 </IconButton>
             }}
