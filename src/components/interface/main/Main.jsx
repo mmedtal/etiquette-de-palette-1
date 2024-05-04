@@ -1,13 +1,10 @@
-import { Card, CardContent, CardHeader, TextField } from "@mui/material";
+import { Card, CardContent, CardHeader, Tab, Tabs, TextField } from "@mui/material";
 import PaletteWorkZone from "./PaletteWorkZone";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import ZebraCodeViewer from "./ZebraCodeViewer";
 
 export default function Main(props){
-
-    
-
-    //const {:ht,largeur:lg} = useSelector(state=>state.leftAsideControllersReducer)
 
     const [hauteur,setHauteur]=useState(useSelector(state=>state.leftAsideControllersReducer.hauteur))
     const [largeur,setLargeur]=useState(useSelector(state=>state.leftAsideControllersReducer.largeur))
@@ -35,17 +32,37 @@ export default function Main(props){
     function handleMainComponentClick(){
         dispatch({type:"SET_LEFT_ASIDE_CLICKED",payload:false})
     }
+
+    const [selectedTab,setSelectedTab]= useState(0)
     
+    useEffect(()=>{
+        console.log("selected tab : ",selectedTab)
+        console.log("selectedTab==0 : ",selectedTab==0)
+    },[selectedTab])
     return(
         <div className="flex-col"  
-            onClick={handleMainComponentClick}
-        >
+            onClick={handleMainComponentClick}>
 
             <div className="header h-10">
 
             </div>
-            <div className="flex justify-center">
-                <PaletteWorkZone height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
+            <div  style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
+                <div className="flex -mt-8" style={{width:largeurPaletteControlledFromLeftAside}}>
+                    <Tabs value={selectedTab}>
+                        <Tab label="Palette"  onClick={()=>setSelectedTab(0)}/>
+                        <Tab label="Code Zebra" onClick={()=>setSelectedTab(1)}/>
+                    </Tabs>
+                </div>
+                {/* visibility:selectedTab==1?"visible":"hidden" avant y'avait ça, ma3rftch wach hiya plus cheap
+                li anaho makandirouch render lkolchi ymkn*/}
+                <div className="flex justify-center"  style={{display:selectedTab==0?"flex":"none"}}>
+                    <PaletteWorkZone selectedTab={selectedTab} height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
+                </div>   
+
+                <div className="flex justify-center" 
+                    style={{display:selectedTab==1?"flex":"none",width:largeurPaletteControlledFromLeftAside,height:hauteurPaletteControlledFromLeftAside}} >
+                    <ZebraCodeViewer selectedTab={selectedTab} height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
+                </div>  
             </div>
         </div>
     )
