@@ -35,6 +35,9 @@ export default function PaletteWorkZone(props){
             const y = e.clientY - rect.top;
             //console.log("rect.left :",rect.left)
             //console.log("rect.top :",rect.top)
+
+            //console.log(" x : " ,x)
+            //console.log(" y : " ,y)
             setElements([...elements,{x,y}]);
         }
     }

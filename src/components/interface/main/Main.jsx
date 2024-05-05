@@ -36,8 +36,8 @@ export default function Main(props){
     const [selectedTab,setSelectedTab]= useState(0)
     
     useEffect(()=>{
-        console.log("selected tab : ",selectedTab)
-        console.log("selectedTab==0 : ",selectedTab==0)
+        //console.log("selected tab : ",selectedTab)
+        //console.log("selectedTab==0 : ",selectedTab==0)
     },[selectedTab])
     return(
         <div className="flex-col"  

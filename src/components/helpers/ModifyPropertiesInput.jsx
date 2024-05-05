@@ -1,4 +1,3 @@
-import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { IconButton, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

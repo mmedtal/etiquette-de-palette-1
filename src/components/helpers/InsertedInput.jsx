@@ -168,6 +168,11 @@ export default function InsertedInput(props){
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
+        console.log("leftpos : ",leftPosition)
+        console.log("toppos : ",topPosition)
+
+        
+        setCorrespondantZebraPositionCode("^FO"+leftPosition+","+topPosition)
     },[])
     
 
@@ -224,6 +229,11 @@ export default function InsertedInput(props){
         
     },[fontSize])
 
+
+
+    //code zebra y correspondant
+    const [correspondantZebraPositionCode,setCorrespondantZebraPositionCode]=useState("^FO")
+    const [correspondantZebraData,setCorrespondantZebraData]=useState(null)
 
     return(
         <>
