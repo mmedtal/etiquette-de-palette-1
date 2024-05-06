@@ -318,7 +318,7 @@ export default function InsertedInput(props){
 
     //to handle zebra code 
     useEffect(()=>{
-        props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
+        //props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
     },[inputValue,leftPosition,topPosition])
     return(
         <>

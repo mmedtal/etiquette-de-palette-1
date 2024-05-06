@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-export default function useTextConverterToZebraCode(textElementIndex,xPosition,yPosition,data){
+export default function useTextConverterToZebraCode(textElementId,xPosition,yPosition,data){
 
     const dispatch = useDispatch();
     const [fieldOrigin,setFieldOrigin]=useState("^FO")
@@ -18,8 +18,8 @@ export default function useTextConverterToZebraCode(textElementIndex,xPosition,y
 
 
     useEffect(()=>{
-        //dispatch({type:"text",payload:{}})
-    },[data,xPosition,yPosition])
+        dispatch({type:"GENERATED_ZEBRA_CODE_FROM_TEXT",payload:{textElementId:textElementId,zebraCode:fieldOrigin+fieldData}})
+    },[fieldOrigin,fieldData])
 
 
 
