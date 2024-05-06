@@ -42,6 +42,12 @@ export default function PaletteWorkZone(props){
 
     function liftCorrespondantZebraCodeToParent(childId,zebraCodeFromChild){
 
+        setElements(elements =>{
+            const updatedElements = [...elements];
+            updatedElements[childId].correspondantZebraCode=zebraCodeFromChild;
+            return elements
+        })
+
     }
     const dispatch = useDispatch();
 

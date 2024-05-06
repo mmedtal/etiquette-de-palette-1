@@ -13,6 +13,16 @@ export default function LeftAside(props){
 
     const [elementXPosition,setElementXPosition]=useState(positionX)
 
+    const [leftAsidePositionX,setLeftAsidePositionX]= useState("")
+
+    useEffect(()=>{
+        setLeftAsidePositionX(positionX)
+    },[])
+    useEffect(()=>{
+        setLeftAsidePositionX(positionX)
+    },[positionX])
+
+
     useEffect(()=>{
         //const x = useSelector(state=>state.leftAsideControllersReducer)
         //console.log("x efzef",x)

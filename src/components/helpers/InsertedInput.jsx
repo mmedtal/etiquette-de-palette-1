@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import CharacterWidthCalculator from "./CharacterWidthCalculator";
 import { useDispatch, useSelector } from "react-redux";
 import usePropertiesFromStore from "../../hooks/usePropertiesFromStore";
+import useTextConverterToZebraCode from "../../hooks/useTextConverterToZebraCode";
 
 export default function InsertedInput(props){
 
@@ -56,6 +57,9 @@ export default function InsertedInput(props){
     const [rotationFromReduxStore,rotation,setRotation] = 
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
+    const [zebraFieldOrigin,zebraFieldData] =
+    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,inputValue);
+
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
 
@@ -67,10 +71,12 @@ export default function InsertedInput(props){
         }
         dispatch({
             type:"MODIFIER_POSITION_X",
-            payload:myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left})
+            //payload:myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left})
+            payload:leftPosition})    
         dispatch({
             type:"MODIFIER_POSITION_Y",
-            payload:myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top})
+            //payload:myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top})
+            payload:topPosition})   
         }catch(e){
             //console.log("an erorrrrrrr r    :",e)
         }
@@ -104,6 +110,7 @@ export default function InsertedInput(props){
 
     
     function handleClick(e){
+        
         setCursorPosition(e.target.selectionStart)
     }
 
@@ -147,7 +154,13 @@ export default function InsertedInput(props){
         setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left)
         setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
 
-        dispatchingTextElementPosition();
+        //dispatchingTextElementPosition();
+        dispatch({
+            type:"MODIFIER_POSITION_X",
+            payload:leftPosition})
+        dispatch({
+            type:"MODIFIER_POSITION_Y",
+            payload:topPosition})
         }
     },[leftPosition,topPosition])
 
@@ -165,13 +178,17 @@ export default function InsertedInput(props){
         }
         setInputWidth(parseInt(inputWidth)+parseInt(characterwidth))
 
+
+
         props.liftInputValueToParent(props.whichChildIam,inputValue)
+        
     },[inputValue])
 
     const toggleToDefaultCursor = useDispatch()
     
     const [inputFocused,setInputFocused]=useState(false)
 
+    
     
 
     useEffect(() => {
@@ -189,7 +206,13 @@ export default function InsertedInput(props){
          if (myInputRef.current) {
         setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left)
         setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
-        dispatchingTextElementPosition();
+        //dispatchingTextElementPosition();
+        dispatch({
+            type:"MODIFIER_POSITION_X",
+            payload:leftPosition})
+        dispatch({
+            type:"MODIFIER_POSITION_Y",
+            payload:topPosition})
         }  
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
@@ -204,8 +227,16 @@ export default function InsertedInput(props){
     
 
     function handleFocus(){
+        
         setInputFocused(true)
-        dispatchingTextElementPosition()
+        dispatch({
+            type:"MODIFIER_POSITION_X",
+            payload:leftPosition})
+        dispatch({
+            type:"MODIFIER_POSITION_Y",
+            payload:topPosition})
+
+
         dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
@@ -213,7 +244,7 @@ export default function InsertedInput(props){
 
 
     useEffect(()=>{
-        dispatchingTextElementPosition()
+        //dispatchingTextElementPosition()
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
     },[inputFocused])
 
@@ -263,8 +294,11 @@ export default function InsertedInput(props){
 
     const whichHeaderButtonIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
     function handleDivClick(){
+        
+        //dispatchingTextElementPosition()
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
             dispatch({type:"SELECTIONNER"})
+            
             return
         }
         setEditMode(true);
@@ -273,12 +307,19 @@ export default function InsertedInput(props){
 
     const [divCursorAppearance,setDivCursorAppearance] = useState("text")
     function handleDivHover(){
+        
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
             setDivCursorAppearance("not-allowed")
         }else{
             setDivCursorAppearance("text")
         }
     }
+
+
+    //to handle zebra code 
+    useEffect(()=>{
+        props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
+    },[inputValue,leftPosition,topPosition])
     return(
         <>
 
