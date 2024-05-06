@@ -39,6 +39,15 @@ export default function Main(props){
         //console.log("selected tab : ",selectedTab)
         //console.log("selectedTab==0 : ",selectedTab==0)
     },[selectedTab])
+
+    const generatedZebraCode = useSelector(state=>state.generatedZebraCodeReducer.generatedZebraCodeInstructions)
+
+
+    const [informUserOfNewZebraCode,setInformUserOfNewZebraCode]=useState(false)
+    useEffect(()=>{
+        setInformUserOfNewZebraCode(true)
+    },[generatedZebraCode])
+
     return(
         <div className="flex-col"  
             onClick={handleMainComponentClick}>
@@ -50,7 +59,7 @@ export default function Main(props){
                 <div className="flex -mt-8" style={{width:largeurPaletteControlledFromLeftAside}}>
                     <Tabs value={selectedTab}>
                         <Tab label="Palette"  onClick={()=>setSelectedTab(0)}/>
-                        <Tab label="Code Zebra" onClick={()=>setSelectedTab(1)}/>
+                        <Tab label={informUserOfNewZebraCode?`Code Zebra *`:"Code Zebra"} onClick={()=>{setSelectedTab(1);setInformUserOfNewZebraCode(false)}}/>
                     </Tabs>
                 </div>
                 {/* visibility:selectedTab==1?"visible":"hidden" avant y'avait ça, ma3rftch wach hiya plus cheap
