@@ -34,14 +34,17 @@ export default function PaletteWorkZone(props){
         setElementValue(inputValue)
         //return inputValue;
         //setElements([...elements,{x,y,inputValue}]);
+        /*
         for(let i=0;i<elements.length;i++){
             if(elements[i].x==xPositon && elements[i].y==yPositon){
                 elements[i].value=inputValue
             }
-        }
+        }*/
     }
 
     const dispatch = useDispatch();
+
+    const [childCount,setChildCount]=useState(0)
     function handleClick(e){
 
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
@@ -55,7 +58,17 @@ export default function PaletteWorkZone(props){
             //console.log(" y : " ,y)
             setXPosition(x);
             setYPosition(y);
-            setElements([...elements,{x,y,value:""}]);
+            setElements([...elements,
+                
+                {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} elementX={x} elementY={y}
+                    paletteHeight={props.height}
+                    paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
+                    liftInputValueToParent={liftInputValueToParent}
+                    />,value:""}
+            ]);
+
+            
+            setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
         }
     }
@@ -82,11 +95,7 @@ export default function PaletteWorkZone(props){
 
 
                 {elements.map((element,index)=>{
-                    const input =<InsertedInput key={index} whichChildIam={index} elementX={element.x} elementY={element.y} paletteHeight={props.height}
-                    paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
-                    liftInputValueToParent={liftInputValueToParent}
-                    />
-                    return input
+                    return  element.element
                 })}
             </div>
         </Fade>
