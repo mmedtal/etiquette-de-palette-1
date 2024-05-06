@@ -18,7 +18,7 @@ export default function useTextConverterToZebraCode(textElementIndex,xPosition,y
 
 
     useEffect(()=>{
-        dispatch({type:"text",payload:{}})
+        //dispatch({type:"text",payload:{}})
     },[data,xPosition,yPosition])
 
 

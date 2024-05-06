@@ -165,7 +165,7 @@ export default function InsertedInput(props){
         }
         setInputWidth(parseInt(inputWidth)+parseInt(characterwidth))
 
-        props.liftInputValueToParent(inputValue)
+        props.liftInputValueToParent(props.whichChildIam,inputValue)
     },[inputValue])
 
     const toggleToDefaultCursor = useDispatch()

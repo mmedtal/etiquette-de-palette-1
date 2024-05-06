@@ -30,18 +30,19 @@ export default function PaletteWorkZone(props){
 
     const [xPositon,setXPosition]=useState(null)
     const [yPositon,setYPosition]=useState(null)
-    function liftInputValueToParent(inputValue){
-        setElementValue(inputValue)
-        //return inputValue;
-        //setElements([...elements,{x,y,inputValue}]);
-        /*
-        for(let i=0;i<elements.length;i++){
-            if(elements[i].x==xPositon && elements[i].y==yPositon){
-                elements[i].value=inputValue
-            }
-        }*/
+    function liftInputValueToParent(childId,inputValue){
+        
+            setElements(elements =>{
+                const updatedElements = [...elements];
+                updatedElements[childId].value=inputValue;
+                return elements
+            })
+        
     }
 
+    function liftCorrespondantZebraCodeToParent(childId,zebraCodeFromChild){
+
+    }
     const dispatch = useDispatch();
 
     const [childCount,setChildCount]=useState(0)
@@ -63,8 +64,9 @@ export default function PaletteWorkZone(props){
                 {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} elementX={x} elementY={y}
                     paletteHeight={props.height}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
-                    liftInputValueToParent={liftInputValueToParent}
-                    />,value:""}
+                    liftInputValueToParent={liftInputValueToParent} 
+                    liftCorrespondantZebraCodeToParent={liftCorrespondantZebraCodeToParent}
+                    />,value:"",correspondantZebraCode:""}
             ]);
 
             
@@ -81,6 +83,7 @@ export default function PaletteWorkZone(props){
     useEffect(()=>{
         console.log("Element value :",elementValue)
         //setElements([...elements,{x,y,inputValue}]);
+        //liftInputValueToParent(childCount,elementValue)
     },[elementValue])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
 
