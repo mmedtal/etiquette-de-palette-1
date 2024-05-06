@@ -26,7 +26,22 @@ export default function PaletteWorkZone(props){
     const toggleToDefaultCursor = useDispatch()
 
     const [elements,setElements] = useState([]);
+    const [elementValue,setElementValue] = useState("");
 
+    const [xPositon,setXPosition]=useState(null)
+    const [yPositon,setYPosition]=useState(null)
+    function liftInputValueToParent(inputValue){
+        setElementValue(inputValue)
+        //return inputValue;
+        //setElements([...elements,{x,y,inputValue}]);
+        for(let i=0;i<elements.length;i++){
+            if(elements[i].x==xPositon && elements[i].y==yPositon){
+                elements[i].value=inputValue
+            }
+        }
+    }
+
+    const dispatch = useDispatch();
     function handleClick(e){
 
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
@@ -38,14 +53,26 @@ export default function PaletteWorkZone(props){
 
             //console.log(" x : " ,x)
             //console.log(" y : " ,y)
-            setElements([...elements,{x,y}]);
+            setXPosition(x);
+            setYPosition(y);
+            setElements([...elements,{x,y,value:""}]);
+            dispatch({type:"SELECTIONNER"})
         }
     }
 
     useEffect(()=>{
-        //console.log("PaletteWorkZoneElements :",elements)
+        console.log("PaletteWorkZoneElements :",elements)
     },[elements])
+
+
+    useEffect(()=>{
+        console.log("Element value :",elementValue)
+        //setElements([...elements,{x,y,inputValue}]);
+    },[elementValue])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
+
+
+    //l'ajout de insertedText c'est pour supprimer les éléments qui n'ont pas de textes
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
             style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`}}
@@ -55,8 +82,11 @@ export default function PaletteWorkZone(props){
 
 
                 {elements.map((element,index)=>{
-                    return<InsertedInput key={index} whichChildIam={index} elementX={element.x} elementY={element.y} paletteHeight={props.height}
-                            paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}/>
+                    const input =<InsertedInput key={index} whichChildIam={index} elementX={element.x} elementY={element.y} paletteHeight={props.height}
+                    paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
+                    liftInputValueToParent={liftInputValueToParent}
+                    />
+                    return input
                 })}
             </div>
         </Fade>

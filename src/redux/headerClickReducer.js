@@ -1,4 +1,3 @@
-import { text } from "@fortawesome/fontawesome-svg-core"
 import { TextField } from "@mui/material"
 
 let myState={

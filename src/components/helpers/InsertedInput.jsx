@@ -20,6 +20,21 @@ export default function InsertedInput(props){
     function getCharachterWidthFromCharacterWidthCalculator(charachterWidthFromCharacterWidthCalculator){
         setCharacterWidth(charachterWidthFromCharacterWidthCalculator)
     }
+
+
+    //zbra code
+
+    //const [correspondantZebraPositionCode,setCorrespondantZebraPositionCode]=useState("^FO")
+    //const [correspondantZebraData,setCorrespondantZebraData]=useState("^FD")
+
+    /*
+    function getZebraDataFunction(data){
+
+        //need a test for ^ to not be entered, i need to not allow it
+        setCorrespondantZebraData("^FD"+data)
+    }
+    */
+
     
     const [insertedCharacter,setInsertedCharacter] = useState("")
     const [pressedCharacter, setPressedCharacter] = useState("")
@@ -107,16 +122,25 @@ export default function InsertedInput(props){
                 const selectionEnd = e.target.selectionEnd;
                 if(selectionStart==selectionEnd){
                  if(prevInputValue.length>0){
+                        //getZebraDataFunction(prevInputValue.slice(0,selectionStart)+prevInputValue.slice(selectionStart+1,inputValue.length))
                      return prevInputValue.slice(0,selectionStart)+prevInputValue.slice(selectionStart+1,inputValue.length)
                  }else{
+                        //getZebraDataFunction(prevInputValue)
                      return prevInputValue
                  }
                 }
             })
             return;
         }
+        //getZebraDataFunction(e.target.value)
         setInputValue(e.target.value)
     }
+
+    /*
+    useEffect(()=>{
+        console.log("correspondantZebraData : ",correspondantZebraData)
+    },[correspondantZebraData])
+    */
 
     useEffect(()=>{
         if (myInputRef.current) { 
@@ -140,6 +164,8 @@ export default function InsertedInput(props){
             return
         }
         setInputWidth(parseInt(inputWidth)+parseInt(characterwidth))
+
+        props.liftInputValueToParent(inputValue)
     },[inputValue])
 
     const toggleToDefaultCursor = useDispatch()
@@ -168,11 +194,12 @@ export default function InsertedInput(props){
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
-        console.log("leftpos : ",leftPosition)
-        console.log("toppos : ",topPosition)
+        //console.log("leftpos : ",leftPosition)
+        //console.log("toppos : ",topPosition)
 
         
-        setCorrespondantZebraPositionCode("^FO"+leftPosition+","+topPosition)
+        //setCorrespondantZebraPositionCode("^FO"+leftPosition+","+topPosition)
+        //console.log("i am the child : ",props.whichChildIam)
     },[])
     
 
@@ -231,10 +258,27 @@ export default function InsertedInput(props){
 
 
 
-    //code zebra y correspondant
-    const [correspondantZebraPositionCode,setCorrespondantZebraPositionCode]=useState("^FO")
-    const [correspondantZebraData,setCorrespondantZebraData]=useState(null)
+    
+    
 
+    const whichHeaderButtonIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
+    function handleDivClick(){
+        if(whichHeaderButtonIsCliqued=="inserer_texte"){
+            dispatch({type:"SELECTIONNER"})
+            return
+        }
+        setEditMode(true);
+    }
+
+
+    const [divCursorAppearance,setDivCursorAppearance] = useState("text")
+    function handleDivHover(){
+        if(whichHeaderButtonIsCliqued=="inserer_texte"){
+            setDivCursorAppearance("not-allowed")
+        }else{
+            setDivCursorAppearance("text")
+        }
+    }
     return(
         <>
 
@@ -263,13 +307,13 @@ export default function InsertedInput(props){
                     setNewInputWidthWhenFontSizeChanges={setNewInputWidthWhenFontSizeChanges}
                     />}
 
-        {!editMode&&<div onClick={()=>{setEditMode(true)}}  
+        {!editMode&&<div onClick={handleDivClick}  onMouseOver={handleDivHover}
                         style={{position: "absolute",whiteSpace:"pre-wrap",
                         border:whichTextInputIsClickedFromReduxStore==props.whichChildIam&&isLeftAsideClicked?"1.5px dashed grey":"",
                         left:leftPosition,top:topPosition,outline:"none",
                         transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                         :`rotate(${rotation}deg)`,
-                        fontSize:`${fontSize}px`,cursor:"text"}}>
+                        fontSize:`${fontSize}px`,cursor:divCursorAppearance}}>
             {inputValue}
         </div>}
         </>
