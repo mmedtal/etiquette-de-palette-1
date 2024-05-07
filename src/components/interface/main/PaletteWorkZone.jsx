@@ -15,8 +15,7 @@ export default function PaletteWorkZone(props){
         const top  = rect.top;
         setPaletteXPosition(left)
         setPaletteYPosition(top)
-        //console.log("palette left pos :",left)
-        //console.log("palette top pos :", top)
+      
     }
 
     const cursorAppearance = useSelector(state=>state.headerClickReducer.cursorAppearance)
@@ -58,11 +57,7 @@ export default function PaletteWorkZone(props){
             const rect = e.target.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            //console.log("rect.left :",rect.left)
-            //console.log("rect.top :",rect.top)
-
-            //console.log(" x : " ,x)
-            //console.log(" y : " ,y)
+            
             setXPosition(x);
             setYPosition(y);
             setElements([...elements,
@@ -81,20 +76,6 @@ export default function PaletteWorkZone(props){
         }
     }
 
-    useEffect(()=>{
-        console.log("PaletteWorkZoneElements :",elements)
-    },[elements])
-
-
-    useEffect(()=>{
-        console.log("Element value :",elementValue)
-        //setElements([...elements,{x,y,inputValue}]);
-        //liftInputValueToParent(childCount,elementValue)
-    },[elementValue])
-    //const [paletteHeight,setPaletteHeight]= useState(props.height)
-
-
-    //l'ajout de insertedText c'est pour supprimer les éléments qui n'ont pas de textes
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
             style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`}}

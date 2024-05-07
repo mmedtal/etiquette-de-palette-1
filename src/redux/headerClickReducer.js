@@ -11,7 +11,6 @@ export function headerClickReducer(state=myState,action){
     
     switch(action.type){
         case "SELECTIONNER":
-            //console.log("i enter   csdfqsdfj")
             return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null,cursorAppearance:"auto"}
         
         case "INSERER_TEXTE":
@@ -25,7 +24,6 @@ export function headerClickReducer(state=myState,action){
             return {...state, whichHeaderButtonIsCliqued:"inserer_barcode"}
         
         case "MODIFIER_DIMENSIONS_PALETTE":
-            //console.log("modify dimensions ")
             return {...state, whichHeaderButtonIsCliqued:"modifier_dimensions_palette"}
         
         case "MODE_PAR_DEFAUT":

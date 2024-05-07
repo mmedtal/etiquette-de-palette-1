@@ -10,8 +10,6 @@ export function generatedZebraCodeReducer(state=myState,action){
         case "GENERATED_ZEBRA_CODE_FROM_TEXT":
             const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
             const notFound=-1;
-            //console.log("element id ssdqsqd",elementId);
-            //if the object is found then update it
             if(elementId!=notFound){
                 const updatedObject = {
                     ...state.generatedZebraCodeInstructions[elementId],
@@ -33,9 +31,7 @@ export function generatedZebraCodeReducer(state=myState,action){
                         zebraCode:action.payload.zebraCode
                     }
                     const updatedCode=[
-                        //{textElementId:0,zebraCode:"^XA"},
                         ...state.generatedZebraCodeInstructions,newObject,
-                        //{textElementId:20,zebraCode:"^XL"},
                        
                     ]
 

@@ -7,7 +7,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
     const [fieldOrigin,setFieldOrigin]=useState("^FO")
     const [fieldData,setFieldData]    =useState("^FD")
 
-    //adding font size 07.05.24 10:30
+    
     const [zebraFontSize,setZebraFontSize] =useState("^CF0,")
 
     useEffect(()=>{
@@ -26,7 +26,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
         if(data==" " || data=="" || data==undefined){
             return
         }else{
-            //console.log("data : ",data)
+          
             dispatch({type:"GENERATED_ZEBRA_CODE_FROM_TEXT",payload:{textElementId:textElementId,zebraCode:zebraFontSize+fieldOrigin+fieldData}})   
         }
     }

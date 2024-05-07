@@ -15,12 +15,5 @@ export default function usePropertiesFromStore(reducer,propertyFromReduxStore,wh
         }
     },[selectedProperty])
 
-
-
-    /* on verra pours après si ça marche comme ça, càd custom hooks on mount
-    useEffect(()=>{
-        
-    },[])
-    */
     return [selectedProperty,property,setProperty]
 }
