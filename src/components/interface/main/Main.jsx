@@ -55,8 +55,15 @@ export default function Main(props){
         setLargeur(largeur+largeurControlledFromLeftAside)
     },[largeurControlledFromLeftAside])
     */
+
+    function handleMainComponentClick(){
+        dispatch({type:"SET_LEFT_ASIDE_CLICKED",payload:false})
+    }
+    
     return(
-        <div className="flex-col">
+        <div className="flex-col"  
+            onClick={handleMainComponentClick}
+        >
         {/* <button onClick={()=>console.log("hauteur ",hauteur)}>ccc</button> */}
 
             <div className="header h-10">

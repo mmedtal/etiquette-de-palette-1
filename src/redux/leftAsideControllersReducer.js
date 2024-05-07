@@ -6,7 +6,11 @@ let myControllersState={
     epaisseur   :0,
     rotation    :0,
     paletteHauteur:0,
-    paletteLargeur:0
+    paletteLargeur:0,
+    leftAsideClicke:false,
+    whichTextInputIsClicked:null,
+    isLeftAsideClicked:false,
+    tailleDePolice:0
 }
 
 
@@ -22,6 +26,7 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,largeur:parseInt(state.largeur)+parseInt(action.payload)}
 
             case "MODIFIER_POSITION_X":
+                //console.log("modifier pos x has been clicked ")
                 //console.log("action : ",action)
                 //return {...state,positionX:parseInt(state.positionX)+parseInt(action.payload)}
                 return {...state,positionX:parseInt(action.payload)}
@@ -34,7 +39,8 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,epaisseur:parseInt(state.epaisseur)+parseInt(action.payload)}
                         
             case "MODIFIER_ROTATION":
-                return {...state,rotation:parseInt(state.rotation)+parseInt(action.payload)}
+                //console.log("rotation reached frm rdx str : ",action.payload)
+                return {...state,rotation:parseInt(action.payload)}
 
             case "AFFECTER_PALETTE_HAUTEUR":
                 //if(parseInt(action.payload)<=0) return
@@ -47,6 +53,18 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 //if(parseInt(action.payload)<=0) return
                 return {...state,paletteLargeur:parseInt(action.payload)}
                 //return {...state,paletteLargeur:parseInt(state.paletteLargeur)+parseInt(action.payload)}
+
+            case "AFFECTER_TEXT_INPUT_CLIQUE":
+                //console.log("redux the clicked child is : ",action.payload)
+                return {...state,whichTextInputIsClicked:action.payload}
+
+            case "SET_LEFT_ASIDE_CLICKED":
+                //console.log("i'm reached  qsdqs")
+                return {...state,isLeftAsideClicked:action.payload}
+
+            case "MODIFIER_TAILLE_POLICE":
+                //console.log("left aside reducer taille de police :",action.payload)
+                return {...state, tailleDePolice:action.payload}
 
             default:
                 return state

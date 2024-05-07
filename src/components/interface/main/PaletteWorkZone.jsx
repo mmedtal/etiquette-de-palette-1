@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import InsertedInput from "../../helpers/InsertedInput";
 
@@ -39,6 +39,9 @@ export default function PaletteWorkZone(props){
         }
     }
 
+    useEffect(()=>{
+        //console.log("PaletteWorkZoneElements :",elements)
+    },[elements])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
     return(
         <div onMouseMove={handleMouseMove} id="div" onClick={handleClick}
@@ -46,8 +49,8 @@ export default function PaletteWorkZone(props){
              cursor:cursorAppearance}} className="">
 
 
-            {elements.map((element)=>{
-                return<InsertedInput elementX={element.x} elementY={element.y} paletteHeight={props.height}
+            {elements.map((element,index)=>{
+                return<InsertedInput key={index} whichChildIam={index} elementX={element.x} elementY={element.y} paletteHeight={props.height}
                         paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}/>
             })}
         </div>

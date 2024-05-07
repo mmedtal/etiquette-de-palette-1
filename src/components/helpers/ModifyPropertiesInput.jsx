@@ -33,12 +33,19 @@ export default function ModifyPropertiesInput(props){
         let newValue=parseInt(e.target.value)
         if(newValue<=0) return
 
+
         setValue(newValue)
     }
 
     useEffect(()=>{
         dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     },[value])
+
+
+    useEffect(()=>{
+        setValue(props.valueFromReduxStore)
+    },[props.valueFromReduxStore])
+
     return(
         <TextField
 
