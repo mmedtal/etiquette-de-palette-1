@@ -10,9 +10,15 @@ export default function InsertedInput(props){
 
     const [inputValue,setInputValue] = useState("")
 
+    /* commented 07.05.24 10:35
     const [fontSizeFromReduxStore,fontSize,setFontSize] = 
     usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);
+    */
+    //adding font size control 07.05.24 10:33
+    const [fontSizeFromReduxStore,fontSize,setFontSize] = 
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);  
 
+    
     const lineHeight = `${parseInt(fontSize) * 1.2}px`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
@@ -57,8 +63,10 @@ export default function InsertedInput(props){
     const [rotationFromReduxStore,rotation,setRotation] = 
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
-    const [zebraFieldOrigin,zebraFieldData] =
-    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,inputValue);
+     
+
+    const [zebraFieldOrigin,zebraFieldData,zebraFontSize] =
+    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue);
 
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
