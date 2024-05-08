@@ -26,6 +26,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
     function handleDispatch(){
         if(data.length==0){
             //console.log("it's empty")
+            console.log(data)
             return
         }
 
@@ -49,7 +50,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
             handleDispatch()
         }
     },[editMode])
-    
+
 
     return [fieldOrigin,fieldData,zebraFontSize]
 }

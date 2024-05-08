@@ -194,8 +194,18 @@ export default function InsertedInput(props){
             setInputWidth(fontSize)
             return
         }
-        
+        console.log("input valueeee : ",inputValue)
     },[inputValue])
+
+
+    //08.05.24 18:58 this to call trigger the function liftInputValueToParent on delete
+    useEffect(()=>{
+        //console.log("input length : ",inputValue.length)
+        //if(inputValue.length==0){
+          //  return
+        //}
+        //props.liftInputValueToParent(props.whichChildIam,inputValue)
+    },[inputValue.length])
 
     const toggleToDefaultCursor = useDispatch()
     

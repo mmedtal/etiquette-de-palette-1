@@ -32,6 +32,7 @@ export default function PaletteWorkZone(props){
     const [yPositon,setYPosition]=useState(null)
     function liftInputValueToParent(childId,inputValue){
         
+            //console.log("input value length",inputValue.length)
             setElements(elements =>{
                 const updatedElements = [...elements];
                 updatedElements[childId].value=inputValue;
@@ -54,6 +55,16 @@ export default function PaletteWorkZone(props){
     const [childCount,setChildCount]=useState(0)
     function handleClick(e){
 
+        //const nonEmptyValueElements = elements.filter(element => element.value.trim() !== "");
+        //setElements(nonEmptyValueElements);
+        
+        /*
+        if(whichHeaderButtonIsCliqued=="selectionner"){
+            const filteredElements = elements.filter(element => element.value.trim() !== '');
+            setElements(filteredElements);
+        }
+        */
+
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
             const rect = e.target.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -75,7 +86,8 @@ export default function PaletteWorkZone(props){
                     />,value:"",correspondantZebraCode:""}
             ]);
 
-            
+           
+
             setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
         }
@@ -83,13 +95,18 @@ export default function PaletteWorkZone(props){
 
     useEffect(()=>{
         console.log("PaletteWorkZoneElements :",elements)
+        //08.05.24 18:23 code to remove elements that have an empty value
+
+        //const nonEmptyValueElements = elements.filter(element=>element.value.trim()!=="")
+        //setElements(nonEmptyValueElements)
     },[elements])
 
 
     useEffect(()=>{
-        console.log("Element value :",elementValue)
+        //console.log("Element value :",elementValue)
         //setElements([...elements,{x,y,inputValue}]);
         //liftInputValueToParent(childCount,elementValue)
+        
     },[elementValue])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
 
@@ -106,6 +123,8 @@ export default function PaletteWorkZone(props){
                 {elements.map((element,index)=>{
                     return  element.element
                 })}
+
+                
             </div>
         </Fade>
     )
