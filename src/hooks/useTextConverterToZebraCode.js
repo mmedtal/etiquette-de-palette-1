@@ -11,6 +11,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
     const [zebraFontSize,setZebraFontSize] =useState("^CF0,")
 
     useEffect(()=>{
+       
         setZebraFontSize("^CFA,"+parseInt(fontSize+14))
     },[fontSize])
 
@@ -23,6 +24,11 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
     },[data])
 
     function handleDispatch(){
+        if(data.length==0){
+            console.log("it's empty")
+            return
+        }
+
         if(data==" " || data=="" || data==undefined){
             return
         }else{
