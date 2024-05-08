@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-export default function useTextConverterToZebraCode(textElementId,xPosition,yPosition,fontSize,data){
+export default function useTextConverterToZebraCode(textElementId,xPosition,yPosition,fontSize,data,editMode){
    
     const dispatch = useDispatch();
     const [fieldOrigin,setFieldOrigin]=useState("^FO")
@@ -25,7 +25,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
 
     function handleDispatch(){
         if(data.length==0){
-            console.log("it's empty")
+            //console.log("it's empty")
             return
         }
 
@@ -37,11 +37,19 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
         }
     }
 
+    /*old dispatch
     useEffect(()=>{
         handleDispatch()
     },[fieldOrigin,fieldData,zebraFontSize])
-
-
+    */
+   
+    // new code dispatch on edit mode 
+    useEffect(()=>{
+        if(editMode===false){
+            handleDispatch()
+        }
+    },[editMode])
+    
 
     return [fieldOrigin,fieldData,zebraFontSize]
 }

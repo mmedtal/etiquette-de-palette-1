@@ -66,7 +66,7 @@ export default function InsertedInput(props){
      
 
     const [zebraFieldOrigin,zebraFieldData,zebraFontSize] =
-    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue);
+    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue,editMode);
 
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
