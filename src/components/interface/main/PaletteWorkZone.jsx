@@ -35,6 +35,10 @@ export default function PaletteWorkZone(props){
             //console.log("input value length",inputValue.length)
             setElements(elements =>{
                 const updatedElements = [...elements];
+               
+               /* if(updatedElements[childId]==undefined){
+                    return
+                }*/// where i was
                 updatedElements[childId].value=inputValue;
                 return elements
             })
@@ -58,12 +62,23 @@ export default function PaletteWorkZone(props){
         //const nonEmptyValueElements = elements.filter(element => element.value.trim() !== "");
         //setElements(nonEmptyValueElements);
         
-        /*
-        if(whichHeaderButtonIsCliqued=="selectionner"){
-            const filteredElements = elements.filter(element => element.value.trim() !== '');
-            setElements(filteredElements);
+        /* where i was ce qu je veux vraiment c'est que upon deletion then don't show that element in zebra code
+        try{
+            if(whichHeaderButtonIsCliqued=="selectionner"){
+                //const filteredElements = elements.filter(element => element.value.trim() !== '');
+                const filteredElements = elements.filter(element => {
+                    if (element !=undefined && element.value !=undefined) {
+                      return element.value.trim() !== '';
+                    } else {
+                      return false; // Filter out undefined or null elements
+                    }})
+                setElements(filteredElements);
+            }
+        }catch(e){
+            console.log("i'm generating the error")
         }
         */
+        
 
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
             const rect = e.target.getBoundingClientRect();
