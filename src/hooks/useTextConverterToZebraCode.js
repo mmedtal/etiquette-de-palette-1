@@ -27,7 +27,7 @@ export default function useTextConverterToZebraCode(textElementId,xPosition,yPos
         if(data.length==0){
             //console.log("it's empty")
             //console.log("data length zéro : ",data)
-            dispatch({type:"GENERATED_ZEBRA_CODE_FROM_TEXT",payload:{textElementId:textElementId}})
+            dispatch({type:"REMOVE_INSTRUCTION_UPON_ELEMENT_DELETION",payload:{textElementId:textElementId}})
             return
         }
 

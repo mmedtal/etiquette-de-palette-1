@@ -93,7 +93,8 @@ export default function PaletteWorkZone(props){
             setYPosition(y);
             setElements([...elements,
                 
-                {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} elementX={x} elementY={y}
+                {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} 
+                    elementX={x} elementY={y}
                     paletteHeight={props.height}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
                     liftInputValueToParent={liftInputValueToParent} 
