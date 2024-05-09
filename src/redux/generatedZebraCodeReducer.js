@@ -3,6 +3,9 @@ let myState={
     generatedZebraCodeInstructions:[]
 }
 
+function generateZebraCode(state,action){
+
+}
 
 
 export function generatedZebraCodeReducer(state=myState,action){

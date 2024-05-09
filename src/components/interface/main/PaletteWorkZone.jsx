@@ -2,6 +2,7 @@ import { Fade, Slide, TextField } from "@mui/material";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import InsertedInput from "../../helpers/InsertedInput";
+import InsertedBarcode from "../../helpers/InsertedBarcode";
 
 export default function PaletteWorkZone(props){
 
@@ -32,16 +33,20 @@ export default function PaletteWorkZone(props){
     const [yPositon,setYPosition]=useState(null)
     function liftInputValueToParent(childId,inputValue){
         
-            //console.log("input value length",inputValue.length)
-            setElements(elements =>{
-                const updatedElements = [...elements];
-               
-               /* if(updatedElements[childId]==undefined){
-                    return
-                }*/// where i was
-                updatedElements[childId].value=inputValue;
-                return elements
-            })
+            /*if(inputValue=="" && inputValue==undefined){
+                console.log("inputValue : ",inp)
+                setElements(elements => elements.filter((_, index) => index !== childId));
+                return
+            }else{*/
+                setElements(elements =>{
+                    const updatedElements = [...elements];
+                   
+                   
+                    updatedElements[childId].value=inputValue;
+                    return elements
+                })
+            //}
+            
         
     }
 
@@ -56,6 +61,12 @@ export default function PaletteWorkZone(props){
     }
     const dispatch = useDispatch();
 
+
+
+    const [addBarCodeToElementsOrNot,setAddBarCodeToElementsOrNot]=useState(true)
+    function addToElementsOrNot(toAddOrNot){
+        setAddBarCodeToElementsOrNot(toAddOrNot)
+    }
     const [childCount,setChildCount]=useState(0)
     function handleClick(e){
 
@@ -107,16 +118,38 @@ export default function PaletteWorkZone(props){
             setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
         }
+
+        if(whichHeaderButtonIsCliqued=="inserer_barcode"){
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            setElements([...elements,
+                
+                {elementId:childCount,element:<InsertedBarcode key={childCount} whichChildIam={childCount} 
+                    elementX={x} elementY={y}
+                    paletteHeight={props.height}
+                    paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
+                    addToElementsOrNot={addToElementsOrNot}
+                    liftInputValueToParent={liftInputValueToParent} 
+                    liftCorrespondantZebraCodeToParent={liftCorrespondantZebraCodeToParent}
+                    />,value:"",correspondantZebraCode:""}
+            ]);
+            setChildCount(prev=>prev+1)
+            dispatch({type:"SELECTIONNER"})
+        }
     }
 
+    /*
     useEffect(()=>{
         console.log("PaletteWorkZoneElements :",elements)
         //08.05.24 18:23 code to remove elements that have an empty value
 
         //const nonEmptyValueElements = elements.filter(element=>element.value.trim()!=="")
-        //setElements(nonEmptyValueElements)
-    },[elements])
-
+        if(whichHeaderButtonIsCliqued=="selectionner")
+       setElements(elems =>elems.filter(element=>element.value.trim()!==""))
+    },[childCount])
+    */
+    
 
     useEffect(()=>{
         //console.log("Element value :",elementValue)

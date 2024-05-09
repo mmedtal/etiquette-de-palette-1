@@ -71,26 +71,7 @@ export default function InsertedInput(props){
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
 
-    function dispatchingTextElementPosition(){
-
-        try{
-        if((myInputRef.current==null)){
-            return
-        }
-        dispatch({
-            type:"MODIFIER_POSITION_X",
-            //payload:myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left})
-            payload:leftPosition})    
-        dispatch({
-            type:"MODIFIER_POSITION_Y",
-            //payload:myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top})
-            payload:topPosition})   
-        }catch(e){
-            //console.log("an erorrrrrrr r    :",e)
-        }
     
-    
-        }
     
     
 
@@ -178,6 +159,7 @@ export default function InsertedInput(props){
             setInputWidth(parseInt(inputWidth)+parseInt(characterwidth))
         }
         if(insertedCharacter=="deleteContentBackward"){
+            //console.log("backspace :")
             setInputWidth(parseInt(inputWidth)-parseInt(characterwidth))
             return
         }
@@ -207,6 +189,21 @@ export default function InsertedInput(props){
         //props.liftInputValueToParent(props.whichChildIam,inputValue)
     },[inputValue.length])
 
+    // this code may break the app 09.05.24 11:34
+    /*
+    useEffect(()=>{
+        
+        if(insertedCharacter=="deleteContentBackward"){
+            console.log("empty value frm brkjs")
+            setInputWidth(parseInt(inputWidth)-parseInt(characterwidth))
+            if(inputValue==""){
+                props.liftInputValueToParent(props.whichChildIam,"")
+            }
+            return
+        }
+    },[inputValue])
+    */
+   
     const toggleToDefaultCursor = useDispatch()
     
     const [inputFocused,setInputFocused]=useState(false)

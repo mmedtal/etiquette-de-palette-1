@@ -3,6 +3,7 @@ import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput";
 import { useDispatch, useSelector } from "react-redux";
 import PaletteControls from "./PaletteControls";
 import { useEffect, useState } from "react";
+import CodeBarChooser from "../../helpers/CodeBarChooser";
 
 export default function LeftAside(props){
 
@@ -111,8 +112,16 @@ export default function LeftAside(props){
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
                 />
+
+
             </div>}
-            
+                {/* EAN-13 widely used in japan and europ 
+                Code 3ç used in america
+                UPC-A used in retain industry
+                */}
+             {whichHeaderIconIsCliqued=="inserer_barcode"&&   
+            <CodeBarChooser symbologies={["Code 39","Code 128","EAN-13","UPC-A"]}/>
+             }
 
         </div>
     )

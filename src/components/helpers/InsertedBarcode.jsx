@@ -3,6 +3,10 @@ import CharacterWidthCalculator from "./CharacterWidthCalculator";
 import { useDispatch, useSelector } from "react-redux";
 import usePropertiesFromStore from "../../hooks/usePropertiesFromStore";
 import useTextConverterToZebraCode from "../../hooks/useTextConverterToZebraCode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBarcode } from "@fortawesome/free-solid-svg-icons";
+import { IconButton } from "@mui/material";
+import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 
 export default function InsertedBarcode(props){
 
@@ -104,6 +108,8 @@ export default function InsertedBarcode(props){
         }
         //getZebraDataFunction(e.target.value)
         setInputValue(e.target.value)
+
+       
     }
 
     /*
@@ -228,6 +234,15 @@ export default function InsertedBarcode(props){
         }
         toggleToDefaultCursor({type:"SELECTIONNER"})
         
+
+
+        if(inputValue.length==0){
+            setRenderHelpers(false)
+            //props.addToElementsOrNot(false)
+        }else{
+            setRenderHelpers(true)
+            //props.addToElementsOrNot(true)
+        }
     }
 
     
@@ -289,10 +304,52 @@ export default function InsertedBarcode(props){
     useEffect(()=>{
         //props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
     },[inputValue,leftPosition,topPosition])
+
+    const[renderHelpers,setRenderHelpers]=useState(true)
+
+    // useEffect(()=>{
+    //     if(inputValue.length==0){
+    //         setRenderHelpers(false)
+    //     }else{
+    //         setRenderHelpers(true)
+    //     }
+    // },[inputValue])
     return(
         <>
-
-            {editMode&&<input 
+            {/* {renderHelpers&&<FontAwesomeIcon icon={faBarcode} 
+            style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition-fontSize/3.5,color:"gray"}}/>} */}
+            
+            {/*<FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition-fontSize/3.5,color:"gray"}}/>
+            */}
+             {/* <IconButton style={{
+                position: "absolute",left:leftPosition+inputWidth/4,
+                top:topPosition-fontSize/1.2,color:"black"
+                borderImageSource:"url(./public/barcode.png)"          
+            }}
+             > 
+             </IconButton>
+             */}
+                {/* <FontAwesomeIcon icon={faBarcode}/> */}
+             
+             {/* <IconButton style={{position: "absolute",left:leftPosition+inputWidth/3,top:topPosition-fontSize/1.2,color:"black"}}>
+                <FontAwesomeIcon icon={faBarcode}/>
+             </IconButton> */}
+             {/* <div style={{borderImageSource:"url(barcode.png)"  }}> */}
+             {/* <img src={require("../public/barcode.png")}/> */}
+             {/* </div> */}
+             {/* <img src="/white.ico"/> */}
+             
+             
+             {/* <img src={process.env.PUBLIC_URL + '/barcode.png'} />  */}
+           
+            {renderHelpers&&<span style={{width:inputWidth-fontSize/2,position: "absolute",left:leftPosition,top:topPosition-fontSize/2,color:"gray",textAlign:"right",
+                
+            }}>
+            {/* <FontAwesomeIcon icon={faBarcode}/> */}
+            barcode
+            </span>}
+           
+            {editMode&&renderHelpers&&<input 
                 
                 onFocus={handleFocus}
                 onKeyDown={detectPressedKey}
@@ -304,7 +361,12 @@ export default function InsertedBarcode(props){
                 autoFocus={true} 
                 style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
-                        border:"1px solid black",
+                        //borderTop:"1.5px solid gray",  
+                        //borderRight:"1.5px solid gray",                      
+                        border: "1px groove gray",
+                        //borderWidth: "2px",
+                        //borderImageSlice: "1",
+                        //borderImageSource: "repeating-linear-gradient(to right, black, black 1px, white 1px, white 2px)",
                         outline:"none",
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"
                         
@@ -317,15 +379,38 @@ export default function InsertedBarcode(props){
                     setNewInputWidthWhenFontSizeChanges={setNewInputWidthWhenFontSizeChanges}
                     />}
 
-        {!editMode&&<div onClick={handleDivClick}  onMouseOver={handleDivHover}
+        {!editMode&&renderHelpers&&<div onClick={handleDivClick}  onMouseOver={handleDivHover}
                         style={{position: "absolute",whiteSpace:"pre-wrap",
                         border:whichTextInputIsClickedFromReduxStore==props.whichChildIam&&isLeftAsideClicked?"1.5px dashed grey":"",
                         left:leftPosition,top:topPosition,outline:"none",
                         transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                         :`rotate(${rotation}deg)`,
-                        fontSize:`${fontSize}px`,cursor:divCursorAppearance}}>
-            {inputValue}
+                        fontSize:`${fontSize}px`,cursor:divCursorAppearance,
+
+                        //borderTop:"1.5px solid gray",
+                        //borderRight:"1.5px solid gray",
+                        //borderTopLeftRadius:"10px black solid",
+                        //border: "3px groove gray",
+                        //borderWidth: "3px",
+                        //borderImageSlice: "1",
+                        //borderImageSource: "repeating-linear-gradient(to right, black, black 1px, white 1px, white 2px)",
+                        
+                        }}>
+                                {/* <span style={{color:"gray",fontFamily:"serif",letterSpacing: '-2px',}}>||</span> */}
+                                {inputValue}
+                                {/* <span style={{color:"gray",fontFamily:"serif",letterSpacing: '-2px'}}>|||</span> */}
+                            
+            {/* {"||"+inputValue+"||"} */}
         </div>}
+        
+        {/* {renderHelpers&&<FontAwesomeIcon icon={faBarcode} 
+            style={{position: "absolute",left:leftPosition+50,top:topPosition+fontSize*1.4,color:"gray"}}/>} */}
+        {renderHelpers&&<span style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray"}}>barcode</span>}
+        
+        {/* <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray"}}/>
+        <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition+fontSize*1.2,color:"gray"}}/>
+        */}
+       
         </>
     )
     
