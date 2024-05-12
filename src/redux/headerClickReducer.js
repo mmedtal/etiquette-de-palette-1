@@ -3,7 +3,8 @@ import { TextField } from "@mui/material"
 let myState={
     whichHeaderButtonIsCliqued:null,
     whatToInsertOnScreen:null,
-    cursorAppearance:"auto"
+    cursorAppearance:"auto",
+    activeHeaderIcon:null
 }
 
 
@@ -22,12 +23,21 @@ export function headerClickReducer(state=myState,action){
             return {...state,whichHeaderButtonIsCliqued:"dessiner_forme",cursorAppearance:"crosshair"}
         
         case "INSERER_BARCODE":
-            return {...state, whichHeaderButtonIsCliqued:"inserer_barcode"}
+            //console.log("action.whichHeaderIconIsActive : ",action.payload)
+            //,activeHeaderIcon:action.payload.whichHeaderIconIsActive
+            return {...state, whichHeaderButtonIsCliqued:"inserer_barcode",cursorAppearance:"text",}
+                    //activeHeaderIcon:action.payload.whichHeaderIconIsActive}
         
         case "MODIFIER_DIMENSIONS_PALETTE":
             //console.log("modify dimensions ")
             return {...state, whichHeaderButtonIsCliqued:"modifier_dimensions_palette"}
-        
+
+        //
+        case "ACTIVE_HEADER_ICON":
+            //console.log('case "ACTIVE_HEADER_ICON" ',action.payload)
+            return {...state,activeHeaderIcon:action.payload}
+
+
         case "MODE_PAR_DEFAUT":
             return {...state,whichHeaderButtonIsCliqued:null}    
 

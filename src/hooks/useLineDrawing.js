@@ -6,6 +6,7 @@ export default function useLineDrawing(){
     const [isDrawing,setIsDrawing]=useState(false)
     const [startPos,setStartPos] = useState({x:0,y:0})
 
+    const [lineLength,setLineLength] = useState(0)
 
     function handleMouseDown(e){
         setIsDrawing(true)
@@ -14,9 +15,10 @@ export default function useLineDrawing(){
         setStartPos({ x, y });
     }
 
-    function handleMouseDown(){
+    function handleMouseUp(){
         setIsDrawing(false)
     }
+
 
     function handleMouseMove(e){
         if (!isDrawing) return;
@@ -32,7 +34,8 @@ export default function useLineDrawing(){
         const length = Math.abs(deltaX)
         const inclinison = Math.abs(deltaY)
         
-        
+        setLineLength(length)
     }
 
+    return {handleMouseDown,handleMouseUp,handleMouseMove,lineLength}
 }

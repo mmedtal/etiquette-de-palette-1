@@ -3,8 +3,8 @@ import { Button, IconButton, Menu, MenuItem } from "@mui/material";
 import HeaderIcon from "./HeaderIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowPointer, faBarcode, faFont, faHouse, faICursor, faSlash, faVectorSquare } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Header(props){
 
@@ -25,13 +25,23 @@ export default function Header(props){
     const [isMenuOpen,setMenuOpen] = useState(false)
     function handleActiveIcon(activeIcon,e){
         setActiveIcon(activeIcon)
-
+        //console.log("activeIcon frm hdr:  ",activeIcon)
         //handling multiple forms, but this should be only a temprary solution
+        dispatch({type:"ACTIVE_HEADER_ICON",payload:activeIcon})
         if(activeIcon==="Formes" && !isMenuOpen){
             setAnchorEl(e.currentTarget)
             setMenuOpen(true)
         }
     }
+
+    //10.05.24 09:54 pour handler le two way binding pour le visuel, pour l'instant que barcode
+    const activeHeaderIconFromRedux = useSelector(state=>state.headerClickReducer.activeHeaderIcon)
+    useEffect(()=>{
+        if(activeHeaderIconFromRedux=="Barcode"){
+            setActiveIcon(activeHeaderIconFromRedux)
+        }
+    },[activeHeaderIconFromRedux])
+
 
     function handleMenuClose(){
         //console.log("anchorEl : ",anchorEl)
@@ -85,7 +95,8 @@ export default function Header(props){
                 <ShapeLine fontSize="large"/>
             </HeaderIcon>
 
-            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Barcode" onClickDispatchActionsToReduxStore= {[{type:"INSERER_BARCODE"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >        
+            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Barcode" 
+            onClickDispatchActionsToReduxStore= {[{type:"INSERER_BARCODE"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >        
                 <FontAwesomeIcon icon={faBarcode}/>
             </HeaderIcon>
 

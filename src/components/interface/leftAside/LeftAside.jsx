@@ -8,7 +8,7 @@ import CodeBarChooser from "../../helpers/CodeBarChooser";
 export default function LeftAside(props){
 
 
-    const whichHeaderIconIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
+    const {whichHeaderButtonIsCliqued,activeHeaderIcon} = useSelector(state=>state.headerClickReducer)
 
     const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
 
@@ -43,14 +43,14 @@ export default function LeftAside(props){
         //onClick={()=>dispatch({type:})}
         >
             
-            {/* <button onClick={()=>console.log("whichHeaderIconIsCliqued = ",whichHeaderIconIsCliqued)}>click</button> */}
-            {/* {whichHeaderIconIsCliqued!="modifier_dimensions_palette"&& */}
+            {/* <button onClick={()=>console.log("whichHeaderButtonIsCliqued = ",whichHeaderButtonIsCliqued)}>click</button> */}
+            {/* {whichHeaderButtonIsCliqued!="modifier_dimensions_palette"&& */}
             
-            {whichHeaderIconIsCliqued=="modifier_dimensions_palette"&&
+            {whichHeaderButtonIsCliqued=="modifier_dimensions_palette"&&
                 <PaletteControls/>
             }
 
-            {whichHeaderIconIsCliqued!="modifier_dimensions_palette"&&
+            {(whichHeaderButtonIsCliqued!="modifier_dimensions_palette")&&
             <div>
                 <ModifyPropertiesInput label="Position X:"
                     valueFromReduxStore={positionX}
@@ -119,9 +119,18 @@ export default function LeftAside(props){
                 Code 3ç used in america
                 UPC-A used in retain industry
                 */}
-             {whichHeaderIconIsCliqued=="inserer_barcode"&&   
-            <CodeBarChooser symbologies={["Code 39","Code 128","EAN-13","UPC-A"]}/>
-             }
+
+                {/* &&whichHeaderButtonIsCliqued!="inserer_texte"
+                &&whichHeaderButtonIsCliqued!="dessiner_forme"
+                &&whichHeaderButtonIsCliqued!="modifier_dimensions_palette"
+                ||whichHeaderButtonIsCliqued=="selectionner" */}
+             {/* {(whichHeaderButtonIsCliqued=="inserer_barcode")&&    */}
+            
+            {activeHeaderIcon=="Barcode"&&<CodeBarChooser 
+            symbologies={["Code 39","Code 128"]}/>}
+            {/* les autres codes à prendre en charge :"Code 128","EAN-13","UPC-A" */}
+            
+             {/* } */}
 
         </div>
     )

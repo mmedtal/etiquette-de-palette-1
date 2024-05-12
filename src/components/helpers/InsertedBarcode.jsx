@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarcode } from "@fortawesome/free-solid-svg-icons";
 import { IconButton } from "@mui/material";
 import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
+import useBarcodeConverterToZebraCode from "../../hooks/useBarCodeConverterToZebraCode";
 
 export default function InsertedBarcode(props){
 
@@ -47,10 +48,11 @@ export default function InsertedBarcode(props){
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
      
-
+    /*
     const [zebraFieldOrigin,zebraFieldData,zebraFontSize] =
-    useTextConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue);
-
+    useBarcodeConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue,editMode);
+    */
+   
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
 
@@ -209,6 +211,8 @@ export default function InsertedBarcode(props){
         dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
+        //dispatch({type:"INSERER_BARCODE"})
+        dispatch({type:"ACTIVE_HEADER_ICON",payload:"Barcode"})
     }
 
 
@@ -243,6 +247,7 @@ export default function InsertedBarcode(props){
             setRenderHelpers(true)
             //props.addToElementsOrNot(true)
         }
+        //dispatch({type:"INSERER_BARCODE"})
     }
 
     
@@ -280,7 +285,8 @@ export default function InsertedBarcode(props){
     function handleDivClick(){
         
         //dispatchingTextElementPosition()
-        if(whichHeaderButtonIsCliqued=="inserer_texte"){
+        //whichHeaderButtonIsCliqued=="inserer_barcode" fixed barcode jumping to left top of PaletteWorkZone.png
+        if(whichHeaderButtonIsCliqued=="inserer_texte" || whichHeaderButtonIsCliqued=="inserer_barcode"){
             dispatch({type:"SELECTIONNER"})
             
             return
@@ -343,7 +349,8 @@ export default function InsertedBarcode(props){
              {/* <img src={process.env.PUBLIC_URL + '/barcode.png'} />  */}
            
             {renderHelpers&&<span style={{width:inputWidth-fontSize/2,position: "absolute",left:leftPosition,top:topPosition-fontSize/2,color:"gray",textAlign:"right",
-                
+                transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
+                :`rotate(${rotation}deg)`,
             }}>
             {/* <FontAwesomeIcon icon={faBarcode}/> */}
             barcode
@@ -405,7 +412,10 @@ export default function InsertedBarcode(props){
         
         {/* {renderHelpers&&<FontAwesomeIcon icon={faBarcode} 
             style={{position: "absolute",left:leftPosition+50,top:topPosition+fontSize*1.4,color:"gray"}}/>} */}
-        {renderHelpers&&<span style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray"}}>barcode</span>}
+        {renderHelpers&&<span style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray",
+            transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
+            :`rotate(${rotation}deg)`,
+        }}>barcode</span>}
         
         {/* <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray"}}/>
         <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition+fontSize*1.2,color:"gray"}}/>

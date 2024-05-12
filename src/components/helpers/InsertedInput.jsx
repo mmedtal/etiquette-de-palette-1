@@ -176,7 +176,7 @@ export default function InsertedInput(props){
             setInputWidth(fontSize)
             return
         }
-        console.log("input valueeee : ",inputValue)
+        //console.log("input valueeee : ",inputValue)
     },[inputValue])
 
 
@@ -329,7 +329,7 @@ export default function InsertedInput(props){
     const [divCursorAppearance,setDivCursorAppearance] = useState("text")
     function handleDivHover(){
         
-        if(whichHeaderButtonIsCliqued=="inserer_texte"){
+        if(whichHeaderButtonIsCliqued=="inserer_texte" || whichHeaderButtonIsCliqued=="inserer_barcode"){
             setDivCursorAppearance("not-allowed")
         }else{
             setDivCursorAppearance("text")
@@ -338,9 +338,9 @@ export default function InsertedInput(props){
 
 
     //to handle zebra code 
-    useEffect(()=>{
+    /*useEffect(()=>{
         //props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
-    },[inputValue,leftPosition,topPosition])
+    },[inputValue,leftPosition,topPosition])*/
     return(
         <>
 

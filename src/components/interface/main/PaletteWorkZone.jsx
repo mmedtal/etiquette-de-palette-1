@@ -137,6 +137,12 @@ export default function PaletteWorkZone(props){
             setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
         }
+
+
+        if(whichHeaderButtonIsCliqued=="dessiner_forme"){
+            
+        }
+
     }
 
     /*

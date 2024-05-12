@@ -4,16 +4,8 @@ let myState={
 }
 
 function generateZebraCode(state,action){
-
-}
-
-
-export function generatedZebraCodeReducer(state=myState,action){
-    switch (action.type) {
-        case "GENERATED_ZEBRA_CODE_FROM_TEXT":
-            const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
+    const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
             const notFound=-1;
-            //console.log("element id ssdqsqd",elementId);
             //if the object is found then update it
             if(elementId!=notFound){
                 const updatedObject = {
@@ -46,6 +38,17 @@ export function generatedZebraCodeReducer(state=myState,action){
                         ...state,generatedZebraCodeInstructions:updatedCode
                     }
             }
+}
+
+
+function removeZebraCode(state,action){
+    
+}
+
+export function generatedZebraCodeReducer(state=myState,action){
+    switch (action.type) {
+        case "GENERATED_ZEBRA_CODE_FROM_TEXT":
+            return generateZebraCode(myState,action);
 
         case "REMOVE_INSTRUCTION_UPON_ELEMENT_DELETION" :
             const elementIdDel = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
@@ -60,6 +63,9 @@ export function generatedZebraCodeReducer(state=myState,action){
                   generatedZebraCodeInstructions: updatedCode
                 };
               }
+        
+        case "GENERATED_ZEBRA_CODE_FROM_BARCODE":
+            return {...state}
 
         default:
             return state;
