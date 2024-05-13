@@ -1,21 +1,50 @@
 import { Fade, Slide, TextField } from "@mui/material";
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import InsertedInput from "../../helpers/InsertedInput";
 import InsertedBarcode from "../../helpers/InsertedBarcode";
+import LineDrawing from "./LineDrawing";
+import useLineDrawing from "../../../hooks/useLineDrawing";
+import DraggableDiv from "./TestDragDiv";
 
 export default function PaletteWorkZone(props){
 
-    
+    const paletteWorkZoneRef = useRef(null);
+
     const [paletteXPosition , setPaletteXPosition ] = useState(0)
     const [paletteYPosition , setPaletteYPosition ] = useState(0)
 
+
+
+    const {handleMouseDownLineDrawing,handleMouseUpLineDrawing,handleMouseMoveLineDrawing,lineLength,startPos}=
+    useLineDrawing();
+
+
+    const [cursorXPosition,setCursorXPosition]=useState(0)
+    const [cursorYPosition,setCursorYPosition]=useState(0)
     function handleMouseMove(e){
+        
+        handleMouseMoveLineDrawing(e)
+
         const rect = e.target.getBoundingClientRect();
         const left = rect.left;
         const top  = rect.top;
         setPaletteXPosition(left)
         setPaletteYPosition(top)
+
+    
+
+        const parentRect = paletteWorkZoneRef.current.getBoundingClientRect();
+
+        //setCursorXPosition(e.clientX -e.target.getBoundingClientRect().left)
+        setCursorYPosition(e.clientY -e.target.getBoundingClientRect().top)
+
+        //console.log("cursor X Pos : ",e.clientX -e.target.getBoundingClientRect().left)
+        //console.log("cursor X Pos : ",e.clientX -parentRect.left)
+        setCursorXPosition(e.clientX -parentRect.left)
+
+        //console.log("Cursor X pos : ", e.clientX -parentRect.left)
+        //setLineLength(e.target.getBoundingClientRect().left)
         //console.log("palette left pos :",left)
         //console.log("palette top pos :", top)
     }
@@ -68,8 +97,20 @@ export default function PaletteWorkZone(props){
         setAddBarCodeToElementsOrNot(toAddOrNot)
     }
     const [childCount,setChildCount]=useState(0)
-    function handleClick(e){
 
+
+    const [lineStartXPosition,setLineStartXPosition]=useState(0)
+
+    const [mouseUpXPosition,setMouseUpXPosition]=useState(0)
+    const [mouseUpYPosition,setMouseUpYPosition]=useState(0)
+
+
+
+    const [mouseDownXPosition,setMouseDownXPosition]=useState(0)
+    const [mouseDownYPosition,setMouseDownYPosition]=useState(0)
+
+    function handleClick(e){
+        //handleMouseDownLineDrawing();
         //const nonEmptyValueElements = elements.filter(element => element.value.trim() !== "");
         //setElements(nonEmptyValueElements);
         
@@ -123,6 +164,8 @@ export default function PaletteWorkZone(props){
             const rect = e.target.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+            
+
             setElements([...elements,
                 
                 {elementId:childCount,element:<InsertedBarcode key={childCount} whichChildIam={childCount} 
@@ -138,23 +181,40 @@ export default function PaletteWorkZone(props){
             dispatch({type:"SELECTIONNER"})
         }
 
-
         if(whichHeaderButtonIsCliqued=="dessiner_forme"){
-            
-        }
+            const rect = e.target.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const deltaX = x - startPos.x;
+            const deltaY = y - startPos.y;
 
+            const mouseClickXPosition = e.clientX - e.target.getBoundingClientRect().left;
+            setElements([...elements,
+                
+                {elementId:childCount,element:<LineDrawing 
+                    cursorXPosition={cursorXPosition}
+                    cursorYPosition={cursorYPosition}
+                    lineLength={lineLength} key={childCount} handleMouseMove={handleMouseMove} 
+                left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
+                top={mouseDownYPosition}
+                paletteWorkZoneRef={paletteWorkZoneRef}
+                    />,value:"",correspondantZebraCode:""}
+            ]);
+            setChildCount(prev=>prev+1)
+            dispatch({type:"SELECTIONNER"})
+        }
     }
 
-    /*
+    
     useEffect(()=>{
         console.log("PaletteWorkZoneElements :",elements)
         //08.05.24 18:23 code to remove elements that have an empty value
 
         //const nonEmptyValueElements = elements.filter(element=>element.value.trim()!=="")
-        if(whichHeaderButtonIsCliqued=="selectionner")
-       setElements(elems =>elems.filter(element=>element.value.trim()!==""))
+        //if(whichHeaderButtonIsCliqued=="selectionner")
+       //setElements(elems =>elems.filter(element=>element.value.trim()!==""))
     },[childCount])
-    */
+    
     
 
     useEffect(()=>{
@@ -167,19 +227,52 @@ export default function PaletteWorkZone(props){
 
 
     //l'ajout de insertedText c'est pour supprimer les éléments qui n'ont pas de textes
+
+    function onMouseDown(e){
+        //console.log(" MouseDownXPosition : ",e.clientX -e.target.getBoundingClientRect().left)
+
+        setMouseDownYPosition(e.clientY - e.target.getBoundingClientRect().top)
+        setMouseDownXPosition(e.clientX - e.target.getBoundingClientRect().left)
+        handleMouseDownLineDrawing(e)
+    }
+    function onMouseUp(e){
+
+        //console.log(" MouseUpXPosition : ",e.clientX -e.target.getBoundingClientRect().left)
+        
+        setMouseUpYPosition(e.clientY - e.target.getBoundingClientRect().top)
+        setMouseUpXPosition(e.clientX - e.target.getBoundingClientRect().left)
+        handleMouseUpLineDrawing(e)
+    }
+
+    /*
+    useEffect(()=>{
+        setLineStartXPosition(mouseUpXPosition)
+    },[mouseUpXPosition])
+    */
+
+    
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
             style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`}}
             >
             <div onMouseMove={handleMouseMove} id="" onClick={handleClick}
-                style={{cursor:cursorAppearance}} >
-
+                style={{cursor:cursorAppearance}} 
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                ref={paletteWorkZoneRef}
+                >
+                
 
                 {elements.map((element,index)=>{
                     return  element.element
                 })}
 
-                
+                {/* <LineDrawing 
+                    cursorXPosition={cursorXPosition}
+                    cursorYPosition={cursorYPosition}
+                    lineLength={100} key={childCount} handleMouseMove={handleMouseMove} 
+                left={200}top={mouseDownYPosition}/> */}
+                {/* <DraggableDiv/> */}
             </div>
         </Fade>
     )

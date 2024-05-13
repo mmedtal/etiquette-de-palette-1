@@ -37,6 +37,14 @@ export function headerClickReducer(state=myState,action){
             //console.log('case "ACTIVE_HEADER_ICON" ',action.payload)
             return {...state,activeHeaderIcon:action.payload}
 
+        //13.05.24 11:55
+        case "SELECT_LINE":
+            return {...state,cursorAppearance:"move"}
+        //13.05.24 11:55
+        case "UNSELECT_LINE":
+            return {...state,cursorAppearance:"auto"}
+
+
 
         case "MODE_PAR_DEFAUT":
             return {...state,whichHeaderButtonIsCliqued:null}    
