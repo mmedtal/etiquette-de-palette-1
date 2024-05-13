@@ -5,7 +5,6 @@ import InsertedInput from "../../helpers/InsertedInput";
 import InsertedBarcode from "../../helpers/InsertedBarcode";
 import LineDrawing from "./LineDrawing";
 import useLineDrawing from "../../../hooks/useLineDrawing";
-import DraggableDiv from "./TestDragDiv";
 
 export default function PaletteWorkZone(props){
 
@@ -109,6 +108,9 @@ export default function PaletteWorkZone(props){
     const [mouseDownXPosition,setMouseDownXPosition]=useState(0)
     const [mouseDownYPosition,setMouseDownYPosition]=useState(0)
 
+
+    const [lineDrawingWidth,setLineDrawingWidth] = useState(0)
+    const [lineDrawingHeight,setLineDrawingHeight] = useState(0)
     function handleClick(e){
         //handleMouseDownLineDrawing();
         //const nonEmptyValueElements = elements.filter(element => element.value.trim() !== "");
@@ -182,21 +184,47 @@ export default function PaletteWorkZone(props){
         }
 
         if(whichHeaderButtonIsCliqued=="dessiner_forme"){
+            /*
             const rect = e.target.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             const deltaX = x - startPos.x;
             const deltaY = y - startPos.y;
 
-            const mouseClickXPosition = e.clientX - e.target.getBoundingClientRect().left;
+            const mouseClickXPosition = e.clientX - e.target.getBoundingClientRect().left;*/
+
+            const deltaX = mouseDownXPosition - mouseUpXPosition;
+            const deltaY = mouseDownYPosition - mouseUpYPosition;
+            const absDeltaX = Math.abs(deltaX);
+            const absDeltaY = Math.abs(deltaY);
+
+            if (absDeltaX > absDeltaY) {
+               
+                setLineDrawingWidth(absDeltaX);
+                setLineDrawingHeight(1)
+              } else {
+                setLineDrawingWidth(1)
+                setLineDrawingHeight(absDeltaY)
+              }
+
             setElements([...elements,
                 
                 {elementId:childCount,element:<LineDrawing 
-                    cursorXPosition={cursorXPosition}
-                    cursorYPosition={cursorYPosition}
+                    //cursorXPosition={cursorXPosition}
+                    // cursorYPosition={cursorYPosition}
                     lineLength={lineLength} key={childCount} handleMouseMove={handleMouseMove} 
+
+                    
                 left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
-                top={mouseDownYPosition}
+                top={mouseDownYPosition<mouseUpYPosition?mouseDownYPosition:mouseUpYPosition}
+
+
+                height={absDeltaX>absDeltaY?1:absDeltaY} 
+                width={absDeltaX>absDeltaY?absDeltaX:1}
+                //her is either to draw a vertical or horizontal line
+                angle={absDeltaX > absDeltaY?"0":"90"}
+                
+
                 paletteWorkZoneRef={paletteWorkZoneRef}
                     />,value:"",correspondantZebraCode:""}
             ]);
