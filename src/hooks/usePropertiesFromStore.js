@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-
-export default function usePropertiesFromStore(reducer,propertyFromReduxStore,whichChildIam,defaultValue){
+//dans cette hook on a useState, useSelector et useEffect
+export default function usePropertiesFromStore(reducer,propertyFromReduxStore,whichChildIam,
+                                                defaultValue){
     
     const [property,setProperty] = useState(defaultValue)
     
@@ -11,6 +12,7 @@ export default function usePropertiesFromStore(reducer,propertyFromReduxStore,wh
 
     useEffect(()=>{
         if(whichChildIam==whichTextInputIsClickedFromReduxStore){
+            //console.log("whichTextInputIsClickedFromReduxStore :",whichTextInputIsClickedFromReduxStore)
             setProperty(selectedProperty)
         }
     },[selectedProperty])
@@ -24,3 +26,12 @@ export default function usePropertiesFromStore(reducer,propertyFromReduxStore,wh
     */
     return [selectedProperty,property,setProperty]
 }
+
+
+
+
+
+
+
+
+

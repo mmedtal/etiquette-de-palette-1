@@ -214,18 +214,18 @@ export default function PaletteWorkZone(props){
                     // cursorYPosition={cursorYPosition}
                     lineLength={lineLength} key={childCount} handleMouseMove={handleMouseMove} 
 
-                    
-                left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
-                top={mouseDownYPosition<mouseUpYPosition?mouseDownYPosition:mouseUpYPosition}
+                    left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
+                    top={mouseDownYPosition<mouseUpYPosition?mouseDownYPosition:mouseUpYPosition}
 
-
-                height={absDeltaX>absDeltaY?1:absDeltaY} 
-                width={absDeltaX>absDeltaY?absDeltaX:1}
-                //her is either to draw a vertical or horizontal line
-                angle={absDeltaX > absDeltaY?"0":"90"}
+                    height={absDeltaX>absDeltaY?1:absDeltaY} 
+                    width={absDeltaX>absDeltaY?absDeltaX:1}
+                    //here is either to draw a vertical or horizontal line
+                    angle={absDeltaX > absDeltaY?"0":"90"}
                 
+                    absDeltaX={absDeltaX}  absDeltaY={absDeltaY}
 
-                paletteWorkZoneRef={paletteWorkZoneRef}
+                    paletteWorkZoneRef={paletteWorkZoneRef}
+                    whichChildIam={childCount} 
                     />,value:"",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
