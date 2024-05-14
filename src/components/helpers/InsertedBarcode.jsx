@@ -48,11 +48,12 @@ export default function InsertedBarcode(props){
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
      
-    /*
+    
+    
     const [zebraFieldOrigin,zebraFieldData,zebraFontSize] =
     useBarcodeConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,fontSize,inputValue,editMode);
-    */
-   
+    
+    
     const [textElementXPosition,setTextElementXPosition]=useState(0)
     const [textElementYPosition,setTextElementYPosition]=useState(0)
 
