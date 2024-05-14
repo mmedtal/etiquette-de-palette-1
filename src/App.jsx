@@ -10,7 +10,7 @@ import { myStore } from './redux/store';
 function App() {
   return (
     <Provider store={myStore}>
-      <LayoutComponent>
+      <LayoutComponent >
         <div>
           <TopLeftCorner/>
         </div>

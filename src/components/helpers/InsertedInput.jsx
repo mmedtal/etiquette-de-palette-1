@@ -304,15 +304,7 @@ export default function InsertedInput(props){
         setInputWidth(newInputWidth+fontSize/2)
     }
 
-    useEffect(()=>{
-        
-    },[fontSize])
-
-
-
     
-    
-
     const whichHeaderButtonIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
     function handleDivClick(){
         

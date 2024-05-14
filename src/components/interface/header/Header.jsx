@@ -53,12 +53,14 @@ export default function Header(props){
 
     function handleMenuLigneClick(){
         //console.log("ligne clicked")
+        dispatch({type:"DESSINER_LIGNE_FORME"})
         setAnchorEl(null)
         setMenuOpen(false)
     }
     function handleMenuRectangleClick(){
         setAnchorEl(null)
         setMenuOpen(false)
+        dispatch({type:"DESSINER_RECTANGLE_FORME"})
     }
     return(
         <div className="flex justify-around" onClick={handleHeaderComponentClick}>
@@ -72,7 +74,9 @@ export default function Header(props){
                 {/* <FontAwesomeIcon icon={faFont}/> */}
             </HeaderIcon>
 
-            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Formes" onClickDispatchActionsToReduxStore= {[{type:"DESSINER_FORME"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
+            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} 
+                text="Formes" 
+                onClickDispatchActionsToReduxStore= {[{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
                 {/* <div style={{height:"30px",width:"2.5px",backgroundColor:"grey",transform:"rotate(45deg)"}}>
                 </div> */}
                 {/* <FontAwesomeIcon icon={faSlash}/> */}

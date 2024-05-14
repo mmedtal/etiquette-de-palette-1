@@ -26,10 +26,21 @@ export default function LineDrawing(props){
     const [isDragging, setIsDragging] = useState(false);
 
     
-    const [position, setPosition] = useState({ x: props.left, y: props.top });
+    //const [position, setPosition] = useState({ x: props.left, y: props.top });
+    //this above is being refactored to those two beneath
     const [positionXFromRedux,leftPosition,setLeftPosition] = 
     usePropertiesFromStore("leftAsideControllersReducer","positionX",props.whichChildIam,
-    {x:props.left,y:props.top});
+    props.left);
+    const [positionYFromRedux,topPosition,setTopPosition] = 
+    usePropertiesFromStore("leftAsideControllersReducer","positionY",props.whichChildIam,
+    props.top);
+
+    const [rotationFromReduxStore,rotation,setRotation] = 
+    usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,
+    props.angle);
+    
+
+
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
@@ -38,8 +49,10 @@ export default function LineDrawing(props){
       const parentRect = props.paletteWorkZoneRef.current.getBoundingClientRect();
       const newX = e.clientX - parentRect.left - dragOffset.x;
       const newY = e.clientY - parentRect.top - dragOffset.y;
-      
-      setPosition({ x: newX, y: newY });
+
+      setLeftPosition(newX)
+      setTopPosition(newY)
+      //setPosition({ x: newX, y: newY });
     };
 
     const handleMouseUp = () => {
@@ -58,6 +71,7 @@ export default function LineDrawing(props){
   }, [isDragging, dragOffset, props.paletteWorkZoneRef]);
 
   const handleMouseDown = (e) => {
+    e.preventDefault();
     setIsDragging(true);
     const rect = e.target.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
@@ -70,35 +84,40 @@ export default function LineDrawing(props){
     //console.log("props.transform : ",props.transform)
 
     //console.log("props.lineDrawingHeight : ",props.lineDrawingHeight)
+    //console.log("whichchildiam",props.whichChildIam)
   },[])
   
 
-    /*this is also causing a bug text
-    function handleFocus(){
-      // setWidth(prev => prev == "1" ? prev+5: prev);
-      //console.log("i'm focused")
-      dispatch({
-        type:"MODIFIER_POSITION_X",
-        payload:position.x})
-      dispatch({
-        type:"MODIFIER_POSITION_Y",
-        payload:position.y})
-        dispatch({type:"MODIFIER_ROTATION",payload:props.angle})
-    }*/
+    ///*this is also causing a bug text
     
-    /* causing a bug, text jumping
-    useEffect(()=>{
+    function handleFocus(){
+      dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
       dispatch({
         type:"MODIFIER_POSITION_X",
-        payload:position.x})
+        payload:leftPosition})
       dispatch({
         type:"MODIFIER_POSITION_Y",
-        payload:position.y})
+        payload:topPosition})
+        dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
-        dispatch({type:"MODIFIER_ROTATION",payload:props.angle})
+    }//*/
+    
+     //causing a bug, text jumping
+    useEffect(()=>{
+      dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
 
-      },[position.x,position.y]) 
-      */
+      dispatch({
+        type:"MODIFIER_POSITION_X",
+        payload:leftPosition})
+        
+      dispatch({
+        type:"MODIFIER_POSITION_Y",
+        payload:topPosition})
+
+      dispatch({type:"MODIFIER_ROTATION",payload:rotation})
+
+      },[leftPosition,topPosition,rotation]) 
+      //*/
 
 
     
@@ -118,24 +137,28 @@ export default function LineDrawing(props){
         }
       }*/
 
-      /*
+      
       function detectPressedKey(e){
-        let cursorPos = e.target.selectionStart
+       
         
-        if(cursorPos==0 && e.key=="ArrowLeft"){
-            setPosition.x(prevPosition=>prevPosition-1)
+        if(e.key=="ArrowLeft"){
+            e.preventDefault();
+            setLeftPosition(prevPosition=>prevPosition-1)
         }
         if(e.key=="ArrowRight"){
-          setPosition.x(prevPosition=>prevPosition+1)
+          e.preventDefault();
+          setLeftPosition(prevPosition=>prevPosition+1)
         }
         if(e.key=="ArrowUp"){
-          setPosition.y(prevPosition=>prevPosition-1)
+          e.preventDefault();
+          setTopPosition(prevPosition=>prevPosition-1)
         }
         if(e.key=="ArrowDown"){
-          setPosition.y(prevPosition=>prevPosition+1)
+          e.preventDefault();
+          setTopPosition(prevPosition=>prevPosition+1)
         }
         
-    }*/
+    }
     function handleClick(){
       lineRef.current.focus()
       //lineRef.current.style.backgroundColor="green"
@@ -167,9 +190,11 @@ export default function LineDrawing(props){
                         borderRadius:"50px",
                         width:width+"px",
                         position:"absolute",
-                        transform:`rotate(${props.angle})`,
-                        left: position.x + 'px',
-                        top: position.y + 'px',
+                        transform:`rotate(${rotation})`,
+                        //transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore})` :
+                        //`rotate(${rotation})`,
+                        left: leftPosition + 'px',
+                        top: topPosition + 'px',
                         cursor: isDragging ? 'grabbing' : 'grab',
                         height:height+"px"
                         ,backgroundColor:color,
@@ -182,10 +207,10 @@ export default function LineDrawing(props){
                         
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        //onFocus={handleFocus}
+                        onFocus={handleFocus}
                         //onBlur={handleLineBlur}
                         tabIndex={0}
-                        //onKeyDown={detectPressedKey}
+                        onKeyDown={detectPressedKey}
                         onClick={handleClick}
                         >
 

@@ -19,9 +19,19 @@ export function headerClickReducer(state=myState,action){
             return {...state, whichHeaderButtonIsCliqued:"inserer_texte",cursorAppearance:"text",
                     whatToInsertOnScreen:<TextField variant="standard"/>}
         
+                    /*
         case "DESSINER_FORME":
             return {...state,whichHeaderButtonIsCliqued:"dessiner_forme",cursorAppearance:"crosshair"}
+        */
+        case "DESSINER_LIGNE_FORME":
+            //console.log("ligne reached frm redux store")
+            return {...state,whichHeaderButtonIsCliqued:"dessiner_ligne_forme",cursorAppearance:"crosshair"}
         
+        case "DESSINER_RECTANGLE_FORME":
+            //console.log("rectangle reached frm redux store")
+            return {...state,whichHeaderButtonIsCliqued:"dessiner_rectangle_forme",cursorAppearance:"crosshair"}
+
+
         case "INSERER_BARCODE":
             //console.log("action.whichHeaderIconIsActive : ",action.payload)
             //,activeHeaderIcon:action.payload.whichHeaderIconIsActive

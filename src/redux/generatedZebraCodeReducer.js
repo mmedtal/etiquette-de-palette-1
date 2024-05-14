@@ -51,6 +51,8 @@ export function generatedZebraCodeReducer(state=myState,action){
                     }
             }
 
+        
+
         case "REMOVE_INSTRUCTION_UPON_ELEMENT_DELETION" :
             const elementIdDel = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
             const notFoundDel=-1;
