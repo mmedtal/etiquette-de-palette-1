@@ -1,56 +1,60 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-export default function useTextConverterToZebraCode(elementId,xPosition,yPosition,fontSize,data,editMode){
+export default function useBoxAndLineConverterToZebraCode
+(elementId,xPosition,yPosition,width,height,angle,submitZebraCode){
    
     const dispatch = useDispatch();
     const [fieldOrigin,setFieldOrigin]=useState("^FO")
-    const [fieldData,setFieldData]    =useState("^FD")
-
-    const [lineDensity,setLineDensity] =useState("0")
-
+    const [keyCommand,setKeyCommand]    =useState("^GB")
+    //const [lineHeight,setLineHeight]=useState(false)
+    //const [lineWidth,setLineWidth]=useState(false)
+    const [lineDensity,setLineDensity] =useState("1")
+    /*
     useEffect(()=>{
        
         setZebraFontSize("^CFA,"+parseInt(fontSize+14))
     },[fontSize])
-
+    */
     useEffect(()=>{
         setFieldOrigin("^FO"+xPosition+","+yPosition)
     },[xPosition,yPosition])
-
+    /*
     useEffect(()=>{
         setFieldData("^FD"+data+"^FS")
     },[data])
+    */
+    useEffect(()=>{
+        if(angle==90){
+            //setLineWidth(0)
+            width=0
+        }
+        if(angle==0){
+            //setLineHeight(0)
+            height=0
+        }
+        setKeyCommand("^GB"+width+","+height+","+lineDensity+"^FS")
+    },[width,height])
 
     function handleDispatch(){
-        if(data.length==0){
-            //console.log("it's empty")
-            //console.log("data length zéro : ",data)
-            dispatch({type:"REMOVE_INSTRUCTION_UPON_ELEMENT_DELETION",payload:{textElementId:elementId}})
-            return
-        }
-
-        if(data==" " || data=="" || data==undefined){
-            return
-        }else{
-            //console.log("data : ",data)
-            dispatch({type:"GENERATED_ZEBRA_CODE_FROM_LINE_OR_BOX",payload:{textElementId:elementId,zebraCode:zebraFontSize+fieldOrigin+fieldData}})   
-        }
+        dispatch({type:"GENERATED_ZEBRA_CODE",
+        payload:{elementId:elementId,zebraCode:fieldOrigin+keyCommand}})   
     }
 
-    /*old dispatch
+    /*
     useEffect(()=>{
         handleDispatch()
-    },[fieldOrigin,fieldData,zebraFontSize])
+    },[fieldOrigin,])
     */
    
     // new code dispatch on edit mode 
+    
     useEffect(()=>{
-        if(editMode===false){
+        //if(submitZebraCode===true){
             handleDispatch()
-        }
-    },[editMode])
+        //}
+    },[keyCommand,fieldOrigin])
+    //*/
 
-
-    return [fieldOrigin,fieldData,zebraFontSize]
+    return [fieldOrigin,keyCommand,lineDensity]
 }

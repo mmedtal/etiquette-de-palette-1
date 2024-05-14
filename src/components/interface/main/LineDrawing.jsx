@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import useLineDrawing from "../../../hooks/useLineDrawing"
 import { useDispatch, useSelector } from "react-redux"
 import usePropertiesFromStore from "../../../hooks/usePropertiesFromStore";
+import useBoxAndLineConverterToZebraCode from "../../../hooks/useBoxAndLineConverterToZebraCode";
 
 export default function LineDrawing(props){
 
@@ -169,17 +170,33 @@ export default function LineDrawing(props){
         
       //}
     }
-
+    const [submitZebraCode,setSubmitZebraCode]=useState(true)
     function handleMouseEnter(){
+      setSubmitZebraCode(false)
       setWidth(prev => prev == "1" ? prev+5: prev);
       setHeight(prev => prev == "1" ? prev+5: prev);
 
     }
     function handleMouseLeave(){
+      setSubmitZebraCode(true)
       setWidth(prev => prev == "6" ? 1: prev);
       setHeight(prev => prev == "6" ? 1: prev);
 
     }
+
+    const [fieldOrigin,keyCommand,lineDensity] =
+    useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,width,height,rotation,submitZebraCode);
+
+    useEffect(()=>{
+      //lineRef.current.focus()
+      dispatch({
+        type:"MODIFIER_POSITION_X",
+        payload:leftPosition})
+    dispatch({
+        type:"MODIFIER_POSITION_Y",
+        payload:topPosition})
+    } 
+,[])
     return(
         <div    
               ref={lineRef}

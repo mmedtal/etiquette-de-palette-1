@@ -14,9 +14,10 @@ function removeZebraCode(state,action){
 
 export function generatedZebraCodeReducer(state=myState,action){
     switch (action.type) {
-        case "GENERATED_ZEBRA_CODE_FROM_TEXT":
+        case "GENERATED_ZEBRA_CODE":
             //return generateZebraCode(myState,action);
-            const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
+            console.log("elementId : ",action.payload.elementId)
+            const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.elementId==action.payload.elementId)   
             const notFound=-1;
             //if the object is found then update it
             if(elementId!=notFound){
@@ -36,13 +37,13 @@ export function generatedZebraCodeReducer(state=myState,action){
                 }
             }else{
                     const newObject = {
-                        textElementId:action.payload.textElementId,
+                        elementId:action.payload.elementId,
                         zebraCode:action.payload.zebraCode
                     }
                     const updatedCode=[
-                        //{textElementId:0,zebraCode:"^XA"},
+                        //{elementId:0,zebraCode:"^XA"},
                         ...state.generatedZebraCodeInstructions,newObject,
-                        //{textElementId:20,zebraCode:"^XL"},
+                        //{elementId:20,zebraCode:"^XL"},
                        
                     ]
 
@@ -54,7 +55,7 @@ export function generatedZebraCodeReducer(state=myState,action){
         
 
         case "REMOVE_INSTRUCTION_UPON_ELEMENT_DELETION" :
-            const elementIdDel = state.generatedZebraCodeInstructions.findIndex(el=>el.textElementId==action.payload.textElementId)   
+            const elementIdDel = state.generatedZebraCodeInstructions.findIndex(el=>el.elementId==action.payload.elementId)   
             const notFoundDel=-1;
             if (elementIdDel !== notFoundDel) {
                 const updatedCode = state.generatedZebraCodeInstructions.filter(
