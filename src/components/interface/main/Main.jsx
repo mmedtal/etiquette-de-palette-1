@@ -14,13 +14,14 @@ export default function Main(props){
 
     const [hauteurPalette,setHauteurPalette] = useState(450)
     const [largeurPalette,setLargeurPalette] = useState(600)
-
+    const [resolutionPalette,setResolutionPalette] = useState(200)
     
 
     useEffect(()=>{
         if(controlMount==1){
             dispatch({type:"AFFECTER_PALETTE_HAUTEUR",payload:hauteurPalette})
             dispatch({type:"AFFECTER_PALETTE_LARGEUR",payload:largeurPalette})
+            dispatch({type:"AFFECTER_PALETTE_RESOLUTION",payload:resolutionPalette})
         }
         controlMount=2
     },[])

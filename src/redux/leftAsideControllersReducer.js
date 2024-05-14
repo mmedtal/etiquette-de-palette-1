@@ -7,6 +7,7 @@ let myControllersState={
     rotation    :0,
     paletteHauteur:0,
     paletteLargeur:0,
+    resolutionInDpi:0,
     leftAsideClicke:false,
     whichTextInputIsClicked:null,
     isLeftAsideClicked:false,
@@ -53,6 +54,10 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 //if(parseInt(action.payload)<=0) return
                 return {...state,paletteLargeur:parseInt(action.payload)}
                 //return {...state,paletteLargeur:parseInt(state.paletteLargeur)+parseInt(action.payload)}
+
+            case "AFFECTER_PALETTE_RESOLUTION":
+                return {...state,resolutionInDpi:parseInt(action.payload)}
+
 
             case "AFFECTER_TEXT_INPUT_CLIQUE":
                 //console.log("redux the clicked child is : ",action.payload)

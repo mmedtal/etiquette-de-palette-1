@@ -28,12 +28,15 @@ export default function ModifyPropertiesInput(props){
         //console.log("inputRef",inputRef.current)
         //console.log("value ft sze : ",value)
         setValue(value+1)
+        //setValue(value+props.step)
+
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function decrementInputValue(){
         
         setValue(value-1)
+        //setValue(value-props.step)
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
@@ -101,11 +104,13 @@ export default function ModifyPropertiesInput(props){
 
             // pour centrer le text à l'intérieur
             inputProps={{
-                style:{textAlign:"center",fontSize:"120%"},
-                step:1
+                style:{textAlign:props.inputValueAlign,fontSize:"120%"},
+                step:props.step
             }}
-        >
 
+            
+        >
+            
         </TextField>
     )
 }
