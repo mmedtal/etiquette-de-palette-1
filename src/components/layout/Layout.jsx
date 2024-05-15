@@ -7,7 +7,7 @@ export default function LayoutComponent({children}){
 
 
     return(
-        <div>
+        <div className="" >
             <div className="flex mb-1">
 
                 <div className="w-1/5 ">
@@ -29,6 +29,7 @@ export default function LayoutComponent({children}){
 
                 <div className="w-4/5 h-screen">
                     {main}
+                    
                 </div>
 
             </div>
@@ -39,3 +40,10 @@ export default function LayoutComponent({children}){
 
 
 }
+
+{/* <div className="shape right-shape" style={{position: "absolute",
+        width:" 300px",
+        height: "300px",
+        borderRadius: "50%",
+        backgroundColor: "#336699", top: "50%",
+        right: "-150px"}}></div> */}

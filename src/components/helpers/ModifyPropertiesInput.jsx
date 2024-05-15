@@ -20,12 +20,14 @@ export default function ModifyPropertiesInput(props){
 
     function incrementInputValue(){
         setValue(value+1)
-    }
+
+}
 
     function decrementInputValue(){
         
         setValue(value-1)
-    }
+
+}
 
     function manualyEnteredInputValue(e){
         
@@ -73,11 +75,13 @@ export default function ModifyPropertiesInput(props){
             }}
 
             inputProps={{
-                style:{textAlign:"center",fontSize:"120%"},
-                step:1
+                style:{textAlign:props.inputValueAlign,fontSize:"120%"},
+                step:props.step
             }}
-        >
 
+            
+        >
+            
         </TextField>
     )
 }
