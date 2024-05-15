@@ -171,17 +171,19 @@ export default function LineDrawing(props){
       //}
     }
     const [submitZebraCode,setSubmitZebraCode]=useState(true)
+
+    const [lineBorder,setLineBorder]=useState("")
     function handleMouseEnter(){
       setSubmitZebraCode(false)
-      setWidth(prev => prev == "1" ? prev+5: prev);
-      setHeight(prev => prev == "1" ? prev+5: prev);
-
+      //setWidth(prev => prev == "1" ? prev+5: prev);
+      //setHeight(prev => prev == "1" ? prev+5: prev);
+      setLineBorder("2px tomato solid")
     }
     function handleMouseLeave(){
       setSubmitZebraCode(true)
-      setWidth(prev => prev == "6" ? 1: prev);
-      setHeight(prev => prev == "6" ? 1: prev);
-
+      //setWidth(prev => prev == "6" ? 1: prev);
+      //setHeight(prev => prev == "6" ? 1: prev);
+      setLineBorder("")
     }
 
     const [fieldOrigin,keyCommand,lineDensity] =
@@ -203,7 +205,8 @@ export default function LineDrawing(props){
                 style={{
 
                         //width:`${props.lineLength}px`,
-
+                        // color:"",
+                        border:lineBorder,
                         borderRadius:"50px",
                         width:width+"px",
                         position:"absolute",
