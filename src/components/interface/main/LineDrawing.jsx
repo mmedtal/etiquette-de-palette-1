@@ -222,7 +222,7 @@ export default function LineDrawing(props){
     }
 
     const [fieldOrigin,keyCommand,lineDensity] =
-    useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,largeur,height,rotation,submitZebraCode);
+    useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,largeur,height,rotation,submitZebraCode,epaisseur);
 
     useEffect(()=>{
       //lineRef.current.focus()

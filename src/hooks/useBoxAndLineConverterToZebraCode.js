@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
 export default function useBoxAndLineConverterToZebraCode
-(elementId,xPosition,yPosition,width,height,angle,submitZebraCode){
+(elementId,xPosition,yPosition,width,height,angle,submitZebraCode,epaisseur){
    
     const dispatch = useDispatch();
     const [fieldOrigin,setFieldOrigin]=useState("^FO")
@@ -16,6 +16,11 @@ export default function useBoxAndLineConverterToZebraCode
         setZebraFontSize("^CFA,"+parseInt(fontSize+14))
     },[fontSize])
     */
+
+    useEffect(()=>{
+        setLineDensity(epaisseur)
+    },[epaisseur])
+
     useEffect(()=>{
         setFieldOrigin("^FO"+xPosition+","+yPosition)
     },[xPosition,yPosition])
@@ -27,10 +32,13 @@ export default function useBoxAndLineConverterToZebraCode
     useEffect(()=>{
         if(angle==90){
             //setLineWidth(0)
+            //setLineDensity(width)
             width=0
+            
         }
         if(angle==0){
             //setLineHeight(0)
+            //setLineDensity(height)
             height=0
         }
         setKeyCommand("^GB"+width+","+height+","+lineDensity+"^FS")

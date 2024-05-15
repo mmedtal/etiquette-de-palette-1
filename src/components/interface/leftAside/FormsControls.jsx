@@ -41,30 +41,30 @@ export default function FormsControls(props){
                     leftIcon={<ArrowUpward color="success"/>}
                 />
 
-            <ModifyPropertiesInput label="Rotation en deg:"
+            {/* <ModifyPropertiesInput label="Rotation en deg:"
                     valueFromReduxStore={rotation}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
 
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
-                />
+                /> */}
 
 
-            <ModifyPropertiesInput label="Largeur:"
+            {rotation==0&&<ModifyPropertiesInput label="Largeur:"
                     valueFromReduxStore={largeur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_LARGEUR"
 
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
-                />
+                />}
 
-            <ModifyPropertiesInput label="Longeur:"
+            {rotation==90&&<ModifyPropertiesInput label="Longeur:"
                     valueFromReduxStore={longeur}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_LONGUEUR"
 
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
-                />
+                />}
 
 
 
