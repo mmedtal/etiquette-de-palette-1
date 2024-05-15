@@ -2,12 +2,12 @@ import { ArrowDownward, ArrowUpward, Autorenew, Loop } from "@mui/icons-material
 import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import CodeBarChooser from "../../helpers/CodeBarChooser";
 
-export default function TextControls(props){
+export default function BarcodeControls(props){
 
 
-    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,
-        paletteHauteur,paletteLargeur,tailleDePolice,niveauDeGras} = useSelector(state=>state.leftAsideControllersReducer)
+    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
 
 
     
@@ -55,17 +55,9 @@ export default function TextControls(props){
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
                 />
-
-            {/* <ModifyPropertiesInput label="Mise en gras:"
-                    valueFromReduxStore={niveauDeGras}
-                    
-                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_MISE_EN_GRAS"
-                    step={100}
-                    leftIcon={<ArrowDownward color="error" />}
-                    rightIcon={<ArrowUpward color="success"/>}
-                /> */}
         
-        
+            <CodeBarChooser 
+                symbologies={["Code 39","Code 128"]}/>
         
         
         </>

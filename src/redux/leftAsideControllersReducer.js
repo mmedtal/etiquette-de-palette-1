@@ -1,6 +1,7 @@
 let myControllersState={
     hauteur     :0,
     largeur     :0,
+    longeur     :0,
     positionX   :0,
     positionY   :0,
     epaisseur   :0,
@@ -11,7 +12,8 @@ let myControllersState={
     leftAsideClicke:false,
     whichTextInputIsClicked:null,
     isLeftAsideClicked:false,
-    tailleDePolice:0
+    tailleDePolice:0,
+    niveauDeGras:300
 }
 
 
@@ -20,11 +22,15 @@ export function leftAsideControllersReducer(state=myControllersState,action){
             case "MODIFIER_HAUTEUR":
                 //console.log("state = ",state,"action = ",action)
                 // console.log("modify htr")
-                return {...state,hauteur:parseInt(state.hauteur)+parseInt(action.payload)}
+                return {...state,hauteur:parseInt(action.payload)}
             
             case "MODIFIER_LARGEUR":
-                // console.log("modify lrgr")
-                return {...state,largeur:parseInt(state.largeur)+parseInt(action.payload)}
+
+                //console.log("modify lrgr")
+                return {...state,largeur:parseInt(action.payload)}
+
+            case "MODIFIER_LONGUEUR":
+                return {...state,longeur:parseInt(action.payload)}
 
             case "MODIFIER_POSITION_X":
                 //console.log("modifier pos x has been clicked ")
@@ -37,7 +43,7 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state,positionY:parseInt(action.payload)}
                     
             case "MODIFIER_EPAISSEUR":
-                return {...state,epaisseur:parseInt(state.epaisseur)+parseInt(action.payload)}
+                return {...state,epaisseur:parseInt(action.payload)}
                         
             case "MODIFIER_ROTATION":
                 //console.log("rotation reached frm rdx str : ",action.payload)
@@ -70,6 +76,9 @@ export function leftAsideControllersReducer(state=myControllersState,action){
             case "MODIFIER_TAILLE_POLICE":
                 //console.log("left aside reducer taille de police :",action.payload)
                 return {...state, tailleDePolice:action.payload}
+
+            case "MODIFIER_MISE_EN_GRAS":
+                return {...state, niveauDeGras:parseInt(action.payload)}
 
             default:
                 return state

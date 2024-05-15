@@ -16,8 +16,10 @@ export function headerClickReducer(state=myState,action){
             return {...state,whichHeaderButtonIsCliqued:"selectionner",whatToInsertOnScreen:null,cursorAppearance:"auto"}
         
         case "INSERER_TEXTE":
-            return {...state, whichHeaderButtonIsCliqued:"inserer_texte",cursorAppearance:"text",
-                    whatToInsertOnScreen:<TextField variant="standard"/>}
+            return {...state, whichHeaderButtonIsCliqued:"inserer_texte",
+                        // activeHeaderIcon:"inserer_texte",
+                        cursorAppearance:"text",
+                        whatToInsertOnScreen:<TextField variant="standard"/>}
         
                     /*
         case "DESSINER_FORME":

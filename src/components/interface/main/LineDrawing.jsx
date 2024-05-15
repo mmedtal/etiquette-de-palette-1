@@ -11,7 +11,7 @@ export default function LineDrawing(props){
     const lineRef=useRef(null)
 
 
-    const [width,setWidth]=useState(props.width)
+    //const [width,setWidth]=useState(props.width)
     const [height,setHeight] = useState(props.height)
 
     /*
@@ -36,10 +36,28 @@ export default function LineDrawing(props){
     usePropertiesFromStore("leftAsideControllersReducer","positionY",props.whichChildIam,
     props.top);
 
+    const [largeurFromReduxStore,largeur,setLargeur] = 
+    usePropertiesFromStore("leftAsideControllersReducer","largeur",props.whichChildIam,
+    props.width);
+
+
+    const [longeurFromReduxStore,longeur,setLongeur] = 
+    usePropertiesFromStore("leftAsideControllersReducer","longeur",props.whichChildIam,
+    props.height);
+
     const [rotationFromReduxStore,rotation,setRotation] = 
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,
     props.angle);
-    
+
+    const [epaisseurFromReduxStore,epaisseur,setEpaisseur] = 
+    usePropertiesFromStore("leftAsideControllersReducer","epaisseur",props.whichChildIam,
+    1);
+
+    /*
+    const [epaisseurFromReduxStore,epaisseur,setEpaisseur] = 
+    usePropertiesFromStore("leftAsideControllersReducer","epaisseur",props.whichChildIam,
+    props.angle);
+    */
 
 
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -92,6 +110,8 @@ export default function LineDrawing(props){
     ///*this is also causing a bug text
     
     function handleFocus(){
+      //setLineBorder("2px tomato solid")
+      dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
       dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
       dispatch({
         type:"MODIFIER_POSITION_X",
@@ -117,10 +137,24 @@ export default function LineDrawing(props){
 
       dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
-      },[leftPosition,topPosition,rotation]) 
+      dispatch({type:"MODIFIER_LARGEUR",payload:largeur})
+
+      dispatch({type:"MODIFIER_LONGUEUR",payload:longeur})
+      
+      //dispatch({type:"MODIFIER_EPAISSEUR",payload:epaisseur})
+
+      },[leftPosition,topPosition,rotation,largeur,epaisseur,longeur]) 
       //*/
 
+      useEffect(()=>{
+        if(props.angle==90){
+          setLargeur(epaisseur)
+        }
+        if(props.angle==0){
+          setLongeur(epaisseur)
+        }
 
+      },[epaisseur])
     
       /*
     const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
@@ -161,7 +195,8 @@ export default function LineDrawing(props){
         
     }
     function handleClick(){
-      lineRef.current.focus()
+      //lineRef.current.focus()
+      dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
       //lineRef.current.style.backgroundColor="green"
       
       // si vertical alr fait:
@@ -187,7 +222,7 @@ export default function LineDrawing(props){
     }
 
     const [fieldOrigin,keyCommand,lineDensity] =
-    useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,width,height,rotation,submitZebraCode);
+    useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,largeur,height,rotation,submitZebraCode);
 
     useEffect(()=>{
       //lineRef.current.focus()
@@ -197,8 +232,20 @@ export default function LineDrawing(props){
     dispatch({
         type:"MODIFIER_POSITION_Y",
         payload:topPosition})
+        
+        dispatch({type:"MODIFIER_LARGEUR",
+        payload:largeur})
+
+        dispatch({type:"MODIFIER_LONGUEUR",
+        payload:longeur})
+
+        dispatch({type:"MODIFIER_EPAISSEUR",
+        payload:epaisseur})
+
+        
     } 
 ,[])
+
     return(
         <div    
               ref={lineRef}
@@ -207,8 +254,8 @@ export default function LineDrawing(props){
                         //width:`${props.lineLength}px`,
                         // color:"",
                         border:lineBorder,
-                        borderRadius:"50px",
-                        width:width+"px",
+                        //borderRadius:"50px",
+                        width:largeur+"px",
                         position:"absolute",
                         transform:`rotate(${rotation})`,
                         //transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore})` :
@@ -216,7 +263,7 @@ export default function LineDrawing(props){
                         left: leftPosition + 'px',
                         top: topPosition + 'px',
                         cursor: isDragging ? 'grabbing' : 'grab',
-                        height:height+"px"
+                        height:longeur+"px"
                         ,backgroundColor:color,
                         /*
                         ':focus':{

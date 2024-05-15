@@ -64,12 +64,14 @@ export default function Header(props){
     }
     return(
         <div className="flex justify-around" onClick={handleHeaderComponentClick}>
-            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Sélectionner" onClickDispatchActionsToReduxStore= {[{type:"SELECTIONNER"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
+            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Selectionner" onClickDispatchActionsToReduxStore= {[{type:"SELECTIONNER"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
                 {/* <TextFormat fontSize="large"/> */}
                 <FontAwesomeIcon icon={faArrowPointer}/>
             </HeaderIcon>
             
-            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Text" onClickDispatchActionsToReduxStore= {[{type:"INSERER_TEXTE"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
+            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Text" 
+                onClickDispatchActionsToReduxStore= {[{type:"INSERER_TEXTE"},
+                {type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
                 <TextFormat fontSize="large"/>
                 {/* <FontAwesomeIcon icon={faFont}/> */}
             </HeaderIcon>
@@ -91,9 +93,9 @@ export default function Header(props){
                             <HorizontalRule/> Ligne
                     </MenuItem>
                     
-                    <MenuItem onClick={handleMenuRectangleClick}>
+                    {/* <MenuItem onClick={handleMenuRectangleClick}>
                         <Crop54/> Rectangle
-                    </MenuItem>
+                    </MenuItem> */}
                 </Menu>
 
                 <ShapeLine fontSize="large"/>

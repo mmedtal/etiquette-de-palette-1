@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import PaletteControls from "./PaletteControls";
 import { useEffect, useState } from "react";
 import CodeBarChooser from "../../helpers/CodeBarChooser";
+import TextControls from "./TextControls";
+import BarcodeControls from "./BarcodeControls";
+import FormsControls from "./FormsControls";
 
 export default function LeftAside(props){
 
@@ -50,7 +53,28 @@ export default function LeftAside(props){
                 <PaletteControls/>
             }
 
-            {(whichHeaderButtonIsCliqued!="modifier_dimensions_palette")&&
+            {activeHeaderIcon=="Text"&&
+                <TextControls/>
+            }
+
+            {activeHeaderIcon=="Barcode"&&
+                <BarcodeControls/>
+            }
+
+            {activeHeaderIcon=="Formes"&&
+                <FormsControls/>
+            }
+            
+            {activeHeaderIcon=="Selectionner"&&
+                <div className="font-sans italic text-center font-normal text-xl px-5 
+                text-black bg-gray-50 p-4 mt-2"
+                style={{fontSize:"140%"}}>
+               Ici apparaîtront les <strong>éléments</strong> insérés dans la page.
+                 
+            </div>
+            }
+            
+            {/* {(whichHeaderButtonIsCliqued!="modifier_dimensions_palette")&&
             <div>
                 <ModifyPropertiesInput label="Position X:"
                     valueFromReduxStore={positionX}
@@ -68,7 +92,7 @@ export default function LeftAside(props){
 
                     rightIcon={<ArrowDownward color="error" />}
                     leftIcon={<ArrowUpward color="success"/>}
-                />
+                /> */}
                 
 
                 {/* <ModifyPropertiesInput label="Hauteur:"
@@ -97,7 +121,7 @@ export default function LeftAside(props){
                     rightIcon={<LineWeight color="success"/>}
                 /> */}
 
-                <ModifyPropertiesInput label="Rotation en deg:"
+                {/* <ModifyPropertiesInput label="Rotation en deg:"
                     valueFromReduxStore={rotation}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
 
@@ -114,7 +138,7 @@ export default function LeftAside(props){
                 />
 
 
-            </div>}
+            </div>} */}
                 {/* EAN-13 widely used in japan and europ 
                 Code 3ç used in america
                 UPC-A used in retain industry
@@ -126,8 +150,9 @@ export default function LeftAside(props){
                 ||whichHeaderButtonIsCliqued=="selectionner" */}
              {/* {(whichHeaderButtonIsCliqued=="inserer_barcode")&&    */}
             
-            {activeHeaderIcon=="Barcode"&&<CodeBarChooser 
-            symbologies={["Code 39","Code 128"]}/>}
+            
+            {/* {activeHeaderIcon=="Barcode"&&<CodeBarChooser 
+            symbologies={["Code 39","Code 128"]}/>} */}
             {/* les autres codes à prendre en charge :"Code 128","EAN-13","UPC-A" */}
             
              {/* } */}

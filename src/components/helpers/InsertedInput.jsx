@@ -63,6 +63,8 @@ export default function InsertedInput(props){
     const [rotationFromReduxStore,rotation,setRotation] = 
     usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
 
+    const [niveauDeGrasFromReduxStore,niveauDeGras,setNiveauDeGras] = 
+    usePropertiesFromStore("leftAsideControllersReducer","niveauDeGras",props.whichChildIam,300);
      
 
     const [zebraFieldOrigin,zebraFieldData,zebraFontSize] =
@@ -236,7 +238,11 @@ export default function InsertedInput(props){
         }  
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
+        
+        dispatch({type:"MODIFIER_MISE_EN_GRAS",payload:niveauDeGras})
 
+        //console.log("niveau de gras :",niveauDeGras)
+        //setNiveauDeGras(niveauDeGrasFromReduxStore)
         //console.log("leftpos : ",leftPosition)
         //console.log("toppos : ",topPosition)
 
@@ -248,6 +254,7 @@ export default function InsertedInput(props){
 
     function handleFocus(){
         
+        dispatch({type:"ACTIVE_HEADER_ICON",payload:"Text"})
         setInputFocused(true)
         dispatch({
             type:"MODIFIER_POSITION_X",
@@ -260,6 +267,9 @@ export default function InsertedInput(props){
         dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
+
+        dispatch({type:"MODIFIER_MISE_EN_GRAS",payload:niveauDeGras})
+        
     }
 
 
@@ -350,7 +360,8 @@ export default function InsertedInput(props){
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",
-                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"
+                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px",
+                        //fontWeight:niveauDeGras||100
                         
                     
                     }}
@@ -367,7 +378,11 @@ export default function InsertedInput(props){
                         left:leftPosition,top:topPosition,outline:"none",
                         transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                         :`rotate(${rotation}deg)`,
-                        fontSize:`${fontSize}px`,cursor:divCursorAppearance}}>
+                        fontSize:`${fontSize}px`,cursor:divCursorAppearance,
+                        //fontWeight:niveauDeGras||100
+
+                        
+                        }}>
             {inputValue}
         </div>}
         </>

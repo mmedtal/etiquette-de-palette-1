@@ -37,8 +37,20 @@ export default function useBoxAndLineConverterToZebraCode
     },[width,height])
 
     function handleDispatch(){
-        dispatch({type:"GENERATED_ZEBRA_CODE",
-        payload:{elementId:elementId,zebraCode:fieldOrigin+keyCommand}})   
+        //console.log("height : ",height)
+        //console.log("width : ",width)
+
+        /*there is a gotcha in here, even if it's a horizontal line the height is not 0 but 1
+        see PletteWorkZone code : height={absDeltaX>absDeltaY?1:absDeltaY} and width={absDeltaX>absDeltaY?absDeltaX:1}
+        in this condition i want to not insert a dot which is either height or width is 0
+        */
+        if(width==0 || height==0){
+            return
+        }else{
+            dispatch({type:"GENERATED_ZEBRA_CODE",
+            payload:{elementId:elementId,zebraCode:fieldOrigin+keyCommand}})  
+        }
+         
     }
 
     /*
@@ -51,8 +63,12 @@ export default function useBoxAndLineConverterToZebraCode
     
     useEffect(()=>{
         //if(submitZebraCode===true){
-            handleDispatch()
-        //}
+            if(width==0 && height==0){
+                return
+            }else{
+                handleDispatch()
+            }
+       
     },[keyCommand,fieldOrigin])
     //*/
 

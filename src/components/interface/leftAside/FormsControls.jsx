@@ -3,11 +3,10 @@ import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function TextControls(props){
+export default function FormsControls(props){
 
 
-    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,
-        paletteHauteur,paletteLargeur,tailleDePolice,niveauDeGras} = useSelector(state=>state.leftAsideControllersReducer)
+    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,longeur,paletteHauteur,paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
 
 
     
@@ -21,6 +20,8 @@ export default function TextControls(props){
     useEffect(()=>{
         setLeftAsidePositionX(positionX)
     },[positionX])
+
+    
 
     return(
         <>
@@ -44,26 +45,38 @@ export default function TextControls(props){
                     valueFromReduxStore={rotation}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
 
-                    leftIcon={<Loop color="error" />}
-                    rightIcon={<Autorenew color="success"/>}
+                    leftIcon={<ArrowDownward color="error" />}
+                    rightIcon={<ArrowUpward color="success"/>}
                 />
 
-            <ModifyPropertiesInput label="Taille de la police en px:"
-                    valueFromReduxStore={tailleDePolice}
-                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_TAILLE_POLICE"
+
+            <ModifyPropertiesInput label="Largeur:"
+                    valueFromReduxStore={largeur}
+                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_LARGEUR"
 
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
                 />
 
-            {/* <ModifyPropertiesInput label="Mise en gras:"
-                    valueFromReduxStore={niveauDeGras}
-                    
-                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_MISE_EN_GRAS"
-                    step={100}
+            <ModifyPropertiesInput label="Longeur:"
+                    valueFromReduxStore={longeur}
+                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_LONGUEUR"
+
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
-                /> */}
+                />
+
+
+
+            <ModifyPropertiesInput label="Epaisseur:"
+                    valueFromReduxStore={epaisseur}
+                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_EPAISSEUR"
+
+                    leftIcon={<ArrowDownward color="error" />}
+                    rightIcon={<ArrowUpward color="success"/>}
+                />
+
+           
         
         
         

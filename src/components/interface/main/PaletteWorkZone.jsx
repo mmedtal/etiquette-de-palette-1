@@ -210,6 +210,10 @@ export default function PaletteWorkZone(props){
                 setLineDrawingHeight(absDeltaY)
               }
 
+            // it it's a dot then don't inset it 
+            if(absDeltaX==0 && absDeltaY==0){
+                return
+            }  
             setElements([...elements,
                 
                 {elementId:childCount,element:<LineDrawing 
