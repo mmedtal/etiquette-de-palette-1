@@ -141,7 +141,7 @@ export default function LineDrawing(props){
 
       dispatch({type:"MODIFIER_LONGUEUR",payload:longeur})
       
-      //dispatch({type:"MODIFIER_EPAISSEUR",payload:epaisseur})
+      dispatch({type:"MODIFIER_EPAISSEUR",payload:epaisseur})
 
       },[leftPosition,topPosition,rotation,largeur,epaisseur,longeur]) 
       //*/
@@ -152,26 +152,11 @@ export default function LineDrawing(props){
         }
         if(props.angle==0){
           setLongeur(epaisseur)
+          setHeight(epaisseur)
         }
 
       },[epaisseur])
-    
-      /*
-    const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
-      function handleLineBlur(){
-        if(whichTextInputIsClickedFromReduxStore==props.whichChildIam){
-            lineRef.current.focus();
-            //dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
-            dispatch({
-              type:"MODIFIER_POSITION_X",
-              payload:position.x})
-            dispatch({
-              type:"MODIFIER_POSITION_Y",
-              payload:position.y})
-            dispatch({type:"MODIFIER_ROTATION",payload:props.angle})
-        }
-      }*/
-
+      
       
       function detectPressedKey(e){
        
@@ -195,7 +180,7 @@ export default function LineDrawing(props){
         
     }
     function handleClick(){
-      //lineRef.current.focus()
+      lineRef.current.focus()
       dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
       //lineRef.current.style.backgroundColor="green"
       

@@ -19,6 +19,7 @@ export default function useBoxAndLineConverterToZebraCode
 
     useEffect(()=>{
         setLineDensity(epaisseur)
+        //console.log("epaisseur change ...")
     },[epaisseur])
 
     useEffect(()=>{
@@ -41,7 +42,7 @@ export default function useBoxAndLineConverterToZebraCode
             //setLineDensity(height)
             height=0
         }
-        setKeyCommand("^GB"+width+","+height+","+lineDensity+"^FS")
+        setKeyCommand("^GB"+width+","+height+","+epaisseur+"^FS")
     },[width,height])
 
     function handleDispatch(){

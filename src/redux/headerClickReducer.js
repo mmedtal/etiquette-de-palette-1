@@ -4,7 +4,7 @@ let myState={
     whichHeaderButtonIsCliqued:null,
     whatToInsertOnScreen:null,
     cursorAppearance:"auto",
-    activeHeaderIcon:null
+    activeHeaderIcon:"Text" //Text so that when the page is first load, it loads with TextControls leftAside
 }
 
 
