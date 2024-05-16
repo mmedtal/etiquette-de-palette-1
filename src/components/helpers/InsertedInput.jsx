@@ -362,7 +362,9 @@ export default function InsertedInput(props){
                         outline:"none",
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px",
                         //fontWeight:niveauDeGras||100
-                        
+                        //fontFamily:"Roboto"
+                        fontFamily:"sans-serif"
+
                     
                     }}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
@@ -380,7 +382,7 @@ export default function InsertedInput(props){
                         :`rotate(${rotation}deg)`,
                         fontSize:`${fontSize}px`,cursor:divCursorAppearance,
                         //fontWeight:niveauDeGras||100
-
+                        fontFamily:"sans-serif"
                         
                         }}>
             {inputValue}
