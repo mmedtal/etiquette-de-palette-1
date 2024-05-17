@@ -19,7 +19,7 @@ export default function InsertedInput(props){
     usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);  
 
     
-    const lineHeight = `${parseInt(fontSize) * 1.2}px`;
+    const lineHeight = `${parseInt(fontSize) * 1.2}pt`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
     const offScreenSpanElement = useRef(null)
@@ -356,19 +356,19 @@ export default function InsertedInput(props){
                 ref={myInputRef}
                 onChange={handleChange}
                 autoFocus={true} 
-                style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
+                style={{width: `${inputWidth-inputWidth*3/fontSize}pt`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",
-                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px",
+                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"pt":fontSize+"pt",
                         //fontWeight:niveauDeGras||100
                         //fontFamily:"Roboto"
-                        fontFamily:"sans-serif"
-
+                        fontFamily:"sans-serif",
+                        lineHeight:lineHeight
                     
                     }}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
-            {editMode&&<CharacterWidthCalculator fontSize={fontSize+"px"} character={inputValue[inputValue.length-1]} 
+            {editMode&&<CharacterWidthCalculator fontSize={fontSize+"pt"} character={inputValue[inputValue.length-1]} 
                     inputValue={inputValue}
                     getCharachterWidthFromCharacterWidthCalculator={getCharachterWidthFromCharacterWidthCalculator}
                     setNewInputWidthWhenFontSizeChanges={setNewInputWidthWhenFontSizeChanges}
@@ -380,9 +380,10 @@ export default function InsertedInput(props){
                         left:leftPosition,top:topPosition,outline:"none",
                         transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                         :`rotate(${rotation}deg)`,
-                        fontSize:`${fontSize}px`,cursor:divCursorAppearance,
+                        fontSize:`${fontSize}pt`,cursor:divCursorAppearance,
                         //fontWeight:niveauDeGras||100
-                        fontFamily:"sans-serif"
+                        fontFamily:"sans-serif",
+                        lineHeight:lineHeight
                         
                         }}>
             {inputValue}
