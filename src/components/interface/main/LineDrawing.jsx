@@ -90,6 +90,7 @@ export default function LineDrawing(props){
   }, [isDragging, dragOffset, props.paletteWorkZoneRef]);
 
   const handleMouseDown = (e) => {
+    //props.disableLineDrawingOnLineDrawingClick();
     e.preventDefault();
     setIsDragging(true);
     const rect = e.target.getBoundingClientRect();
@@ -180,6 +181,7 @@ export default function LineDrawing(props){
         
     }
     function handleClick(){
+      //props.disableLineDrawingOnLineDrawingClick();
       lineRef.current.focus()
       dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
       //lineRef.current.style.backgroundColor="green"
