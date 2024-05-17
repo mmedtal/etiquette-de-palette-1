@@ -16,6 +16,8 @@ export default function PaletteWorkZone(props){
     const [isDragging, setIsDragging] = useState(false);
 
 
+    //because of a bug, the line is showing when i just click
+    const [showLine,setShowLine] = useState(false)
     const {handleMouseDownLineDrawing,handleMouseUpLineDrawing,handleMouseMoveLineDrawing,lineLength,startPos}=
     useLineDrawing();
 
@@ -50,6 +52,10 @@ export default function PaletteWorkZone(props){
         //setLineLength(e.target.getBoundingClientRect().left)
         //console.log("palette left pos :",left)
         //console.log("palette top pos :", top)
+
+        if(Math.abs(cursorXPosition - mouseDownXPosition)||Math.abs(cursorYPosition - mouseDownYPosition)){
+            setShowLine(true)
+        }
     }
 
     const cursorAppearance = useSelector(state=>state.headerClickReducer.cursorAppearance)
@@ -116,6 +122,7 @@ export default function PaletteWorkZone(props){
     const [lineDrawingWidth,setLineDrawingWidth] = useState(0)
     const [lineDrawingHeight,setLineDrawingHeight] = useState(0)
     function handleClick(e){
+        
         //handleMouseDownLineDrawing();
         //const nonEmptyValueElements = elements.filter(element => element.value.trim() !== "");
         //setElements(nonEmptyValueElements);
@@ -276,12 +283,17 @@ export default function PaletteWorkZone(props){
         //console.log(" MouseDownXPosition : ",e.clientX -e.target.getBoundingClientRect().left)
 
         if(whichHeaderButtonIsCliqued=="dessiner_ligne_forme"){
-            setIsDragging(true);
+            //if(Math.abs(cursorXPosition-mouseDownXPosition)>0 &&Math.abs(cursorYPosition-mouseDownYPosition)>0){
+                setIsDragging(true);
+            //}
         }
         
         setMouseDownYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseDownXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseDownLineDrawing(e)
+
+
+        setShowLine(false)
     }
     function onMouseUp(e){
         setIsDragging(false);
@@ -290,6 +302,9 @@ export default function PaletteWorkZone(props){
         setMouseUpYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseUpXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseUpLineDrawing(e)
+        
+        
+        setShowLine(false)
     }
 
     /*
@@ -325,14 +340,17 @@ export default function PaletteWorkZone(props){
 
                
                 
-                {isDragging&&
+                {isDragging&& showLine &&
                 <div
                     style={{
                         position: 'absolute',
                         left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
-                        //left:mouseDownXPosition,
+                        //left:cursorXPosition,
                         
                         top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
+                        //top:cursorYPosition,
+
+
                         //top:mouseDownYPosition,
                         /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 
                         Math.pow(cursorYPosition - mouseDownYPosition, 2)),
@@ -352,6 +370,7 @@ export default function PaletteWorkZone(props){
                         width:Math.abs(mouseDownXPosition - cursorXPosition)>
                         Math.abs(mouseDownYPosition - cursorYPosition)?Math.abs(mouseDownXPosition - cursorXPosition):2,
 
+                        transformOrigin:"0 0",
                         transform:`rotate(${ Math.abs(mouseDownXPosition - cursorXPosition)< 
                             Math.abs(mouseDownYPosition - cursorYPosition)?"0":"90"})`,
                         background: 'tomato', // Change color as needed
