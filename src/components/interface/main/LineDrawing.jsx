@@ -11,24 +11,14 @@ export default function LineDrawing(props){
     const lineRef=useRef(null)
 
 
-    //const [width,setWidth]=useState(props.width)
     const [height,setHeight] = useState(props.height)
 
-    /*
-    const [positionXFromRedux,leftPosition,setLeftPosition] = 
-    usePropertiesFromStore("leftAsideControllersReducer","positionX",props.whichChildIam,props.left);
-    const [positionYFromRedux,topPosition,setTopPosition] = 
-    usePropertiesFromStore("leftAsideControllersReducer","positionY",props.whichChildIam,props.top);
-    const [rotationFromReduxStore,rotation,setRotation] = 
-    usePropertiesFromStore("leftAsideControllersReducer","rotation",props.whichChildIam,0);
-    */
+
 
     const [color,setColor]=useState("black")      
     const [isDragging, setIsDragging] = useState(false);
 
     
-    //const [position, setPosition] = useState({ x: props.left, y: props.top });
-    //this above is being refactored to those two beneath
     const [positionXFromRedux,leftPosition,setLeftPosition] = 
     usePropertiesFromStore("leftAsideControllersReducer","positionX",props.whichChildIam,
     props.left);
@@ -53,13 +43,6 @@ export default function LineDrawing(props){
     usePropertiesFromStore("leftAsideControllersReducer","epaisseur",props.whichChildIam,
     1);
 
-    /*
-    const [epaisseurFromReduxStore,epaisseur,setEpaisseur] = 
-    usePropertiesFromStore("leftAsideControllersReducer","epaisseur",props.whichChildIam,
-    props.angle);
-    */
-
-
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
@@ -71,7 +54,6 @@ export default function LineDrawing(props){
 
       setLeftPosition(newX)
       setTopPosition(newY)
-      //setPosition({ x: newX, y: newY });
     };
 
     const handleMouseUp = () => {
@@ -98,19 +80,8 @@ export default function LineDrawing(props){
     setDragOffset({ x: offsetX, y: offsetY });
   };
 
-  
-  useEffect(()=>{
-    //console.log("props.transform : ",props.transform)
 
-    //console.log("props.lineDrawingHeight : ",props.lineDrawingHeight)
-    //console.log("whichchildiam",props.whichChildIam)
-  },[])
-  
-
-    ///*this is also causing a bug text
-    
     function handleFocus(){
-      //setLineBorder("2px tomato solid")
       dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
       dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
       dispatch({
@@ -121,9 +92,8 @@ export default function LineDrawing(props){
         payload:topPosition})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
-    }//*/
+    }
     
-     //causing a bug, text jumping
     useEffect(()=>{
       dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
 
@@ -144,7 +114,7 @@ export default function LineDrawing(props){
       dispatch({type:"MODIFIER_EPAISSEUR",payload:epaisseur})
 
       },[leftPosition,topPosition,rotation,largeur,epaisseur,longeur]) 
-      //*/
+      
 
       useEffect(()=>{
         if(props.angle==90){
@@ -182,27 +152,18 @@ export default function LineDrawing(props){
     function handleClick(){
       lineRef.current.focus()
       dispatch({type:"ACTIVE_HEADER_ICON",payload:"Formes"})
-      //lineRef.current.style.backgroundColor="green"
       
-      // si vertical alr fait:
-      //if(props.absDeltaY>props.absDeltaX){
-        //console.log("entered")
         
-      //}
     }
     const [submitZebraCode,setSubmitZebraCode]=useState(true)
 
     const [lineBorder,setLineBorder]=useState("")
     function handleMouseEnter(){
       setSubmitZebraCode(false)
-      //setWidth(prev => prev == "1" ? prev+5: prev);
-      //setHeight(prev => prev == "1" ? prev+5: prev);
       setLineBorder("2px tomato solid")
     }
     function handleMouseLeave(){
       setSubmitZebraCode(true)
-      //setWidth(prev => prev == "6" ? 1: prev);
-      //setHeight(prev => prev == "6" ? 1: prev);
       setLineBorder("")
     }
 
@@ -210,7 +171,6 @@ export default function LineDrawing(props){
     useBoxAndLineConverterToZebraCode(props.whichChildIam,leftPosition,topPosition,largeur,height,rotation,submitZebraCode,epaisseur);
 
     useEffect(()=>{
-      //lineRef.current.focus()
       dispatch({
         type:"MODIFIER_POSITION_X",
         payload:leftPosition})
@@ -236,15 +196,10 @@ export default function LineDrawing(props){
               ref={lineRef}
                 style={{
 
-                        //width:`${props.lineLength}px`,
-                        // color:"",
                         border:lineBorder,
-                        //borderRadius:"50px",
                         width:largeur+"px",
                         position:"absolute",
                         transform:`rotate(${rotation})`,
-                        //transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore})` :
-                        //`rotate(${rotation})`,
                         left: leftPosition + 'px',
                         top: topPosition + 'px',
                         cursor: isDragging ? 'grabbing' : 'grab',
@@ -260,7 +215,6 @@ export default function LineDrawing(props){
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         onFocus={handleFocus}
-                        //onBlur={handleLineBlur}
                         tabIndex={0}
                         onKeyDown={detectPressedKey}
                         onClick={handleClick}

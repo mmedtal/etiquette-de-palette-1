@@ -13,6 +13,7 @@ export default function PaletteWorkZone(props){
     const [paletteXPosition , setPaletteXPosition ] = useState(0)
     const [paletteYPosition , setPaletteYPosition ] = useState(0)
 
+    const [isDragging, setIsDragging] = useState(false);
 
 
     const {handleMouseDownLineDrawing,handleMouseUpLineDrawing,handleMouseMoveLineDrawing,lineLength,startPos}=
@@ -22,7 +23,10 @@ export default function PaletteWorkZone(props){
     const [cursorXPosition,setCursorXPosition]=useState(0)
     const [cursorYPosition,setCursorYPosition]=useState(0)
     function handleMouseMove(e){
-        
+        if(whichHeaderButtonIsCliqued=="dessiner_ligne_forme"){
+            if (!isDragging) return;
+        }
+
         handleMouseMoveLineDrawing(e)
 
         const rect = e.target.getBoundingClientRect();
@@ -185,6 +189,8 @@ export default function PaletteWorkZone(props){
 
                     paletteWorkZoneRef={paletteWorkZoneRef}
                     whichChildIam={childCount} 
+
+                    //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
                     />,value:"",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
@@ -193,17 +199,26 @@ export default function PaletteWorkZone(props){
     }
 
 
-
-    
-    
-
+    function disableLineDrawingOnLineDrawingClick(){
+        setIsDragging(false)
+    }
 
     function onMouseDown(e){
+
+
+        if(whichHeaderButtonIsCliqued=="dessiner_ligne_forme"){
+            setIsDragging(true);
+        }
+        
         setMouseDownYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseDownXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseDownLineDrawing(e)
     }
     function onMouseUp(e){
+
+        setIsDragging(false);
+        //console.log(" MouseUpXPosition : ",e.clientX -e.target.getBoundingClientRect().left)
+        
         setMouseUpYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseUpXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseUpLineDrawing(e)
@@ -212,19 +227,60 @@ export default function PaletteWorkZone(props){
 
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
-            style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`}}
+            style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",
+            height:props.height==0?"450px":`${props.height}px`,
+            width:props.width==0?"600px":`${props.width}px`}}
             >
             <div onMouseMove={handleMouseMove} id="" onClick={handleClick}
                 style={{cursor:cursorAppearance}} 
                 onMouseDown={onMouseDown}
                 onMouseUp={onMouseUp}
-                ref={paletteWorkZoneRef}
-                >
+                ref={paletteWorkZoneRef}>
                 
 
                 {elements.map((element,index)=>{
                     return  element.element
                 })}
+
+
+
+               
+                
+                {isDragging&&
+                <div
+                    style={{
+                        position: 'absolute',
+                        left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
+                        //left:mouseDownXPosition,
+                        
+                        top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
+                        //top:mouseDownYPosition,
+                        /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 
+                        Math.pow(cursorYPosition - mouseDownYPosition, 2)),
+                        */
+                        /*
+                        width:Math.abs(mouseDownXPosition - mouseUpXPosition)>Math.abs(mouseDownXPosition - mouseUpXPosition)?
+                        Math.abs(mouseDownXPosition - mouseUpXPosition):1,
+                        */
+
+                       // height: 2, // Adjust this for line thickness
+                       
+            //absDeltaX = Math.abs(mouseDownXPosition - cursorXPosition)
+            //absDeltaY = Math.abs(mouseDownYPosition - cursorYPosition)
+                        //transformOrigin: '0 0',
+                        height:Math.abs(mouseDownXPosition - cursorXPosition)>
+                        Math.abs(mouseDownYPosition - cursorYPosition)?2:Math.abs(mouseDownYPosition - cursorYPosition),
+                        width:Math.abs(mouseDownXPosition - cursorXPosition)>
+                        Math.abs(mouseDownYPosition - cursorYPosition)?Math.abs(mouseDownXPosition - cursorXPosition):2,
+
+                        transform:`rotate(${ Math.abs(mouseDownXPosition - cursorXPosition)< 
+                            Math.abs(mouseDownYPosition - cursorYPosition)?"0":"90"})`,
+                        background: 'tomato', // Change color as needed
+                        pointerEvents: 'none', // Prevent the line from interfering with mouse events
+                    }}
+                />}
+
+
 
             </div>
         </Fade>

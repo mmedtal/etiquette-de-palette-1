@@ -99,34 +99,23 @@ export default function InsertedBarcode(props){
                 const selectionEnd = e.target.selectionEnd;
                 if(selectionStart==selectionEnd){
                  if(prevInputValue.length>0){
-                        //getZebraDataFunction(prevInputValue.slice(0,selectionStart)+prevInputValue.slice(selectionStart+1,inputValue.length))
                      return prevInputValue.slice(0,selectionStart)+prevInputValue.slice(selectionStart+1,inputValue.length)
                  }else{
-                        //getZebraDataFunction(prevInputValue)
                      return prevInputValue
                  }
                 }
             })
             return;
         }
-        //getZebraDataFunction(e.target.value)
         setInputValue(e.target.value)
 
        
     }
-
-    /*
-    useEffect(()=>{
-        console.log("correspondantZebraData : ",correspondantZebraData)
-    },[correspondantZebraData])
-    */
-
     useEffect(()=>{
         if (myInputRef.current) { 
         setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left)
         setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
 
-        //dispatchingTextElementPosition();
         dispatch({
             type:"MODIFIER_POSITION_X",
             payload:leftPosition})
@@ -178,7 +167,6 @@ export default function InsertedBarcode(props){
          if (myInputRef.current) {
         setZebraProgrLangXPosition(myInputRef.current.getBoundingClientRect().left-myInputRef.current.parentElement.getBoundingClientRect().left)
         setZebraProgrLangYPosition(myInputRef.current.getBoundingClientRect().top-myInputRef.current.parentElement.getBoundingClientRect().top)
-        //dispatchingTextElementPosition();
         dispatch({
             type:"MODIFIER_POSITION_X",
             payload:leftPosition})
@@ -189,12 +177,8 @@ export default function InsertedBarcode(props){
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
-        //console.log("leftpos : ",leftPosition)
-        //console.log("toppos : ",topPosition)
 
         
-        //setCorrespondantZebraPositionCode("^FO"+leftPosition+","+topPosition)
-        //console.log("i am the child : ",props.whichChildIam)
     },[])
     
 
@@ -212,13 +196,11 @@ export default function InsertedBarcode(props){
         dispatch({type:"AFFECTER_TEXT_INPUT_CLIQUE",payload:props.whichChildIam})
         dispatch({type:"MODIFIER_TAILLE_POLICE",payload:fontSize})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
-        //dispatch({type:"INSERER_BARCODE"})
         dispatch({type:"ACTIVE_HEADER_ICON",payload:"Barcode"})
     }
 
 
     useEffect(()=>{
-        //dispatchingTextElementPosition()
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
     },[inputFocused])
 
@@ -243,12 +225,9 @@ export default function InsertedBarcode(props){
 
         if(inputValue.length==0){
             setRenderHelpers(false)
-            //props.addToElementsOrNot(false)
         }else{
             setRenderHelpers(true)
-            //props.addToElementsOrNot(true)
         }
-        //dispatch({type:"INSERER_BARCODE"})
     }
 
     
@@ -258,14 +237,12 @@ export default function InsertedBarcode(props){
     const isLeftAsideClicked = useSelector(state=>state.leftAsideControllersReducer.isLeftAsideClicked)
     
     function setNewInputWidthWhenFontSizeChanges(newInputWidth){
-        // this condition because inputWidth comes from CharacterWidthCalculator and it's to 0 be default
         
         if(newInputWidth==0){
             setInputWidth(fontSize)
             return
         }
 
-        // pour le cas de tout sélectionner et tous supprimer
         if(inputValue.length==0){
             setInputWidth(fontSize)
             return
@@ -285,8 +262,6 @@ export default function InsertedBarcode(props){
     const whichHeaderButtonIsCliqued = useSelector(state=>state.headerClickReducer.whichHeaderButtonIsCliqued)
     function handleDivClick(){
         
-        //dispatchingTextElementPosition()
-        //whichHeaderButtonIsCliqued=="inserer_barcode" fixed barcode jumping to left top of PaletteWorkZone.png
         if(whichHeaderButtonIsCliqued=="inserer_texte" || whichHeaderButtonIsCliqued=="inserer_barcode"){
             dispatch({type:"SELECTIONNER"})
             
@@ -307,53 +282,16 @@ export default function InsertedBarcode(props){
     }
 
 
-    //to handle zebra code 
     useEffect(()=>{
-        //props.liftCorrespondantZebraCodeToParent(props.whichChildIam,zebraFieldOrigin+zebraFieldData)
     },[inputValue,leftPosition,topPosition])
 
     const[renderHelpers,setRenderHelpers]=useState(true)
-
-    // useEffect(()=>{
-    //     if(inputValue.length==0){
-    //         setRenderHelpers(false)
-    //     }else{
-    //         setRenderHelpers(true)
-    //     }
-    // },[inputValue])
     return(
-        <>
-            {/* {renderHelpers&&<FontAwesomeIcon icon={faBarcode} 
-            style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition-fontSize/3.5,color:"gray"}}/>} */}
-            
-            {/*<FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition-fontSize/3.5,color:"gray"}}/>
-            */}
-             {/* <IconButton style={{
-                position: "absolute",left:leftPosition+inputWidth/4,
-                top:topPosition-fontSize/1.2,color:"black"
-                borderImageSource:"url(./public/barcode.png)"          
-            }}
-             > 
-             </IconButton>
-             */}
-                {/* <FontAwesomeIcon icon={faBarcode}/> */}
-             
-             {/* <IconButton style={{position: "absolute",left:leftPosition+inputWidth/3,top:topPosition-fontSize/1.2,color:"black"}}>
-                <FontAwesomeIcon icon={faBarcode}/>
-             </IconButton> */}
-             {/* <div style={{borderImageSource:"url(barcode.png)"  }}> */}
-             {/* <img src={require("../public/barcode.png")}/> */}
-             {/* </div> */}
-             {/* <img src="/white.ico"/> */}
-             
-             
-             {/* <img src={process.env.PUBLIC_URL + '/barcode.png'} />  */}
-           
+        <> 
             {renderHelpers&&<span style={{width:inputWidth-fontSize/2,position: "absolute",left:leftPosition,top:topPosition-fontSize/2,color:"gray",textAlign:"right",
                 transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                 :`rotate(${rotation}deg)`,
             }}>
-            {/* <FontAwesomeIcon icon={faBarcode}/> */}
             barcode
             </span>}
            
@@ -369,12 +307,7 @@ export default function InsertedBarcode(props){
                 autoFocus={true} 
                 style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
-                        //borderTop:"1.5px solid gray",  
-                        //borderRight:"1.5px solid gray",                      
                         border: "1px groove gray",
-                        //borderWidth: "2px",
-                        //borderImageSlice: "1",
-                        //borderImageSource: "repeating-linear-gradient(to right, black, black 1px, white 1px, white 2px)",
                         outline:"none",
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px"
                         
@@ -395,33 +328,15 @@ export default function InsertedBarcode(props){
                         :`rotate(${rotation}deg)`,
                         fontSize:`${fontSize}px`,cursor:divCursorAppearance,
 
-                        //borderTop:"1.5px solid gray",
-                        //borderRight:"1.5px solid gray",
-                        //borderTopLeftRadius:"10px black solid",
-                        //border: "3px groove gray",
-                        //borderWidth: "3px",
-                        //borderImageSlice: "1",
-                        //borderImageSource: "repeating-linear-gradient(to right, black, black 1px, white 1px, white 2px)",
                         
                         }}>
-                                {/* <span style={{color:"gray",fontFamily:"serif",letterSpacing: '-2px',}}>||</span> */}
                                 {inputValue}
-                                {/* <span style={{color:"gray",fontFamily:"serif",letterSpacing: '-2px'}}>|||</span> */}
-                            
-            {/* {"||"+inputValue+"||"} */}
         </div>}
         
-        {/* {renderHelpers&&<FontAwesomeIcon icon={faBarcode} 
-            style={{position: "absolute",left:leftPosition+50,top:topPosition+fontSize*1.4,color:"gray"}}/>} */}
         {renderHelpers&&<span style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray",
             transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
             :`rotate(${rotation}deg)`,
         }}>barcode</span>}
-        
-        {/* <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition,top:topPosition+fontSize*1.2,color:"gray"}}/>
-        <FontAwesomeIcon icon={faBarcode} style={{position: "absolute",left:leftPosition+inputWidth,top:topPosition+fontSize*1.2,color:"gray"}}/>
-        */}
-       
         </>
     )
     

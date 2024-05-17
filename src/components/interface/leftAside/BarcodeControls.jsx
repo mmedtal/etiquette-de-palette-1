@@ -33,8 +33,6 @@ export default function BarcodeControls(props){
 
             <ModifyPropertiesInput label="Position Y:"
                     valueFromReduxStore={positionY}
-                    // leftIcon={<TextRotationNone color="error" style={{ transform: 'scaleX(-1)' }}/>}
-                    // rightIcon={<TextRotationNone color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_Y"
                     rightIcon={<ArrowDownward color="error" />}
                     leftIcon={<ArrowUpward color="success"/>}

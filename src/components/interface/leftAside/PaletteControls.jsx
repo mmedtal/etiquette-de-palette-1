@@ -17,37 +17,28 @@ export default function PaletteControls(props){
     
 
     function getPrinterResolutionInDpmm(){
-        //setPrinterResolution()
         if(printerResolution[printerResolution.length-1]=="i"){
-            //console.log("iiiiiiiiiiiii")
             setPrinterResolution((parseInt(printerResolution)/25)+"dpmm")
         }
-        //if resolution in dpmm then 
         if(printerResolution[printerResolution.length-1]=="m"){
-            //console.log("mmmmmmmmm")
             setPrinterResolution(parseInt(printerResolution)+"dpmm")
         }
     }
     function getPrinterResolutionInDpi(){
         if(printerResolution[printerResolution.length-1]=="i"){
-            //console.log("iiiiiiiiiiiii")
             setPrinterResolution(parseInt(printerResolution)+"dpi")
         }
-        //if resolution in dpmm then 
         if(printerResolution[printerResolution.length-1]=="m"){
-            //console.log("mmmmmmmmm")
             setPrinterResolution((parseInt(printerResolution)*25)+"dpi")
         }
     }
 
-    //this is just some boilerplate to sync between store and state, it mustn't be like this
     useEffect(()=>{
         if(printerResolution[printerResolution.length-1]=="i"){
             setPrinterResolution(resolutionInDpi+"dpi")
         }
         if(printerResolution[printerResolution.length-1]=="m"){
             setPrinterResolution(resolutionInDpi+"dpmm")
-        }else{//because resolution in dpi has no unit from redux store
             setPrinterResolution(resolutionInDpi+"dpi")
         }
     },[resolutionInDpi])
@@ -58,7 +49,6 @@ export default function PaletteControls(props){
                     inputValueAlign="left"
                     valueFromReduxStore={parseInt(printerResolution)}
                     onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_RESOLUTION"
-                    //step={printerResolution[printerResolution.length-1]=="m"?0.1:1}
                     step={1}
                     leftIcon={<UnfoldLess color="error"     />}
                     rightIcon={<UnfoldMore color="success"  />}

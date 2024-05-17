@@ -17,7 +17,6 @@ export default function Header(props){
         dispatch({type:"SET_LEFT_ASIDE_CLICKED",payload:false})
     }
 
-    //07.05.24 18:29 
     const [activeIcon,setActiveIcon]=useState("Sélectionner")
 
 
@@ -25,8 +24,6 @@ export default function Header(props){
     const [isMenuOpen,setMenuOpen] = useState(false)
     function handleActiveIcon(activeIcon,e){
         setActiveIcon(activeIcon)
-        //console.log("activeIcon frm hdr:  ",activeIcon)
-        //handling multiple forms, but this should be only a temprary solution
         dispatch({type:"ACTIVE_HEADER_ICON",payload:activeIcon})
         if(activeIcon==="Formes" && !isMenuOpen){
             setAnchorEl(e.currentTarget)
@@ -34,7 +31,6 @@ export default function Header(props){
         }
     }
 
-    //10.05.24 09:54 pour handler le two way binding pour le visuel, pour l'instant que barcode
     const activeHeaderIconFromRedux = useSelector(state=>state.headerClickReducer.activeHeaderIcon)
     useEffect(()=>{
         if(activeHeaderIconFromRedux=="Barcode"){
@@ -44,15 +40,12 @@ export default function Header(props){
 
 
     function handleMenuClose(){
-        //console.log("anchorEl : ",anchorEl)
-        //console.log("isMenuOpen : ",isMenuOpen)
         setAnchorEl(null)
         setMenuOpen(false)
         
     }
 
     function handleMenuLigneClick(){
-        //console.log("ligne clicked")
         dispatch({type:"DESSINER_LIGNE_FORME"})
         setAnchorEl(null)
         setMenuOpen(false)
@@ -66,8 +59,6 @@ export default function Header(props){
         <div className="flex justify-around" onClick={handleHeaderComponentClick}>
 
             <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Selectionner" onClickDispatchActionsToReduxStore= {[{type:"SELECTIONNER"},{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
-                {/* <TextFormat fontSize="large"/> */}
-
                 <FontAwesomeIcon icon={faArrowPointer}/>
             </HeaderIcon>
             
@@ -81,23 +72,17 @@ export default function Header(props){
             <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} 
                 text="Formes" 
                 onClickDispatchActionsToReduxStore= {[{type:"AFFECTER_HAUTEUR",payload:0},{type:"AFFECTER_LARGEUR",payload:0} ]} >
-                {/* <div style={{height:"30px",width:"2.5px",backgroundColor:"grey",transform:"rotate(45deg)"}}>
-                </div> */}
-                {/* <FontAwesomeIcon icon={faSlash}/> */}
+               
                 <Menu
                     id="basic-menu"
                     anchorEl={anchorEl}
                     open={isMenuOpen}
-                    //onClose={handleClose} 
                     onClose={handleMenuClose}
                     >
                     <MenuItem onClick={handleMenuLigneClick}>
                             <HorizontalRule/> Ligne
                     </MenuItem>
-                    
-                    {/* <MenuItem onClick={handleMenuRectangleClick}>
-                        <Crop54/> Rectangle
-                    </MenuItem> */}
+              
                 </Menu>
 
                 <ShapeLine fontSize="large"/>
@@ -109,7 +94,8 @@ export default function Header(props){
                 <FontAwesomeIcon icon={faBarcode}/>
             </HeaderIcon>
 
-            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Dimensions" onClickDispatchActionsToReduxStore= {[{type:"MODIFIER_DIMENSIONS_PALETTE"},{type:"AFFECTER_HAUTEUR",payload:450},{type:"AFFECTER_LARGEUR",payload:600}]} >        
+            <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Dimensions" onClickDispatchActionsToReduxStore= 
+            {[{type:"MODIFIER_DIMENSIONS_PALETTE"},{type:"AFFECTER_HAUTEUR",payload:100},{type:"AFFECTER_LARGEUR",payload:100}]} >        
                 <FontAwesomeIcon icon={faVectorSquare}/>
             </HeaderIcon>
             

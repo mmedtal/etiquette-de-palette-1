@@ -34,20 +34,10 @@ export default function FormsControls(props){
 
             <ModifyPropertiesInput label="Position Y:"
                     valueFromReduxStore={positionY}
-                    // leftIcon={<TextRotationNone color="error" style={{ transform: 'scaleX(-1)' }}/>}
-                    // rightIcon={<TextRotationNone color="success"/>}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_POSITION_Y"
                     rightIcon={<ArrowDownward color="error" />}
                     leftIcon={<ArrowUpward color="success"/>}
                 />
-
-            {/* <ModifyPropertiesInput label="Rotation en deg:"
-                    valueFromReduxStore={rotation}
-                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
-
-                    leftIcon={<ArrowDownward color="error" />}
-                    rightIcon={<ArrowUpward color="success"/>}
-                /> */}
 
 
             {rotation==0&&<ModifyPropertiesInput label="Largeur:"

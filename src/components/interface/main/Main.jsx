@@ -55,9 +55,10 @@ export default function Main(props){
             </div>
             <div  style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
                 <div className="flex -mt-8" style={{width:largeurPaletteControlledFromLeftAside}}>
-                    <Tabs value={selectedTab}>
-                        <Tab label="Palette"  onClick={()=>setSelectedTab(0)}/>
-                        <Tab label={informUserOfNewZebraCode?`Code Zebra *`:"Code Zebra"} onClick={()=>{setSelectedTab(1);setInformUserOfNewZebraCode(false)}}/>
+                    <Tabs value={selectedTab} >
+                        <Tab label="Palette"  onClick={()=>setSelectedTab(0)} style={{fontFamily:"Segoe UI"}}/>
+                        <Tab label={informUserOfNewZebraCode?`Code Zebra *`:"Code Zebra"} onClick={()=>{setSelectedTab(1);setInformUserOfNewZebraCode(false)}}
+                        style={{fontFamily:"Segoe UI"}}/>
                     </Tabs>
                 </div>
                 {/* visibility:selectedTab==1?"visible":"hidden" avant y'avait ça, ma3rftch wach hiya plus cheap

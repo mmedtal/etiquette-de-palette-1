@@ -57,13 +57,13 @@ export default function ModifyPropertiesInput(props){
             variant="standard"
             label={props.label}
 
-
+            
 
             onChange={manualyEnteredInputValue}
 
 
             InputLabelProps={{
-                style:{fontSize:"140%"}
+                style:{fontSize:"140%",fontFamily:"Segoe UI",color:"black"}
             }}
             InputProps={{
                 endAdornment:<IconButton onClick={incrementInputValue} disabled={props.disabled}>

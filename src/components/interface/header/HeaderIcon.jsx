@@ -25,7 +25,7 @@ export default function HeaderIcon(props){
                     {props.children}
             </IconButton>
             <div className="text-center -mt-2 font-normal font-sans" 
-            style={{color:props.text==props.activeIcon?"green":"darkblue",fontFamily:""}}>
+            style={{color:props.text==props.activeIcon?"green":"darkblue",fontFamily:"Segoe UI"}}>
                 {props.text}
             </div>
         </div>
