@@ -288,7 +288,9 @@ export default function PaletteWorkZone(props){
     
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
-            style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",height:props.height==0?"450px":`${props.height}px`,width:props.width==0?"600px":`${props.width}px`}}
+            style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",
+            height:props.height==0?"450px":`${props.height}px`,
+            width:props.width==0?"600px":`${props.width}px`}}
             >
             <div onMouseMove={handleMouseMove} id="" onClick={handleClick}
                 style={{cursor:cursorAppearance}} 
