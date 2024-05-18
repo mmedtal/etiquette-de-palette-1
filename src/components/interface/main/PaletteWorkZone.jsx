@@ -6,6 +6,7 @@ import InsertedBarcode from "../../helpers/InsertedBarcode";
 import LineDrawing from "./LineDrawing";
 import useLineDrawing from "../../../hooks/useLineDrawing";
 import LineDrawingVisualEffect from "../../visualEffects/LineDrawingVisualEffect";
+import RectangleDrawingVisualEffect from "../../visualEffects/RectangleDrawingEffect";
 
 export default function PaletteWorkZone(props){
 
@@ -236,26 +237,20 @@ export default function PaletteWorkZone(props){
                 {elementId:childCount,element:<LineDrawing 
                     //cursorXPosition={cursorXPosition}
                     // cursorYPosition={cursorYPosition}
-                    lineLength={lineLength} key={childCount} handleMouseMove={handleMouseMove} 
-
-                    left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
-                    top={mouseDownYPosition<mouseUpYPosition?mouseDownYPosition:mouseUpYPosition}
-
+                    lineLength={lineLength} 
+                    key={childCount} handleMouseMove={handleMouseMove} 
+                    left={Math.min(mouseDownXPosition,mouseUpXPosition)}
+                    top={Math.min(mouseDownYPosition,mouseUpYPosition)}
                     height={absDeltaX>absDeltaY?1:absDeltaY} 
                     width={absDeltaX>absDeltaY?absDeltaX:1}
                     //here is either to draw a vertical or horizontal line
                     angle={absDeltaX > absDeltaY?"0":"90"}
-                
                     absDeltaX={absDeltaX}  absDeltaY={absDeltaY}
-
                     paletteWorkZoneRef={paletteWorkZoneRef}
                     whichChildIam={childCount} 
-
-
                     //sendMousePositionOnMoveToChild={handleMouseMove}
                     //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
                     cursorXPositionOnParent={cursorXPosition}
-
                     parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
                     />,value:"",correspondantZebraCode:""}
             ]);
@@ -357,6 +352,14 @@ export default function PaletteWorkZone(props){
                     cursorXPosition={cursorXPosition} 
                     mouseDownYPosition={mouseDownYPosition} 
                     cursorYPosition={cursorYPosition}/>}
+
+                {/* {isDragging&& showLineDrawingVisualEffect&&
+                <RectangleDrawingVisualEffect
+                    mouseDownXPosition={mouseDownXPosition}
+                    cursorXPosition={cursorXPosition} 
+                    mouseDownYPosition={mouseDownYPosition} 
+                    cursorYPosition={cursorYPosition}
+                />} */}
 
 
             </div>

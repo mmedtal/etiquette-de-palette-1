@@ -295,24 +295,6 @@ export default function LineDrawing(props){
 
 
         </div>
-
-        <div
-                    style={{
-                        position: 'absolute',
-                        left:mouseDownXPositionOnParent<cursorXPositionOnParent?mouseDownXPositionOnParent:cursorXPositionOnParent,
-                        top:mouseDownYPositionOnParent<cursorYPositionOnParent?mouseDownYPositionOnParent:cursorYPositionOnParent,
-                        height:Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)>
-                        Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?2:Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent),
-                        width:Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)>
-                        Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent):2,
-
-                        transformOrigin:"0 0",
-                        transform:`rotate(${ Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)< 
-                            Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?"0":"90"})`,
-                        background: 'tomato', // Change color as needed
-                        pointerEvents: 'none', // Prevent the line from interfering with mouse events
-                    }}
-                />
       </>
     )
 }
