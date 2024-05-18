@@ -17,7 +17,7 @@ export default function PaletteWorkZone(props){
 
 
     //because of a bug, the line is showing when i just click
-    const [showLine,setShowLine] = useState(false)
+    const [showLineDrawingVisualEffect,setShowLineDrawingVisualEffect] = useState(false)
     const {handleMouseDownLineDrawing,handleMouseUpLineDrawing,handleMouseMoveLineDrawing,lineLength,startPos}=
     useLineDrawing();
 
@@ -48,13 +48,18 @@ export default function PaletteWorkZone(props){
         //console.log("cursor X Pos : ",e.clientX -parentRect.left)
         setCursorXPosition(e.clientX -parentRect.left)
 
+      //console.log("cursor pos from parent, e.clientY -e.target.getBoundingClientRect().top is : ",
+      //e.clientY -e.target.getBoundingClientRect().top)
+
         //console.log("Cursor X pos : ", e.clientX -parentRect.left)
         //setLineLength(e.target.getBoundingClientRect().left)
         //console.log("palette left pos :",left)
         //console.log("palette top pos :", top)
 
+        //props.sendMousePositionOnMoveToChild(e);
+
         if(Math.abs(cursorXPosition - mouseDownXPosition)||Math.abs(cursorYPosition - mouseDownYPosition)){
-            setShowLine(true)
+            setShowLineDrawingVisualEffect(true)
         }
     }
 
@@ -245,7 +250,12 @@ export default function PaletteWorkZone(props){
                     paletteWorkZoneRef={paletteWorkZoneRef}
                     whichChildIam={childCount} 
 
+
+                    //sendMousePositionOnMoveToChild={handleMouseMove}
                     //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
+                    cursorXPositionOnParent={cursorXPosition}
+
+                    parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
                     />,value:"",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
@@ -293,7 +303,7 @@ export default function PaletteWorkZone(props){
         handleMouseDownLineDrawing(e)
 
 
-        setShowLine(false)
+        setShowLineDrawingVisualEffect(false)
     }
     function onMouseUp(e){
         setIsDragging(false);
@@ -304,7 +314,7 @@ export default function PaletteWorkZone(props){
         handleMouseUpLineDrawing(e)
         
         
-        setShowLine(false)
+        setShowLineDrawingVisualEffect(false)
     }
 
     /*
@@ -340,17 +350,14 @@ export default function PaletteWorkZone(props){
 
                
                 
-                {isDragging&& showLine &&
+                {isDragging&& showLineDrawingVisualEffect&&
                 <div
                     style={{
                         position: 'absolute',
                         left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
                         //left:cursorXPosition,
-                        
                         top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
                         //top:cursorYPosition,
-
-
                         //top:mouseDownYPosition,
                         /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 
                         Math.pow(cursorYPosition - mouseDownYPosition, 2)),

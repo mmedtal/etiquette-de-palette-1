@@ -26,6 +26,15 @@ export default function LineDrawing(props){
     const [color,setColor]=useState("black")      
     const [isDragging, setIsDragging] = useState(false);
 
+
+    //to get where is the cursor on pos on the parent
+    const [cursorXPositionOnParent,setCursorXPositionOnParent]=useState(0)
+    const [cursorYPositionOnParent,setCursorYPositionOnParent]=useState(0)
+
+    const [mouseDownXPositionOnParent,setMouseDownXPositionOnParent]=useState(0)
+    const [mouseDownYPositionOnParent,setMouseDownYPositionOnParent]=useState(0)
+
+
     
     //const [position, setPosition] = useState({ x: props.left, y: props.top });
     //this above is being refactored to those two beneath
@@ -72,6 +81,14 @@ export default function LineDrawing(props){
       setLeftPosition(newX)
       setTopPosition(newY)
       //setPosition({ x: newX, y: newY });
+
+
+      //setCursorXPositionOnParent(e.clientX-parentRect)
+      
+      //setCursorYPositionOnParent(e.clientY-parentRect.top)
+
+      //console.log("cursor pos from child, e.clientY-parentRect.top is : ",e.clientY-parentRect.top)
+
     };
 
     const handleMouseUp = () => {
@@ -97,6 +114,13 @@ export default function LineDrawing(props){
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
     setDragOffset({ x: offsetX, y: offsetY });
+
+
+    const parentRect = props.paletteWorkZoneRef.current.getBoundingClientRect();
+
+
+    setMouseDownXPositionOnParent(e.clientX-parentRect.left)
+    setMouseDownYPositionOnParent(e.clientY-parentRect.top)
   };
 
   
@@ -233,7 +257,9 @@ export default function LineDrawing(props){
     } 
 ,[])
 
+
     return(
+      <>
         <div    
               ref={lineRef}
                 style={{
@@ -265,10 +291,28 @@ export default function LineDrawing(props){
                         //onBlur={handleLineBlur}
                         tabIndex={0}
                         onKeyDown={detectPressedKey}
-                        onClick={handleClick}
-                        >
+                        onClick={handleClick}>
 
 
         </div>
+
+        <div
+                    style={{
+                        position: 'absolute',
+                        left:mouseDownXPositionOnParent<cursorXPositionOnParent?mouseDownXPositionOnParent:cursorXPositionOnParent,
+                        top:mouseDownYPositionOnParent<cursorYPositionOnParent?mouseDownYPositionOnParent:cursorYPositionOnParent,
+                        height:Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)>
+                        Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?2:Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent),
+                        width:Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)>
+                        Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent):2,
+
+                        transformOrigin:"0 0",
+                        transform:`rotate(${ Math.abs(mouseDownXPositionOnParent - cursorXPositionOnParent)< 
+                            Math.abs(mouseDownYPositionOnParent - cursorYPositionOnParent)?"0":"90"})`,
+                        background: 'tomato', // Change color as needed
+                        pointerEvents: 'none', // Prevent the line from interfering with mouse events
+                    }}
+                />
+      </>
     )
 }
