@@ -5,6 +5,7 @@ import InsertedInput from "../../helpers/InsertedInput";
 import InsertedBarcode from "../../helpers/InsertedBarcode";
 import LineDrawing from "./LineDrawing";
 import useLineDrawing from "../../../hooks/useLineDrawing";
+import LineDrawingVisualEffect from "../../visualEffects/LineDrawingVisualEffect";
 
 export default function PaletteWorkZone(props){
 
@@ -351,39 +352,11 @@ export default function PaletteWorkZone(props){
                
                 
                 {isDragging&& showLineDrawingVisualEffect&&
-                <div
-                    style={{
-                        position: 'absolute',
-                        left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
-                        //left:cursorXPosition,
-                        top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
-                        //top:cursorYPosition,
-                        //top:mouseDownYPosition,
-                        /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 
-                        Math.pow(cursorYPosition - mouseDownYPosition, 2)),
-                        */
-                        /*
-                        width:Math.abs(mouseDownXPosition - mouseUpXPosition)>Math.abs(mouseDownXPosition - mouseUpXPosition)?
-                        Math.abs(mouseDownXPosition - mouseUpXPosition):1,
-                        */
-
-                       // height: 2, // Adjust this for line thickness
-                       
-            //absDeltaX = Math.abs(mouseDownXPosition - cursorXPosition)
-            //absDeltaY = Math.abs(mouseDownYPosition - cursorYPosition)
-                        //transformOrigin: '0 0',
-                        height:Math.abs(mouseDownXPosition - cursorXPosition)>
-                        Math.abs(mouseDownYPosition - cursorYPosition)?2:Math.abs(mouseDownYPosition - cursorYPosition),
-                        width:Math.abs(mouseDownXPosition - cursorXPosition)>
-                        Math.abs(mouseDownYPosition - cursorYPosition)?Math.abs(mouseDownXPosition - cursorXPosition):2,
-
-                        transformOrigin:"0 0",
-                        transform:`rotate(${ Math.abs(mouseDownXPosition - cursorXPosition)< 
-                            Math.abs(mouseDownYPosition - cursorYPosition)?"0":"90"})`,
-                        background: 'tomato', // Change color as needed
-                        pointerEvents: 'none', // Prevent the line from interfering with mouse events
-                    }}
-                />}
+                <LineDrawingVisualEffect 
+                    mouseDownXPosition={mouseDownXPosition}
+                    cursorXPosition={cursorXPosition} 
+                    mouseDownYPosition={mouseDownYPosition} 
+                    cursorYPosition={cursorYPosition}/>}
 
 
             </div>
