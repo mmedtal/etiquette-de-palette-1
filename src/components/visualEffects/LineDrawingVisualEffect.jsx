@@ -7,9 +7,9 @@ export default function LineDrawingVisualEffect({mouseDownXPosition,cursorXPosit
         <div
                     style={{
                         position: 'absolute',
-                        left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
+                        left:Math.min(mouseDownXPosition,cursorXPosition),
                         //left:cursorXPosition,
-                        top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
+                        top:Math.min(mouseDownYPosition,cursorYPosition),
                         //top:cursorYPosition,
                         //top:mouseDownYPosition,
                         /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 

@@ -167,7 +167,7 @@ export default function PaletteWorkZone(props){
                 
                 {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} 
                     elementX={x} elementY={y}
-                    paletteHeight={props.height}
+                    paletteHeight={props.height+"mm"}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
                     liftInputValueToParent={liftInputValueToParent} 
                     liftCorrespondantZebraCodeToParent={liftCorrespondantZebraCodeToParent}
@@ -323,8 +323,8 @@ export default function PaletteWorkZone(props){
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
             style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",
-            height:props.height==0?"450px":`${props.height}px`,
-            width:props.width==0?"600px":`${props.width}px`}}
+            height:`${props.height}mm`,
+            width:`${props.width}mm`}}
             >
             <div onMouseMove={handleMouseMove} id="" onClick={handleClick}
                 style={{cursor:cursorAppearance}} 

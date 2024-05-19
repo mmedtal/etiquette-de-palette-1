@@ -12,11 +12,15 @@ export default function Main(props){
     const dispatch = useDispatch()
     let [controlMount,setControlMount]=useState(1)
 
-    const [hauteurPalette,setHauteurPalette] = useState(450)
-    const [largeurPalette,setLargeurPalette] = useState(600)
+    /*
+    const [hauteurPalette,setHauteurPalette] = useState(125)
+    const [largeurPalette,setLargeurPalette] = useState(175)
+    */
+
     const [resolutionPalette,setResolutionPalette] = useState(200)
     
 
+    /*
     useEffect(()=>{
         if(controlMount==1){
             dispatch({type:"AFFECTER_PALETTE_HAUTEUR",payload:hauteurPalette})
@@ -25,6 +29,7 @@ export default function Main(props){
         }
         controlMount=2
     },[])
+    */
 
     const hauteurPaletteControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.paletteHauteur)
     const largeurPaletteControlledFromLeftAside = useSelector(state=>state.leftAsideControllersReducer.paletteLargeur)
@@ -56,8 +61,10 @@ export default function Main(props){
             <div className="header h-10">
 
             </div>
-            <div  style={{display:"flex",flexDirection:"column", alignItems:"center"}}>
-                <div className="flex -mt-8" style={{width:largeurPaletteControlledFromLeftAside}}>
+            <div  style={{display:"flex",flexDirection:"column", alignItems:"center"}} className="">
+                <div className="flex -mt-8 " 
+                //style={{width:largeurPaletteControlledFromLeftAside}}
+                >
                     <Tabs value={selectedTab} >
                         <Tab label="Palette"  onClick={()=>setSelectedTab(0)} style={{fontFamily:"Segoe UI"}}/>
                         <Tab label={informUserOfNewZebraCode?`Code Zebra *`:"Code Zebra"} onClick={()=>{setSelectedTab(1);setInformUserOfNewZebraCode(false)}}
@@ -66,13 +73,25 @@ export default function Main(props){
                 </div>
                 {/* visibility:selectedTab==1?"visible":"hidden" avant y'avait ça, ma3rftch wach hiya plus cheap
                 li anaho makandirouch render lkolchi ymkn*/}
-                <div className="flex justify-center"  style={{display:selectedTab==0?"flex":"none"}}>
-                    <PaletteWorkZone selectedTab={selectedTab} height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
+                <div className="flex justify-center"  style={{display:selectedTab==0?"flex":"none"
+                    
+                }}>
+                    <PaletteWorkZone selectedTab={selectedTab} 
+                        height={hauteurPaletteControlledFromLeftAside}
+                        width={largeurPaletteControlledFromLeftAside}/>
                 </div>   
 
                 <div className="flex justify-center" 
-                    style={{display:selectedTab==1?"flex":"none",width:largeurPaletteControlledFromLeftAside,height:hauteurPaletteControlledFromLeftAside}} >
-                    <ZebraCodeViewer selectedTab={selectedTab} height={hauteurPaletteControlledFromLeftAside} width={largeurPaletteControlledFromLeftAside}/>
+                    style={{display:selectedTab==1?"flex":"none",
+                    /*this was causing PaletteWorkZone to shrink for some reason
+                    width:largeurPaletteControlledFromLeftAside,
+                    height:hauteurPaletteControlledFromLeftAside
+                    */
+                    }} >
+                    <ZebraCodeViewer selectedTab={selectedTab} 
+                        height={hauteurPaletteControlledFromLeftAside} 
+                        width={largeurPaletteControlledFromLeftAside}
+                        />
                 </div>  
             </div>
         </div>

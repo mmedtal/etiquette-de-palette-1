@@ -68,7 +68,7 @@ export default function PaletteControls(props){
                     <MenuItem value={"dpi"} onClick={getPrinterResolutionInDpi}>dpi</MenuItem>
                 </Select>
             </div>
-            <ModifyPropertiesInput label="Hauteur palette:"
+            <ModifyPropertiesInput label="Hauteur palette en mm:"
                 step={1}
                 inputValueAlign="center"
                 valueFromReduxStore={paletteHauteur}
@@ -78,7 +78,7 @@ export default function PaletteControls(props){
                 rightIcon={<UnfoldMore color="success"  />}
                 />
 
-            <ModifyPropertiesInput label="Largeur palette:"
+            <ModifyPropertiesInput label="Largeur palette en mm:"
                 step={1}
                 inputValueAlign="center"    
                 valueFromReduxStore={paletteLargeur}
@@ -86,7 +86,16 @@ export default function PaletteControls(props){
 
                 leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
                 rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
-            />   
+            />  
+
+
+            <div className="font-sans italic font-normal text-center text-lg px-2 
+                text-black bg-gray-50 pt-4 mt-2"
+                style={{fontSize:"140%"}}>
+               Les valeurs en-dessus doivent correspondre
+               aux valeurs <strong>configurés</strong> sur votre imprimante.
+                 
+            </div> 
         </>            
     )
 }
