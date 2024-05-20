@@ -27,22 +27,30 @@ export default function ModifyPropertiesInput(props){
     function incrementInputValue(){
         //console.log("inputRef",inputRef.current)
         //console.log("value ft sze : ",value)
-        setValue(value+1)
-        //setValue(value+props.step)
+        //setValue(value+1)
+        if(props.step){
+            setValue(value+props.step)
+        }else{
+            setValue(value+1)
+        }
 
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function decrementInputValue(){
         
-        setValue(value-1)
-        //setValue(value-props.step)
+        //setValue(value-1)
+        if(props.step){
+            setValue(value-props.step)
+        }else{
+            setValue(value-1)
+        }
         //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function manualyEnteredInputValue(e){
         
-        let newValue=parseInt(e.target.value)
+        let newValue=parseFloat(e.target.value)
         //if(newValue<=0) return
         // if(newValue>value){
         //     //console.log("new value is bigger")
@@ -78,15 +86,19 @@ export default function ModifyPropertiesInput(props){
 
             disabled={props.disabled}
             ref={inputRef}
-            value={props.valueFromReduxStore}
+            value={props.step<1?props.valueFromReduxStore.toFixed(2):props.valueFromReduxStore}
             type="number"
             variant="standard"
             label={props.label}
-
+            
             
 
             onChange={manualyEnteredInputValue}
 
+            inputProps={{
+                style:{textAlign:props.inputValueAlign,fontSize:"120%"},
+                step:props.step
+            }}
 
             InputLabelProps={{
                 style:{fontSize:"140%",fontFamily:"Segoe UI",color:"black"}
@@ -102,13 +114,7 @@ export default function ModifyPropertiesInput(props){
                 </IconButton>
             }}
 
-            // pour centrer le text à l'intérieur
-            inputProps={{
-                style:{textAlign:props.inputValueAlign,fontSize:"120%"},
-                step:props.step
-            }}
-
-            
+            // pour centrer le text à l'intérieur           
         >
             
         </TextField>

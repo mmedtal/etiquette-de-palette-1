@@ -16,16 +16,16 @@ export default function InsertedInput(props){
     */
     //adding font size control 07.05.24 10:33
     const [fontSizeFromReduxStore,fontSize,setFontSize] = 
-    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,25);  
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,9.86);//1.5mm default font size for font type A   
 
     
-    const lineHeight = `${parseInt(fontSize) * 1.2}px`;
+    const lineHeight = `${parseInt(fontSize)}px`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
     const offScreenSpanElement = useRef(null)
     
     function getCharachterWidthFromCharacterWidthCalculator(charachterWidthFromCharacterWidthCalculator){
-        //console.log("character width : ",charachterWidthFromCharacterWidthCalculator)
+        console.log("character width : ",charachterWidthFromCharacterWidthCalculator*0.2646)
         setCharacterWidth(charachterWidthFromCharacterWidthCalculator)
     }
 
@@ -359,14 +359,15 @@ export default function InsertedInput(props){
                 ref={myInputRef}
                 onChange={handleChange}
                 autoFocus={true} 
-                style={{width: `${inputWidth-inputWidth*3/fontSize}px`,position: "absolute",backgroundColor:"transparent",
+                style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px",
                         //fontWeight:niveauDeGras||100
                         //fontFamily:"Roboto"
-                        fontFamily:"sans-serif",
+                        fontFamily:"Fira-code",
+                        //fontWeight:"600",
                         lineHeight:lineHeight
                     
                     }}
@@ -385,7 +386,8 @@ export default function InsertedInput(props){
                         :`rotate(${rotation}deg)`,
                         fontSize:`${fontSize}px`,cursor:divCursorAppearance,
                         //fontWeight:niveauDeGras||100
-                        fontFamily:"sans-serif",
+                        fontFamily:"Fira-code",
+                        //fontWeight:"600",
                         lineHeight:lineHeight
                         
                         }}>

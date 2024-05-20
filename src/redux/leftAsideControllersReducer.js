@@ -75,7 +75,7 @@ export function leftAsideControllersReducer(state=myControllersState,action){
 
             case "MODIFIER_TAILLE_POLICE":
                 //console.log("left aside reducer taille de police :",action.payload)
-                return {...state, tailleDePolice:action.payload}
+                return {...state, tailleDePolice:parseFloat(action.payload)}
 
             case "MODIFIER_MISE_EN_GRAS":
                 return {...state, niveauDeGras:parseInt(action.payload)}

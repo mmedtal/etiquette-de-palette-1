@@ -6,8 +6,19 @@ import Main from './components/interface/main/Main';
 import LeftAside from './components/interface/leftAside/LeftAside';
 import { Provider } from 'react-redux';
 import { myStore } from './redux/store';
+import { useEffect } from 'react';
 
 function App() {
+
+
+  useEffect(()=>{
+    //console.log("the screen width is : " +window.screen.width)
+    //console.log("the screen height is : " +window.screen.height)
+
+    console.log("the devicePixelRatio: " +window.devicePixelRatio)
+
+  },[])
+
   return (
     <Provider store={myStore}>
       <LayoutComponent >

@@ -12,7 +12,12 @@ export default function useTextConverterToZebraCode(elementId,xPosition,yPositio
 
     useEffect(()=>{
        
-        setZebraFontSize("^CFA,"+parseInt(fontSize+14))
+
+        //ceci est fait pour type de font A, l3bar li chdina li par défaut howa 9.86px pour 6dpmm
+        console.log("font size : ",fontSize)
+        setZebraFontSize("^CFA,"+parseInt(fontSize-9+9))
+        //setZebraFontSize("^CFA")
+
     },[fontSize])
 
     useEffect(()=>{
@@ -50,7 +55,7 @@ export default function useTextConverterToZebraCode(elementId,xPosition,yPositio
         if(editMode===false){
             handleDispatch()
         }
-    },[editMode])
+    },[editMode,fontSize])
 
 
     return [fieldOrigin,fieldData,zebraFontSize]
