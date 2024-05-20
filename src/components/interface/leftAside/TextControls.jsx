@@ -48,7 +48,7 @@ export default function TextControls(props){
                     rightIcon={<Autorenew color="success"/>}
                 />
 
-            <ModifyPropertiesInput label="Taille de la police en pt:"
+            <ModifyPropertiesInput label="Taille de la police en mm:"
                     valueFromReduxStore={tailleDePolice}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_TAILLE_POLICE"
 
