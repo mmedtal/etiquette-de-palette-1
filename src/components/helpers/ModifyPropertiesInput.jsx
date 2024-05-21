@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function ModifyPropertiesInput(props){
 
 
-    //const inputRef = useRef(props.valueFromReduxStorell)
     function pixelsToMilimitersConverter(screenResolutionInPpiFromReduxStore,valueInPixelsFromReduxStore){
         const pixelsPerMilimiter = screenResolutionInPpiFromReduxStore/25.4;
         //which mean that one milimiter has the value pixelsPerMilimiter
@@ -18,10 +17,7 @@ export default function ModifyPropertiesInput(props){
 
     const [value,setValue]=useState(props.valueFromReduxStore)
 
-<<<<<<< HEAD
-=======
     
->>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
 
 
     function handleChange(newValue){
@@ -30,23 +26,6 @@ export default function ModifyPropertiesInput(props){
     }
 
     function incrementInputValue(){
-<<<<<<< HEAD
-        setValue(value+1)
-
-}
-
-    function decrementInputValue(){
-        
-        setValue(value-1)
-
-}
-
-    function manualyEnteredInputValue(e){
-        
-        let newValue=parseInt(e.target.value)
-        if(newValue<=0) return
-
-=======
         if(props.step){
             setValue(value+props.step)
         }else{
@@ -67,7 +46,6 @@ export default function ModifyPropertiesInput(props){
     function manualyEnteredInputValue(e){
         
         let newValue=parseFloat(e.target.value)
->>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
 
         setValue(newValue)
     }
@@ -79,22 +57,13 @@ export default function ModifyPropertiesInput(props){
 
     useEffect(()=>{
         setValue(props.valueFromReduxStore)
-        //let value=pixelsToMilimitersConverter(props.screenResolutionInPpiFromReduxStore,props.valueFromReduxStore);
-        //setValue(value)
-        /*
-        const pixelsPerMilimiter = props.screenResolutionInPpiFromReduxStore/25.4;
-        //which mean that one milimiter has the value pixelsPerMilimiter
-        const valueInMilimiters =  props.valueFromReduxStore/ pixelsPerMilimiter; 
-
-        setValue(valueInMilimiters)*/
+     
     },[props.valueFromReduxStore])
 
     return(
         <TextField
             style={{fontSize:"90%"}}
             disabled={props.disabled}
-            // ref={inputRef}
-            //value={props.step<1?props.valueFromReduxStore.toFixed(2):props.valueFromReduxStore.toFixed(2)}
             value={value}
             type="number"
             variant="standard"
@@ -121,15 +90,6 @@ export default function ModifyPropertiesInput(props){
                 </IconButton>
             }}
 
-<<<<<<< HEAD
-            inputProps={{
-                style:{textAlign:props.inputValueAlign,fontSize:"120%"},
-                step:props.step
-            }}
-
-            
-=======
->>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
         >
             
         </TextField>
