@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/etiquette-de-palette-1/static/css/main.254d18be.css",
-    "main.js": "/etiquette-de-palette-1/static/js/main.c3f98939.js",
+    "main.css": "/etiquette-de-palette-1/static/css/main.6c521dc1.css",
+    "main.js": "/etiquette-de-palette-1/static/js/main.187dbf33.js",
     "static/js/453.931cb7f3.chunk.js": "/etiquette-de-palette-1/static/js/453.931cb7f3.chunk.js",
+    "static/media/FiraCode-Regular.ttf": "/etiquette-de-palette-1/static/media/FiraCode-Regular.dbd175e33b712ffcd71c.ttf",
     "static/media/Roboto-Regular.ttf": "/etiquette-de-palette-1/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/RobotoMono-Regular.ttf": "/etiquette-de-palette-1/static/media/RobotoMono-Regular.94ffabb10cbc81ee42ba.ttf",
     "index.html": "/etiquette-de-palette-1/index.html",
-    "main.254d18be.css.map": "/etiquette-de-palette-1/static/css/main.254d18be.css.map",
-    "main.c3f98939.js.map": "/etiquette-de-palette-1/static/js/main.c3f98939.js.map",
+    "main.6c521dc1.css.map": "/etiquette-de-palette-1/static/css/main.6c521dc1.css.map",
+    "main.187dbf33.js.map": "/etiquette-de-palette-1/static/js/main.187dbf33.js.map",
     "453.931cb7f3.chunk.js.map": "/etiquette-de-palette-1/static/js/453.931cb7f3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.254d18be.css",
-    "static/js/main.c3f98939.js"
+    "static/css/main.6c521dc1.css",
+    "static/js/main.187dbf33.js"
   ]
 }
