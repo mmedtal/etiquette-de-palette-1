@@ -1,5 +1,5 @@
 import { Crop54, HorizontalRule, ShapeLine, TextFormat } from "@mui/icons-material";
-import { Button, IconButton, Menu, MenuItem } from "@mui/material";
+import { Badge, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import HeaderIcon from "./HeaderIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowPointer, faBarcode, faFont, faHouse, faICursor, faSlash, faVectorSquare } from "@fortawesome/free-solid-svg-icons";
@@ -11,10 +11,12 @@ export default function Header(props){
 
     const [clickedButton,setClickedButton]=useState(0)
 
+    const [isNew,setIsNew]=useState(true)
 
     const dispatch = useDispatch()
     function handleHeaderComponentClick(){
         dispatch({type:"SET_LEFT_ASIDE_CLICKED",payload:false})
+        
     }
 
     const [activeIcon,setActiveIcon]=useState("Sélectionner")
@@ -28,6 +30,10 @@ export default function Header(props){
         if(activeIcon==="Formes" && !isMenuOpen){
             setAnchorEl(e.currentTarget)
             setMenuOpen(true)
+        }
+
+        if(activeIcon=="Dimensions"){
+            setIsNew(false)
         }
     }
 
@@ -96,7 +102,10 @@ export default function Header(props){
 
             <HeaderIcon handleActiveIcon={handleActiveIcon} activeIcon={activeIcon} text="Dimensions" onClickDispatchActionsToReduxStore= 
             {[{type:"MODIFIER_DIMENSIONS_PALETTE"},{type:"AFFECTER_HAUTEUR",payload:100},{type:"AFFECTER_LARGEUR",payload:100}]} >        
-                <FontAwesomeIcon icon={faVectorSquare}/>
+                {isNew&&<Badge color="error" badgeContent="New">
+                    <FontAwesomeIcon icon={faVectorSquare}/>                    
+                </Badge>}
+                {!isNew&&<FontAwesomeIcon icon={faVectorSquare}/>}
             </HeaderIcon>
             
         </div>

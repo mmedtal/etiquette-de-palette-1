@@ -18,6 +18,15 @@ export default function LineDrawing(props){
     const [color,setColor]=useState("black")      
     const [isDragging, setIsDragging] = useState(false);
 
+
+    //to get where is the cursor on pos on the parent
+    const [cursorXPositionOnParent,setCursorXPositionOnParent]=useState(0)
+    const [cursorYPositionOnParent,setCursorYPositionOnParent]=useState(0)
+
+    const [mouseDownXPositionOnParent,setMouseDownXPositionOnParent]=useState(0)
+    const [mouseDownYPositionOnParent,setMouseDownYPositionOnParent]=useState(0)
+
+
     
     const [positionXFromRedux,leftPosition,setLeftPosition] = 
     usePropertiesFromStore("leftAsideControllersReducer","positionX",props.whichChildIam,
@@ -54,6 +63,7 @@ export default function LineDrawing(props){
 
       setLeftPosition(newX)
       setTopPosition(newY)
+
     };
 
     const handleMouseUp = () => {
@@ -78,6 +88,13 @@ export default function LineDrawing(props){
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
     setDragOffset({ x: offsetX, y: offsetY });
+
+
+    const parentRect = props.paletteWorkZoneRef.current.getBoundingClientRect();
+
+
+    setMouseDownXPositionOnParent(e.clientX-parentRect.left)
+    setMouseDownYPositionOnParent(e.clientY-parentRect.top)
   };
 
 
@@ -191,7 +208,9 @@ export default function LineDrawing(props){
     } 
 ,[])
 
+
     return(
+      <>
         <div    
               ref={lineRef}
                 style={{
@@ -217,10 +236,10 @@ export default function LineDrawing(props){
                         onFocus={handleFocus}
                         tabIndex={0}
                         onKeyDown={detectPressedKey}
-                        onClick={handleClick}
-                        >
+                        onClick={handleClick}>
 
 
         </div>
+      </>
     )
 }

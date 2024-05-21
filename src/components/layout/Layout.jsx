@@ -40,10 +40,3 @@ export default function LayoutComponent({children}){
 
 
 }
-
-{/* <div className="shape right-shape" style={{position: "absolute",
-        width:" 300px",
-        height: "300px",
-        borderRadius: "50%",
-        backgroundColor: "#336699", top: "50%",
-        right: "-150px"}}></div> */}

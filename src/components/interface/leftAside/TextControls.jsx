@@ -41,15 +41,15 @@ export default function TextControls(props){
             <ModifyPropertiesInput label="Rotation en deg:"
                     valueFromReduxStore={rotation}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_ROTATION"
-
+                    //step={0.1}
                     leftIcon={<Loop color="error" />}
                     rightIcon={<Autorenew color="success"/>}
                 />
 
-            <ModifyPropertiesInput label="Taille de la police en pt:"
+            <ModifyPropertiesInput label="Taille de la police en pixels:"
                     valueFromReduxStore={tailleDePolice}
                     onClickDispatchToLeftAsideControllersReducer="MODIFIER_TAILLE_POLICE"
-
+                    step={0.1}
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
                 />        

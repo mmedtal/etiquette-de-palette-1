@@ -10,14 +10,15 @@ export default function ZebraCodeViewer(props){
     <Fade direction="up" in={props.selectedTab === 1} timeout={500}
             style={{wordBreak:"break-word",position: 'relative',
             boxShadow:"1px 1px 3px 1px grey",
-            height:props.height==0?"450px":`${props.height}px`,
-            width:props.width==0?"600px":`${props.width}px`,overflow:"scroll"}}>
+            height:`${props.height}`,
+            width:`${props.width}`,overflow:"scroll"}}>
         <div>
 
 
             <div style={{fontSize:"140%",paddingBottom:"5px"}}>^XA</div>
             {generatedZebraCode.map((element,index)=>{
-                return<div style={{fontSize:"140%",paddingBottom:"5px"}} key={index}>{element.zebraCode}</div>
+                return<div style={{fontSize:"140%",paddingBottom:"5px"}} 
+                key={index}>{element.zebraCode}</div>
             })}
             <div style={{fontSize:"140%",paddingBottom:"5px"}}>^XZ</div>
 

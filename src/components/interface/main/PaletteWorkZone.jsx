@@ -5,6 +5,8 @@ import InsertedInput from "../../helpers/InsertedInput";
 import InsertedBarcode from "../../helpers/InsertedBarcode";
 import LineDrawing from "./LineDrawing";
 import useLineDrawing from "../../../hooks/useLineDrawing";
+import LineDrawingVisualEffect from "../../visualEffects/LineDrawingVisualEffect";
+import RectangleDrawingVisualEffect from "../../visualEffects/RectangleDrawingEffect";
 
 export default function PaletteWorkZone(props){
 
@@ -16,6 +18,8 @@ export default function PaletteWorkZone(props){
     const [isDragging, setIsDragging] = useState(false);
 
 
+    //because of a bug, the line is showing when i just click
+    const [showLineDrawingVisualEffect,setShowLineDrawingVisualEffect] = useState(false)
     const {handleMouseDownLineDrawing,handleMouseUpLineDrawing,handleMouseMoveLineDrawing,lineLength,startPos}=
     useLineDrawing();
 
@@ -43,6 +47,11 @@ export default function PaletteWorkZone(props){
         setCursorYPosition(e.clientY -e.target.getBoundingClientRect().top)
         setCursorXPosition(e.clientX -parentRect.left)
 
+
+
+        if(Math.abs(cursorXPosition - mouseDownXPosition)||Math.abs(cursorYPosition - mouseDownYPosition)){
+            setShowLineDrawingVisualEffect(true)
+        }
     }
 
     const cursorAppearance = useSelector(state=>state.headerClickReducer.cursorAppearance)
@@ -104,7 +113,7 @@ export default function PaletteWorkZone(props){
     const [lineDrawingWidth,setLineDrawingWidth] = useState(0)
     const [lineDrawingHeight,setLineDrawingHeight] = useState(0)
     function handleClick(e){
-    
+
         
 
         if(whichHeaderButtonIsCliqued=="inserer_texte"){
@@ -118,7 +127,7 @@ export default function PaletteWorkZone(props){
                 
                 {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} 
                     elementX={x} elementY={y}
-                    paletteHeight={props.height}
+                    paletteHeight={props.height+"mm"}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
                     liftInputValueToParent={liftInputValueToParent} 
                     liftCorrespondantZebraCodeToParent={liftCorrespondantZebraCodeToParent}
@@ -176,21 +185,18 @@ export default function PaletteWorkZone(props){
             setElements([...elements,
                 
                 {elementId:childCount,element:<LineDrawing 
-                    lineLength={lineLength} key={childCount} handleMouseMove={handleMouseMove} 
-
-                    left={mouseDownXPosition<mouseUpXPosition?mouseDownXPosition:mouseUpXPosition}
-                    top={mouseDownYPosition<mouseUpYPosition?mouseDownYPosition:mouseUpYPosition}
-
+                    lineLength={lineLength} 
+                    key={childCount} handleMouseMove={handleMouseMove} 
+                    left={Math.min(mouseDownXPosition,mouseUpXPosition)}
+                    top={Math.min(mouseDownYPosition,mouseUpYPosition)}
                     height={absDeltaX>absDeltaY?1:absDeltaY} 
                     width={absDeltaX>absDeltaY?absDeltaX:1}
                     angle={absDeltaX > absDeltaY?"0":"90"}
-                
                     absDeltaX={absDeltaX}  absDeltaY={absDeltaY}
-
                     paletteWorkZoneRef={paletteWorkZoneRef}
                     whichChildIam={childCount} 
-
-                    //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
+                    cursorXPositionOnParent={cursorXPosition}
+                    parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
                     />,value:"",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
@@ -203,33 +209,39 @@ export default function PaletteWorkZone(props){
         setIsDragging(false)
     }
 
+
     function onMouseDown(e){
 
 
         if(whichHeaderButtonIsCliqued=="dessiner_ligne_forme"){
-            setIsDragging(true);
+                setIsDragging(true);
         }
         
         setMouseDownYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseDownXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseDownLineDrawing(e)
+
+
+        setShowLineDrawingVisualEffect(false)
     }
     function onMouseUp(e){
 
         setIsDragging(false);
-        //console.log(" MouseUpXPosition : ",e.clientX -e.target.getBoundingClientRect().left)
         
         setMouseUpYPosition(e.clientY - e.target.getBoundingClientRect().top)
         setMouseUpXPosition(e.clientX - e.target.getBoundingClientRect().left)
         handleMouseUpLineDrawing(e)
+        
+        
+        setShowLineDrawingVisualEffect(false)
     }
 
 
     return(
         <Fade direction="up" in={props.selectedTab === 0} timeout={500}
             style={{position: 'relative',boxShadow:"1px 1px 3px 1px grey",
-            height:props.height==0?"450px":`${props.height}px`,
-            width:props.width==0?"600px":`${props.width}px`}}
+            height:`${props.height}`,
+            width:`${props.width}`}}
             >
             <div onMouseMove={handleMouseMove} id="" onClick={handleClick}
                 style={{cursor:cursorAppearance}} 
@@ -246,39 +258,13 @@ export default function PaletteWorkZone(props){
 
                
                 
-                {isDragging&&
-                <div
-                    style={{
-                        position: 'absolute',
-                        left:mouseDownXPosition<cursorXPosition?mouseDownXPosition:cursorXPosition,
-                        //left:mouseDownXPosition,
-                        
-                        top:mouseDownYPosition<cursorYPosition?mouseDownYPosition:cursorYPosition,
-                        //top:mouseDownYPosition,
-                        /*width: Math.sqrt(Math.pow(cursorXPosition - mouseDownXPosition, 2) + 
-                        Math.pow(cursorYPosition - mouseDownYPosition, 2)),
-                        */
-                        /*
-                        width:Math.abs(mouseDownXPosition - mouseUpXPosition)>Math.abs(mouseDownXPosition - mouseUpXPosition)?
-                        Math.abs(mouseDownXPosition - mouseUpXPosition):1,
-                        */
+                {isDragging&& showLineDrawingVisualEffect&&
+                <LineDrawingVisualEffect 
+                    mouseDownXPosition={mouseDownXPosition}
+                    cursorXPosition={cursorXPosition} 
+                    mouseDownYPosition={mouseDownYPosition} 
+                    cursorYPosition={cursorYPosition}/>}
 
-                       // height: 2, // Adjust this for line thickness
-                       
-            //absDeltaX = Math.abs(mouseDownXPosition - cursorXPosition)
-            //absDeltaY = Math.abs(mouseDownYPosition - cursorYPosition)
-                        //transformOrigin: '0 0',
-                        height:Math.abs(mouseDownXPosition - cursorXPosition)>
-                        Math.abs(mouseDownYPosition - cursorYPosition)?2:Math.abs(mouseDownYPosition - cursorYPosition),
-                        width:Math.abs(mouseDownXPosition - cursorXPosition)>
-                        Math.abs(mouseDownYPosition - cursorYPosition)?Math.abs(mouseDownXPosition - cursorXPosition):2,
-
-                        transform:`rotate(${ Math.abs(mouseDownXPosition - cursorXPosition)< 
-                            Math.abs(mouseDownYPosition - cursorYPosition)?"0":"90"})`,
-                        background: 'tomato', // Change color as needed
-                        pointerEvents: 'none', // Prevent the line from interfering with mouse events
-                    }}
-                />}
 
 
 

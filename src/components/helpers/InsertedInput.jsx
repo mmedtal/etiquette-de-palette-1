@@ -10,17 +10,28 @@ export default function InsertedInput(props){
 
     const [inputValue,setInputValue] = useState("")
 
+<<<<<<< HEAD
    
     const [fontSizeFromReduxStore,fontSize,setFontSize] = 
     usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);  
+=======
+    /* commented 07.05.24 10:35
+    const [fontSizeFromReduxStore,fontSize,setFontSize] = 
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);
+    */
+    //adding font size control 07.05.24 10:33
+    const [fontSizeFromReduxStore,fontSize,setFontSize] = //9.86
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,5.6);//1.5mm default font size for font type A   
+>>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
 
     
-    const lineHeight = `${parseInt(fontSize) * 1.2}pt`;
+    const lineHeight = `${parseInt(fontSize)}px`;
     const [characterwidth,setCharacterWidth] = useState("")
     const myInputRef =useRef(null);
     const offScreenSpanElement = useRef(null)
     
     function getCharachterWidthFromCharacterWidthCalculator(charachterWidthFromCharacterWidthCalculator){
+        //console.log("character width : ",charachterWidthFromCharacterWidthCalculator*0.2646)
         setCharacterWidth(charachterWidthFromCharacterWidthCalculator)
     }
 
@@ -245,6 +256,8 @@ export default function InsertedInput(props){
         }
         
         setInputWidth(newInputWidth+fontSize/2)
+        //setInputWidth(newInputWidth+fontSize)
+
     }
 
     
@@ -284,17 +297,25 @@ export default function InsertedInput(props){
                 ref={myInputRef}
                 onChange={handleChange}
                 autoFocus={true} 
-                style={{width: `${inputWidth-inputWidth*3/fontSize}pt`,position: "absolute",backgroundColor:"transparent",
+                style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",
+<<<<<<< HEAD
                         fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"pt":fontSize+"pt",
                         fontFamily:"sans-serif",
+=======
+                        fontSize:whichTextInputIsClickedFromReduxStore==props.whichChildIam?fontSizeFromReduxStore+"px":fontSize+"px",
+                        //fontWeight:niveauDeGras||100
+                        //fontFamily:"Roboto"
+                        fontFamily:"Fira-code",
+                        //fontWeight:"600",
+>>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
                         lineHeight:lineHeight
                     
                     }}
                 maxLength={inputValue.length >=1 ?inputValue.length+1:1}/>}
-            {editMode&&<CharacterWidthCalculator fontSize={fontSize+"pt"} character={inputValue[inputValue.length-1]} 
+            {editMode&&<CharacterWidthCalculator fontSize={fontSize+"px"} character={inputValue[inputValue.length-1]} 
                     inputValue={inputValue}
                     getCharachterWidthFromCharacterWidthCalculator={getCharachterWidthFromCharacterWidthCalculator}
                     setNewInputWidthWhenFontSizeChanges={setNewInputWidthWhenFontSizeChanges}
@@ -306,8 +327,15 @@ export default function InsertedInput(props){
                         left:leftPosition,top:topPosition,outline:"none",
                         transform:whichTextInputIsClickedFromReduxStore==props.whichChildIam?`rotate(${rotationFromReduxStore}deg)`
                         :`rotate(${rotation}deg)`,
+<<<<<<< HEAD
                         fontSize:`${fontSize}pt`,cursor:divCursorAppearance,
                         fontFamily:"sans-serif",
+=======
+                        fontSize:`${fontSize}px`,cursor:divCursorAppearance,
+                        //fontWeight:niveauDeGras||100
+                        fontFamily:"Fira-code",
+                        //fontWeight:"600",
+>>>>>>> 1cf8cee323972aff3ced65457b041e81b089b10f
                         lineHeight:lineHeight
                         
                         }}>

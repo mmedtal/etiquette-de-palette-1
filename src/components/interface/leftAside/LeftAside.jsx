@@ -13,7 +13,8 @@ export default function LeftAside(props){
 
     const {whichHeaderButtonIsCliqued,activeHeaderIcon} = useSelector(state=>state.headerClickReducer)
 
-    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
+    const {hauteur,largeur,positionX,positionY,epaisseur,rotation,paletteHauteur,
+        paletteLargeur,tailleDePolice} = useSelector(state=>state.leftAsideControllersReducer)
 
     const [elementXPosition,setElementXPosition]=useState(positionX)
 
