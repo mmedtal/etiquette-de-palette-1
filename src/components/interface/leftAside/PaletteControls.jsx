@@ -99,7 +99,7 @@ export default function PaletteControls(props){
     return(
         <>
             <div className="flex">
-                <ModifyPropertiesInput label="Résolution en :"
+                <ModifyPropertiesInput label="Résolution imprimante:"
                     inputValueAlign="left"
                     valueFromReduxStore={parseInt(printerResolution)}
                     onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_RESOLUTION"

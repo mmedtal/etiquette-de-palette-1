@@ -10,6 +10,8 @@ export default function LabelSizeInput(props){
 
     const {screenResolutionInPpi}=useSelector(state=>state.leftAsideControllersReducer)
 
+
+    //const [screenResolutionInPpiState,setScreenResolutionInPpiState]=useState(screenResolutionInPpi)
     const [value,setValue]=useState(parseInt(pixelsToMilimitersConverter(screenResolutionInPpi,props.valueFromReduxStoreInPixels)))
 
     const [didValueIncrementedOrDecremented,setDidValueIncrementedOrDecremented]=useState(null)
@@ -80,7 +82,9 @@ export default function LabelSizeInput(props){
     useEffect(()=>{
         //console.log("reso tchd")
         //manualyEnteredInputValue()
-        
+        //setValue(value-1)
+        //setValue(value1)
+        setValue(parseInt(pixelsToMilimitersConverter(screenResolutionInPpi, props.valueFromReduxStoreInPixels)));
     },[screenResolutionInPpi])
 
 

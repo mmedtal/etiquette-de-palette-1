@@ -264,7 +264,7 @@ export default function PaletteWorkZone(props){
     }
     
     useEffect(()=>{
-        console.log("PaletteWorkZoneElements :",elements)
+        //console.log("PaletteWorkZoneElements :",elements)
         //08.05.24 18:23 code to remove elements that have an empty value
 
         //const nonEmptyValueElements = elements.filter(element=>element.value.trim()!=="")
