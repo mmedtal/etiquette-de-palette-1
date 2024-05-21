@@ -9,7 +9,7 @@ export default function PaletteControls(props){
 
 
 
-    const {paletteHauteur,paletteLargeur,resolutionInDpi} = useSelector(state=>state.leftAsideControllersReducer)
+    const {paletteHauteur,paletteLargeur,resolutionInDpi,screenResolutionInPpi} = useSelector(state=>state.leftAsideControllersReducer)
 
     const [printerResolution,setPrinterResolution] = useState(resolutionInDpi+"dpi")
 
@@ -68,7 +68,7 @@ export default function PaletteControls(props){
                     <MenuItem value={"dpi"} onClick={getPrinterResolutionInDpi}>dpi</MenuItem>
                 </Select>
             </div>
-            <ModifyPropertiesInput label="Hauteur palette en mm:"
+            <ModifyPropertiesInput label="Hauteur palette en mm :"
                 step={1}
                 inputValueAlign="center"
                 valueFromReduxStore={paletteHauteur}
@@ -78,7 +78,7 @@ export default function PaletteControls(props){
                 rightIcon={<UnfoldMore color="success"  />}
                 />
 
-            <ModifyPropertiesInput label="Largeur palette en mm:"
+            <ModifyPropertiesInput label="Largeur palette en mm :"
                 step={1}
                 inputValueAlign="center"    
                 valueFromReduxStore={paletteLargeur}
@@ -88,12 +88,33 @@ export default function PaletteControls(props){
                 rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
             />  
 
+            <div className="flex">
+                <ModifyPropertiesInput label="Résolution de l'écran :"
+                    inputValueAlign="left"
+                    valueFromReduxStore={parseInt(screenResolutionInPpi)}
+                    onClickDispatchToLeftAsideControllersReducer="MODIFIER_RESOLUTION_ECRAN_PPI"
+                    //step={printerResolution[printerResolution.length-1]=="m"?0.1:1}
+                    step={1}
+                    leftIcon={<UnfoldLess color="error"     />}
+                    rightIcon={<UnfoldMore color="success"  />}
+                    />
+                <Select defaultValue={"ppi"} variant="standard" className="ml-1">
+                    <MenuItem value={"ppi"}>PPI</MenuItem>
+                    {/* <MenuItem value={"dpi"} onClick={getPrinterResolutionInDpi}>dpi</MenuItem> */}
+                </Select>
+            </div> 
 
-            <div className="font-sans italic font-normal text-center text-lg px-2 
+
+            <div className="font-sans italic font-normal text-center text-xs  
                 text-black bg-gray-50 pt-4 mt-2"
-                style={{fontSize:"140%"}}>
-               Les valeurs en-dessus doivent correspondre
-               aux valeurs <strong>configurés</strong> sur votre imprimante.
+                style={{fontSize:"110%"}}>
+                    Pour une aperçu correcte du résultat de sortie, les <strong>valeurs</strong> doivent 
+                    correspondre à ceux configurés sur votre imprimante.
+                    <br />
+                    Le <strong>PPI</strong> est le nombre de pixels par pouce de votre écran.
+
+               {/* Les valeurs en-dessus doivent correspondre
+               aux valeurs <strong>configurés</strong> sur votre imprimante. */}
                  
             </div> 
         </>            

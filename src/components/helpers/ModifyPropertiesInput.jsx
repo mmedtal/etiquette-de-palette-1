@@ -83,7 +83,7 @@ export default function ModifyPropertiesInput(props){
 
     return(
         <TextField
-
+            style={{fontSize:"90%"}}
             disabled={props.disabled}
             ref={inputRef}
             value={props.step<1?props.valueFromReduxStore.toFixed(2):props.valueFromReduxStore}

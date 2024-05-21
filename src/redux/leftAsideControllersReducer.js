@@ -6,14 +6,15 @@ let myControllersState={
     positionY   :0,
     epaisseur   :0,
     rotation    :0,
-    paletteHauteur:125,
-    paletteLargeur:175,
+    paletteHauteur:600,//en px
+    paletteLargeur:700,//en px
     resolutionInDpi:150,
     leftAsideClicke:false,
     whichTextInputIsClicked:null,
     isLeftAsideClicked:false,
     tailleDePolice:0,
-    niveauDeGras:300
+    niveauDeGras:300,
+    screenResolutionInPpi:144
 }
 
 
@@ -79,6 +80,10 @@ export function leftAsideControllersReducer(state=myControllersState,action){
 
             case "MODIFIER_MISE_EN_GRAS":
                 return {...state, niveauDeGras:parseInt(action.payload)}
+            
+            case "MODIFIER_RESOLUTION_ECRAN_PPI":
+                return {...state, screenResolutionInPpi:parseInt(action.payload)}
+                
 
             default:
                 return state

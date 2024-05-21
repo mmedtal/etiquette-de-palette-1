@@ -15,8 +15,8 @@ export default function ZebraCodeViewer(props){
     <Fade direction="up" in={props.selectedTab === 1} timeout={500}
             style={{wordBreak:"break-word",position: 'relative',
             boxShadow:"1px 1px 3px 1px grey",
-            height:`${props.height}mm`,
-            width:`${props.width}mm`,overflow:"scroll"}}>
+            height:`${props.height}`,
+            width:`${props.width}`,overflow:"scroll"}}>
         <div>
 
 

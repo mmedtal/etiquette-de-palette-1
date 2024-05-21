@@ -16,7 +16,7 @@ export default function InsertedInput(props){
     */
     //adding font size control 07.05.24 10:33
     const [fontSizeFromReduxStore,fontSize,setFontSize] = //9.86
-    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,3.78);//1.5mm default font size for font type A   
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,5.6);//1.5mm default font size for font type A   
 
     
     const lineHeight = `${parseInt(fontSize)}px`;

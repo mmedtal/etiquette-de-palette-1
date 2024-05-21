@@ -77,8 +77,9 @@ export default function Main(props){
                     
                 }}>
                     <PaletteWorkZone selectedTab={selectedTab} 
-                        height={hauteurPaletteControlledFromLeftAside}
-                        width={largeurPaletteControlledFromLeftAside}/>
+                        height={ `${hauteurPaletteControlledFromLeftAside}px`} 
+                        width={`${largeurPaletteControlledFromLeftAside}px`}
+                        />
                 </div>   
 
                 <div className="flex justify-center" 
@@ -89,8 +90,8 @@ export default function Main(props){
                     */
                     }} >
                     <ZebraCodeViewer selectedTab={selectedTab} 
-                        height={hauteurPaletteControlledFromLeftAside} 
-                        width={largeurPaletteControlledFromLeftAside}
+                        height={ `${hauteurPaletteControlledFromLeftAside}px`} 
+                        width={`${largeurPaletteControlledFromLeftAside}px`}
                         />
                 </div>  
             </div>
