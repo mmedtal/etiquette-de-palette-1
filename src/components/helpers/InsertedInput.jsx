@@ -15,8 +15,8 @@ export default function InsertedInput(props){
     usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,26);
     */
     //adding font size control 07.05.24 10:33
-    const [fontSizeFromReduxStore,fontSize,setFontSize] = 
-    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,9.86);//1.5mm default font size for font type A   
+    const [fontSizeFromReduxStore,fontSize,setFontSize] = //9.86
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,3.78);//1.5mm default font size for font type A   
 
     
     const lineHeight = `${parseInt(fontSize)}px`;
@@ -25,7 +25,7 @@ export default function InsertedInput(props){
     const offScreenSpanElement = useRef(null)
     
     function getCharachterWidthFromCharacterWidthCalculator(charachterWidthFromCharacterWidthCalculator){
-        console.log("character width : ",charachterWidthFromCharacterWidthCalculator*0.2646)
+        //console.log("character width : ",charachterWidthFromCharacterWidthCalculator*0.2646)
         setCharacterWidth(charachterWidthFromCharacterWidthCalculator)
     }
 
