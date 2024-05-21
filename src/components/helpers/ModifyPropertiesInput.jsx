@@ -5,88 +5,76 @@ import { useDispatch, useSelector } from "react-redux";
 export default function ModifyPropertiesInput(props){
 
 
-    const inputRef = useRef(props.valueFromReduxStorell)
+    //const inputRef = useRef(props.valueFromReduxStorell)
+    function pixelsToMilimitersConverter(screenResolutionInPpiFromReduxStore,valueInPixelsFromReduxStore){
+        const pixelsPerMilimiter = screenResolutionInPpiFromReduxStore/25.4;
+        //which mean that one milimiter has the value pixelsPerMilimiter
+        const valueInMilimiters =  valueInPixelsFromReduxStore/ pixelsPerMilimiter; 
+        return valueInMilimiters.toFixed(2);
+    }
+    
     const dispatch = useDispatch()
 
-    //const anObject = useSelector((state)=>state.leftAsideControllersReducer)
 
     const [value,setValue]=useState(props.valueFromReduxStore)
 
     
-    // useEffect(() => {
-    //     setValue(props.valueFromReduxStore);
-    //   }, []);
 
 
     function handleChange(newValue){
-        //let newValue = parseInt(newValue)
 
 
     }
 
     function incrementInputValue(){
-        //console.log("inputRef",inputRef.current)
-        //console.log("value ft sze : ",value)
-        //setValue(value+1)
         if(props.step){
             setValue(value+props.step)
         }else{
             setValue(value+1)
         }
 
-        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function decrementInputValue(){
         
-        //setValue(value-1)
         if(props.step){
             setValue(value-props.step)
         }else{
             setValue(value-1)
         }
-        //after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
     }
 
     function manualyEnteredInputValue(e){
         
         let newValue=parseFloat(e.target.value)
-        //if(newValue<=0) return
-        // if(newValue>value){
-        //     //console.log("new value is bigger")
-        //     //console.log("redux store ",anObject)
-        //     dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
-        //     setValue(newValue)
-        //     return
-        // }
-        // if(newValue<value){
-        //     //console.log("old value is bigger")
-        //     dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:-newValue})
-        //     //console.log("redux store ",anObject)
-        //     setValue(newValue)
-        //     return            
-        // }
 
-        // after using useEffect dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:newValue})
         setValue(newValue)
     }
 
     useEffect(()=>{
         dispatch({type:props.onClickDispatchToLeftAsideControllersReducer,payload:value})
-        //console.log(value)
     },[value])
 
 
     useEffect(()=>{
         setValue(props.valueFromReduxStore)
+        //let value=pixelsToMilimitersConverter(props.screenResolutionInPpiFromReduxStore,props.valueFromReduxStore);
+        //setValue(value)
+        /*
+        const pixelsPerMilimiter = props.screenResolutionInPpiFromReduxStore/25.4;
+        //which mean that one milimiter has the value pixelsPerMilimiter
+        const valueInMilimiters =  props.valueFromReduxStore/ pixelsPerMilimiter; 
+
+        setValue(valueInMilimiters)*/
     },[props.valueFromReduxStore])
 
     return(
         <TextField
             style={{fontSize:"90%"}}
             disabled={props.disabled}
-            ref={inputRef}
-            value={props.step<1?props.valueFromReduxStore.toFixed(2):props.valueFromReduxStore}
+            // ref={inputRef}
+            //value={props.step<1?props.valueFromReduxStore.toFixed(2):props.valueFromReduxStore.toFixed(2)}
+            value={value}
             type="number"
             variant="standard"
             label={props.label}
@@ -114,7 +102,6 @@ export default function ModifyPropertiesInput(props){
                 </IconButton>
             }}
 
-            // pour centrer le text à l'intérieur           
         >
             
         </TextField>

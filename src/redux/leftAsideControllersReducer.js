@@ -17,6 +17,12 @@ let myControllersState={
     screenResolutionInPpi:144
 }
 
+/*
+function valuesInPixelsConverter(screenResolutionInPpi,payload){
+    const convertedValue = (screenResolutionInPpi/25.4)*payload;
+    return convertedValue;
+}
+*/
 
 export function leftAsideControllersReducer(state=myControllersState,action){
         switch(action.type){
@@ -24,7 +30,11 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 //console.log("state = ",state,"action = ",action)
                 // console.log("modify htr")
                 return {...state,hauteur:parseInt(action.payload)}
+                
+                //const a = getValuesInPixels(...state.screenResolutionInPpi)
+                
             
+
             case "MODIFIER_LARGEUR":
 
                 //console.log("modify lrgr")
@@ -52,15 +62,22 @@ export function leftAsideControllersReducer(state=myControllersState,action){
 
             case "AFFECTER_PALETTE_HAUTEUR":
                 //if(parseInt(action.payload)<=0) return
-                return {...state,paletteHauteur:parseInt(action.payload)}
+                //return {...state,paletteHauteur:parseInt(action.payload)}
                 //return {...state,paletteHauteur:parseInt(state.paletteHauteur)+parseInt(action.payload)}
-            
+                //const paletteHauteurInPixels = valuesInPixelsConverter(state.screenResolutionInPpi,action.payload)
+                //console.log("plt htr frm rdx : ",action.payload)
+                return {...state,paletteHauteur:parseFloat(action.payload)}
                 
             case "AFFECTER_PALETTE_LARGEUR":
                 //console.log("paletteLargeur = ",state.paletteLargeur)
                 //if(parseInt(action.payload)<=0) return
-                return {...state,paletteLargeur:parseInt(action.payload)}
+                //console.log("largr payload : ",action.payload)
+                //const paletteLargeurInPixels = valuesInPixelsConverter(state.screenResolutionInPpi,action.payload)
+                //return {...state,paletteLargeur:parseInt(paletteLargeurInPixels)}
+                //return {...state,paletteLargeur:(state.screenResolutionInPpi)*parseFloat(action.payload)/25.4}
                 //return {...state,paletteLargeur:parseInt(state.paletteLargeur)+parseInt(action.payload)}
+                return {...state,paletteLargeur:parseFloat(action.payload)}
+
 
             case "AFFECTER_PALETTE_RESOLUTION":
                 return {...state,resolutionInDpi:parseInt(action.payload)}
@@ -82,6 +99,7 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 return {...state, niveauDeGras:parseInt(action.payload)}
             
             case "MODIFIER_RESOLUTION_ECRAN_PPI":
+                //console.log("resolution ecran touched")
                 return {...state, screenResolutionInPpi:parseInt(action.payload)}
                 
 

@@ -3,6 +3,8 @@ import { useSelector } from "react-redux"
 import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput"
 import { MenuItem, Select, Tooltip } from "@mui/material"
 import { useEffect, useState } from "react"
+import { milimitersToPixelsConverter,pixelsToMilimitersConverter } from "./converterFunctions"
+import LabelSizeInput from "./LabelSizeInput"
 
 export default function PaletteControls(props){
 
@@ -13,7 +15,38 @@ export default function PaletteControls(props){
 
     const [printerResolution,setPrinterResolution] = useState(resolutionInDpi+"dpi")
 
+    
 
+    const [labelHeight,setLabelHeight]=
+    useState(pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur))
+
+    
+    /*function getLabelHeightInMilimiters(){
+        if(labelHeight[labelHeight.length-1]=="x"){
+            setLabelHeight(pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur))
+        }
+        if(labelHeight[labelHeight.length-1]=="m"){
+            setLabelHeight(labelHeight+"mm")
+        }
+    }*/
+    function getLabelHeightInMilimiters(){
+        if(labelHeight[labelHeight.length-1]=="x"){
+            setLabelHeight(pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur))
+        }
+        if(labelHeight[labelHeight.length-1]=="m"){
+            setLabelHeight(labelHeight+"mm")
+        }
+    }
+
+    /*
+    function getLabelHeightInPixels(){
+        if(labelHeight[labelHeight.length-1]=="m"){
+            setLabelHeight(milimitersToPixelsConverter(screenResolutionInPpi,paletteHauteur))
+        }
+        if(labelHeight[labelHeight.length-1]=="x"){
+            setLabelHeight(labelHeight+"px")
+        }
+    }*/
     
 
     function getPrinterResolutionInDpmm(){
@@ -51,6 +84,18 @@ export default function PaletteControls(props){
             setPrinterResolution(resolutionInDpi+"dpi")
         }
     },[resolutionInDpi])
+
+
+    const [paletteHauteurConvertedToMilimiters,setPaletteHauteurConvertedToMilimiters]=useState(paletteHauteur)
+    useEffect(()=>{
+        setPaletteHauteurConvertedToMilimiters(pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur))
+    },[paletteHauteur])
+
+    const [paletteLargeurConvertedToMilimiters,setPaletteLargeurConvertedToMilimiters]=useState(paletteLargeur)
+    useEffect(()=>{
+        setPaletteLargeurConvertedToMilimiters(pixelsToMilimitersConverter(screenResolutionInPpi,paletteLargeur))
+    },[paletteLargeur])
+
     return(
         <>
             <div className="flex">
@@ -68,25 +113,64 @@ export default function PaletteControls(props){
                     <MenuItem value={"dpi"} onClick={getPrinterResolutionInDpi}>dpi</MenuItem>
                 </Select>
             </div>
-            <ModifyPropertiesInput label="Hauteur palette en mm :"
-                step={1}
-                inputValueAlign="center"
-                valueFromReduxStore={paletteHauteur}
-                onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_HAUTEUR"
+            {/* <div className="flex"> */}
+                {/* <ModifyPropertiesInput label="Hauteur palette en mm :"
+                    //step={1}
+                    step={milimitersToPixelsConverter(screenResolutionInPpi,1)}
+                    inputValueAlign="center"
+                    valueFromReduxStore={parseFloat(labelHeight)}
+                    //valueFromReduxStore={pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur)}
+                    //valueFromReduxStore={pixelsToMilimitersConverter(screenResolutionInPpi,paletteHauteur)}//dir lfct hna
 
-                leftIcon={<UnfoldLess color="error"     />}
-                rightIcon={<UnfoldMore color="success"  />}
-                />
 
-            <ModifyPropertiesInput label="Largeur palette en mm :"
-                step={1}
+                    onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_HAUTEUR"
+                    //payload={milimitersToPixelsConverter(screenResolutionInPpi,1)}
+
+                    screenResolutionInPpiFromReduxStore={screenResolutionInPpi}
+
+                    leftIcon={  <UnfoldLess color="error"     />}
+                    rightIcon={   <UnfoldMore color="success"  />}
+                    //valueFromReduxStore={paletteHauteurConvertedToMilimiters}
+                    /> */}
+                {/* <Select defaultValue={"px"} variant="standard" className="ml-1">
+                    <MenuItem value={"mm"}onClick={getLabelHeightInMilimiters} >mm</MenuItem>
+                    <MenuItem value={"px"} onClick={getPrinterResolutionInDpi}>px</MenuItem>
+                </Select>
+
+            </div> */}
+            <LabelSizeInput
+                actionToDispatch="AFFECTER_PALETTE_HAUTEUR"
+                valueFromReduxStoreInPixels={paletteHauteur}
+                label="Hauteur palette en mm :"
+            />
+
+            <LabelSizeInput
+                actionToDispatch="AFFECTER_PALETTE_LARGEUR"
+                valueFromReduxStoreInPixels={paletteLargeur}
+                label="Largeur palette en mm :"
+            />
+
+            {/* <ModifyPropertiesInput label="Largeur palette en mm :"
+                //step={1}
+                step={milimitersToPixelsConverter(screenResolutionInPpi,1)}
+
                 inputValueAlign="center"    
                 valueFromReduxStore={paletteLargeur}
+                //valueFromReduxStore={pixelsToMilimitersConverter(screenResolutionInPpi,paletteLargeur)}
+
+                screenResolutionInPpiFromReduxStore={screenResolutionInPpi}
+                
                 onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_LARGEUR"
+                
+
+                
 
                 leftIcon={<UnfoldLess color="error"     style={{ transform: 'rotate(90deg)' }}/>}
                 rightIcon={<UnfoldMore color="success"  style={{ transform: 'rotate(90deg)' }}/>}
-            />  
+                
+                
+                //valueFromReduxStore={paletteLargeurConvertedToMilimiters}
+            />   */}
 
             <div className="flex">
                 <ModifyPropertiesInput label="Résolution de l'écran :"
