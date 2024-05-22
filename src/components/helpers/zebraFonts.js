@@ -1,4 +1,4 @@
-export const zebraFonts = {
+const zebraFonts = {
         "A":{heightInDots:9,widthInDots:5},
         "B":{heightInDots:11,widthInDots:17},
         "C":{heightInDots:18,widthInDots:10},
@@ -11,6 +11,8 @@ export const zebraFonts = {
         "0":{heightInDots:15,widthInDots:12},
 }  
 
+
+export {zebraFonts}
 
 /*
 "6":{
