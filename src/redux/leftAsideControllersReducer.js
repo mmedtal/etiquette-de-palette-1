@@ -14,7 +14,8 @@ let myControllersState={
     isLeftAsideClicked:false,
     tailleDePolice:0,
     niveauDeGras:300,
-    screenResolutionInPpi:144
+    screenResolutionInPpi:144,
+    choosedZebraFont:"A"
 }
 
 /*
@@ -102,6 +103,9 @@ export function leftAsideControllersReducer(state=myControllersState,action){
                 //console.log("resolution ecran touched")
                 return {...state, screenResolutionInPpi:parseInt(action.payload)}
                 
+            case "SET_ZEBRA_FONT":
+                //console.log("choosed zebra font : ",action.payload)
+                return {...state, choosedZebraFont:action.payload}
 
             default:
                 return state

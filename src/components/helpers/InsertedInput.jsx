@@ -359,7 +359,7 @@ export default function InsertedInput(props){
                 ref={myInputRef}
                 onChange={handleChange}
                 autoFocus={true} 
-                style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
+                style={{width: `${inputWidth+inputWidth/3}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",

@@ -92,7 +92,10 @@ export default function ModifyPropertiesInput(props){
                 style:{fontSize:"140%",fontFamily:"Segoe UI",color:"black"}
             }}
             InputProps={{
-                endAdornment:<IconButton onClick={incrementInputValue} disabled={props.disabled}>
+                endAdornment:<IconButton onClick={incrementInputValue} disabled={props.disabled}
+                    // style={{color:props.disabled?"grey":"blue"}}
+                    //color={"info"
+                >
                     {/* <ArrowDownward color="error"/> */}
                     {props.rightIcon}
                 </IconButton>,
