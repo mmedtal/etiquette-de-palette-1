@@ -68,7 +68,7 @@ export default function TextControls(props){
         
         
             <ZebraFontChooser
-                zebraFonts={["A","B","C"]}
+                zebraFonts={["A","B"]}
             />
         
         </>
