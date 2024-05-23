@@ -159,5 +159,5 @@ function militersToDotsConverter(printerDpi,changeInMilimiters){
     irl it's like adding 6 dots
 
 */
-export {milimitersToPixelsConverter,pixelsToMilimitersConverter,milimitersToPixelsFontSizeConverter,
-    militersToDotsConverter,pixelsToMilimitersFontConverter}
+export {milimitersToPixelsConverter,pixelsToMilimitersConverter,
+    militersToDotsConverter}
