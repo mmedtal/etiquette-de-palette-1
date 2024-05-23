@@ -1,3 +1,19 @@
+
+/*this function is just to for the user, i mean it reflects stuff from the user perspetive,
+the user don't know about how the printer sees things (which is in dots), they don't have to, and 
+they don't care.
+But when the user would mesure the a milimiters they just added or deleted with a ruler on the screen
+PC, they won't get exactly or all the time one milimiter, because it differs from PC to PC, because each
+PC might have different PPI (pixels per inch).
+
+would it be usefull to convert from milimiters to dots? maybe no, because we already have that,
+but are the milimiters the user change, are there real ones or not? if they are real ones then no need
+to transfer from milimiters to dots.
+
+it think what important is to convert from pixels to dots, and that's what we should send to the zebra
+font translator (the custom hook)
+
+*/
 function milimitersToPixelsConverter(screenResolutionInPpiFromReduxStore,valueInPixelsFromReduxStore){
     const  convertedValue = (screenResolutionInPpiFromReduxStore/25.4)*valueInPixelsFromReduxStore;
     return convertedValue;
