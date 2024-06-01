@@ -10,9 +10,13 @@ would it be usefull to convert from milimiters to dots? maybe no, because we alr
 but are the milimiters the user change, are there real ones or not? if they are real ones then no need
 to transfer from milimiters to dots.
 
-it think what important is to convert from pixels to dots, and that's what we should send to the zebra
+i think what's important is to convert from pixels to dots, and that's what we should send to the zebra
 font translator (the custom hook)
 
+the thing here is that web stuff should work in pixels, every thing should be in the same unit, pixels.
+the user should only see milimiters.
+the résultant zebra code is in dots (that's why when the user will see it, they won't understand it,
+ and it's logical, that's what's the app is built for, to abstract or hide the details).
 */
 function milimitersToPixelsConverter(screenResolutionInPpiFromReduxStore,valueInPixelsFromReduxStore){
     const  convertedValue = (screenResolutionInPpiFromReduxStore/25.4)*valueInPixelsFromReduxStore;
