@@ -84,12 +84,10 @@ export default function PaletteWorkZone(props){
                 return
             }else{*/
                 setElements(elements =>{
-
                     const updatedElements = [...elements];
                    
                    
                     updatedElements[childId].value=inputValue;
-                    
                     return elements
                 })
             //}
@@ -256,6 +254,9 @@ export default function PaletteWorkZone(props){
                     //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
                     cursorXPositionOnParent={cursorXPosition}
                     parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
+
+                    //this to know which elements don't exists 02.06.24 21:54
+                    liftInputValueToParent={liftInputValueToParent} 
                     />,value:"line",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)

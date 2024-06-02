@@ -146,6 +146,16 @@ export default function LineDrawing(props){
         payload:topPosition})
         dispatch({type:"MODIFIER_ROTATION",payload:rotation})
 
+      dispatch({
+        type:"MODIFIER_LONGUEUR",
+        payload:longeur
+      })
+
+      dispatch({
+        type:"MODIFIER_EPAISSEUR",
+        payload:epaisseur
+      })
+
     }//*/
     
      //causing a bug, text jumping
@@ -168,6 +178,10 @@ export default function LineDrawing(props){
       
       dispatch({type:"MODIFIER_EPAISSEUR",payload:epaisseur})
 
+      if(largeur<=0 || longeur<=0){
+        //console.log("what ?! i disapeared?!")
+        props.liftInputValueToParent(props.whichChildIam,"")
+      }      
       },[leftPosition,topPosition,rotation,largeur,epaisseur,longeur]) 
       //*/
 
@@ -257,6 +271,13 @@ export default function LineDrawing(props){
     } 
 ,[])
 
+    /*
+    function handleLineBlur(){
+      console.log("inblured")
+        if(largeur<=0 || longeur<=0){
+          console.log("what ?! i disapeared?!")
+        }      
+    }*/
 
     return(
       <>

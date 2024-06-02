@@ -16,7 +16,7 @@ export function generatedZebraCodeReducer(state=myState,action){
     switch (action.type) {
         case "GENERATED_ZEBRA_CODE":
             //return generateZebraCode(myState,action);
-            console.log("elementId : ",action.payload.elementId)
+            //console.log("elementId : ",action.payload.elementId)
             const elementId = state.generatedZebraCodeInstructions.findIndex(el=>el.elementId==action.payload.elementId)   
             const notFound=-1;
             //if the object is found then update it
