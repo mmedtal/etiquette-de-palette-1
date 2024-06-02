@@ -84,10 +84,12 @@ export default function PaletteWorkZone(props){
                 return
             }else{*/
                 setElements(elements =>{
+
                     const updatedElements = [...elements];
                    
                    
                     updatedElements[childId].value=inputValue;
+                    
                     return elements
                 })
             //}
@@ -165,7 +167,8 @@ export default function PaletteWorkZone(props){
             setYPosition(y);
             setElements([...elements,
                 
-                {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} 
+                {elementId:childCount,element:<InsertedInput key={childCount} 
+                    whichChildIam={childCount} 
                     elementX={x} elementY={y}
                     paletteHeight={props.height+"mm"}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
@@ -188,7 +191,8 @@ export default function PaletteWorkZone(props){
 
             setElements([...elements,
                 
-                {elementId:childCount,element:<InsertedBarcode key={childCount} whichChildIam={childCount} 
+                {elementId:childCount,element:<InsertedBarcode key={childCount} 
+                    whichChildIam={childCount} 
                     elementX={x} elementY={y}
                     paletteHeight={props.height}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
@@ -252,7 +256,7 @@ export default function PaletteWorkZone(props){
                     //disableLineDrawingOnLineDrawingClick={disableLineDrawingOnLineDrawingClick}
                     cursorXPositionOnParent={cursorXPosition}
                     parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
-                    />,value:"",correspondantZebraCode:""}
+                    />,value:"line",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
@@ -264,12 +268,14 @@ export default function PaletteWorkZone(props){
     }
     
     useEffect(()=>{
-        //console.log("PaletteWorkZoneElements :",elements)
+        console.log("PaletteWorkZoneElements :",elements)
+        //elements.map(elem=>console.log("element : ",elem.ref))
         //08.05.24 18:23 code to remove elements that have an empty value
 
         //const nonEmptyValueElements = elements.filter(element=>element.value.trim()!=="")
         //if(whichHeaderButtonIsCliqued=="selectionner")
        //setElements(elems =>elems.filter(element=>element.value.trim()!==""))
+        
     },[childCount])
     
     
@@ -278,7 +284,7 @@ export default function PaletteWorkZone(props){
         //console.log("Element value :",elementValue)
         //setElements([...elements,{x,y,inputValue}]);
         //liftInputValueToParent(childCount,elementValue)
-        
+        //console.log('im triggered')
     },[elementValue])
     //const [paletteHeight,setPaletteHeight]= useState(props.height)
 

@@ -55,6 +55,7 @@ export default function TextControls(props){
                     step={0.1}
                     leftIcon={<ArrowDownward color="error" />}
                     rightIcon={<ArrowUpward color="success"/>}
+                    min={0}
                 />
 
             {/* <ModifyPropertiesInput label="Mise en gras:"

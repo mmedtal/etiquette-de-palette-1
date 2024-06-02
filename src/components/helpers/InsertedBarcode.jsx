@@ -154,6 +154,7 @@ export default function InsertedBarcode(props){
 
         props.liftInputValueToParent(props.whichChildIam,inputValue)
         
+        
     },[inputValue])
 
     const toggleToDefaultCursor = useDispatch()
@@ -244,6 +245,8 @@ export default function InsertedBarcode(props){
         if(inputValue.length==0){
             setRenderHelpers(false)
             //props.addToElementsOrNot(false)
+            //props.liftInputValueToParent()
+            props.liftInputValueToParent(props.whichChildIam,"")
         }else{
             setRenderHelpers(true)
             //props.addToElementsOrNot(true)

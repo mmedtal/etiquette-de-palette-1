@@ -284,6 +284,13 @@ export default function InsertedInput(props){
 
     const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
     function handleInputBlur(){
+
+        if(inputValue.length==0){
+            //console.log("i'm empty dude ")
+            props.liftInputValueToParent(props.whichChildIam,"")
+        }
+
+
             setEditMode(false)
             setInputFocused(false)
         if(whichTextInputIsClickedFromReduxStore==props.whichChildIam){
@@ -294,6 +301,8 @@ export default function InsertedInput(props){
         }else{
             
         }
+        
+
         toggleToDefaultCursor({type:"SELECTIONNER"})
         
     }
