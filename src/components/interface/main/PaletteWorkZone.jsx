@@ -125,7 +125,8 @@ export default function PaletteWorkZone(props){
             setYPosition(y);
             setElements([...elements,
                 
-                {elementId:childCount,element:<InsertedInput key={childCount} whichChildIam={childCount} 
+                {elementId:childCount,element:<InsertedInput key={childCount} 
+                    whichChildIam={childCount} 
                     elementX={x} elementY={y}
                     paletteHeight={props.height+"mm"}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
@@ -148,7 +149,8 @@ export default function PaletteWorkZone(props){
 
             setElements([...elements,
                 
-                {elementId:childCount,element:<InsertedBarcode key={childCount} whichChildIam={childCount} 
+                {elementId:childCount,element:<InsertedBarcode key={childCount} 
+                    whichChildIam={childCount} 
                     elementX={x} elementY={y}
                     paletteHeight={props.height}
                     paletteXPosition={paletteXPosition} paletteYPosition={paletteYPosition}
@@ -197,7 +199,10 @@ export default function PaletteWorkZone(props){
                     whichChildIam={childCount} 
                     cursorXPositionOnParent={cursorXPosition}
                     parentMouseDownPosition={{x:mouseDownXPosition,y:mouseDownYPosition}}
-                    />,value:"",correspondantZebraCode:""}
+
+                    //this to know which elements don't exists 02.06.24 21:54
+                    liftInputValueToParent={liftInputValueToParent} 
+                    />,value:"line",correspondantZebraCode:""}
             ]);
             setChildCount(prev=>prev+1)
             dispatch({type:"SELECTIONNER"})
@@ -208,7 +213,6 @@ export default function PaletteWorkZone(props){
     function disableLineDrawingOnLineDrawingClick(){
         setIsDragging(false)
     }
-
 
     function onMouseDown(e){
 

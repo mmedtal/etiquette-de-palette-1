@@ -35,7 +35,7 @@ export default function ModifyPropertiesInput(props){
     }
 
     function decrementInputValue(){
-        
+       
         if(props.step){
             setValue(value-props.step)
         }else{
@@ -75,7 +75,8 @@ export default function ModifyPropertiesInput(props){
 
             inputProps={{
                 style:{textAlign:props.inputValueAlign,fontSize:"120%"},
-                step:props.step
+                step:props.step,
+                
             }}
 
             InputLabelProps={{

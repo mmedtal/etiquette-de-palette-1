@@ -12,7 +12,7 @@ export default function InsertedInput(props){
 
   
     const [fontSizeFromReduxStore,fontSize,setFontSize] = //9.86
-    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,5.6);//1.5mm default font size for font type A   
+    usePropertiesFromStore("leftAsideControllersReducer","tailleDePolice",props.whichChildIam,15.6);//1.5mm default font size for font type A   
 
     
     const lineHeight = `${parseInt(fontSize)}px`;
@@ -217,6 +217,13 @@ export default function InsertedInput(props){
 
     const whichTextInputIsClickedFromReduxStore = useSelector(state=>state.leftAsideControllersReducer.whichTextInputIsClicked)
     function handleInputBlur(){
+
+        if(inputValue.length==0){
+            //console.log("i'm empty dude ")
+            props.liftInputValueToParent(props.whichChildIam,"")
+        }
+
+
             setEditMode(false)
             setInputFocused(false)
         if(whichTextInputIsClickedFromReduxStore==props.whichChildIam){
@@ -227,6 +234,8 @@ export default function InsertedInput(props){
         }else{
             
         }
+        
+
         toggleToDefaultCursor({type:"SELECTIONNER"})
         
     }
@@ -286,7 +295,7 @@ export default function InsertedInput(props){
                 ref={myInputRef}
                 onChange={handleChange}
                 autoFocus={true} 
-                style={{width: `${inputWidth}px`,position: "absolute",backgroundColor:"transparent",
+                style={{width: `${inputWidth+inputWidth/2}px`,position: "absolute",backgroundColor:"transparent",
                         left:leftPosition,top:topPosition,
                         border:"1px solid black",
                         outline:"none",

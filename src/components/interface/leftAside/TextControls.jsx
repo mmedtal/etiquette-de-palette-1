@@ -2,6 +2,7 @@ import { ArrowDownward, ArrowUpward, Autorenew, Loop } from "@mui/icons-material
 import ModifyPropertiesInput from "../../helpers/ModifyPropertiesInput";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ZebraFontChooser from "../../helpers/ZebraFontChooser";
 
 export default function TextControls(props){
 

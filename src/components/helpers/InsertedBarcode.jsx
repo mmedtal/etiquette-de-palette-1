@@ -143,6 +143,7 @@ export default function InsertedBarcode(props){
 
         props.liftInputValueToParent(props.whichChildIam,inputValue)
         
+        
     },[inputValue])
 
     const toggleToDefaultCursor = useDispatch()

@@ -90,13 +90,21 @@ export default function PaletteControls(props){
     return(
         <>
             <div className="flex">
-                <ModifyPropertiesInput label="Résolution imprimante:"
+                <ModifyPropertiesInput label="Résolution impr. en:" disabled={true}
                     inputValueAlign="left"
                     valueFromReduxStore={parseInt(printerResolution)}
                     onClickDispatchToLeftAsideControllersReducer="AFFECTER_PALETTE_RESOLUTION"
                     step={1}
-                    leftIcon={<UnfoldLess color="error"     />}
-                    rightIcon={<UnfoldMore color="success"  />}
+                    leftIcon={<UnfoldLess 
+                        //color="error"     
+                        color="inherit"  
+                    />}
+                    rightIcon={<UnfoldMore 
+                        color="inherit"
+                        
+                        //color="success"
+                        
+                        />}
                     />
                 <Select defaultValue={"dpi"} variant="standard" className="ml-1">
                     <MenuItem value={"dpmm"}onClick={getPrinterResolutionInDpmm} >dpmm</MenuItem>

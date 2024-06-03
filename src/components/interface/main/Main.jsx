@@ -50,7 +50,7 @@ export default function Main(props){
                 <div className="flex -mt-8 " 
                 >
                     <Tabs value={selectedTab} >
-                        <Tab label="Palette"  onClick={()=>setSelectedTab(0)} style={{fontFamily:"Segoe UI"}}/>
+                        <Tab label="Etiquette"  onClick={()=>setSelectedTab(0)} style={{fontFamily:"Segoe UI"}}/>
                         <Tab label={informUserOfNewZebraCode?`Code Zebra *`:"Code Zebra"} onClick={()=>{setSelectedTab(1);setInformUserOfNewZebraCode(false)}}
                         style={{fontFamily:"Segoe UI"}}/>
                     </Tabs>
